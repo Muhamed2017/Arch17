@@ -14,7 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 Route::post('Subscription', 'SubscriptionController@create');
+
+
+Route::group(['prefix' => 'user/registration'], function () {
+
+    Route::post('signin', 'LoginController@login')->name('user');
+    Route::post('signup', 'RegisterController@register')->name('user');
+    // Route::post('resetpassword', 'Api\Site\RegisterController@resetPassword')->name('user');
+    // Route::post('verify', 'Api\Site\RegisterController@verify')->name('user');
+
+});
