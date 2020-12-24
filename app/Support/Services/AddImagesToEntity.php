@@ -2,7 +2,6 @@
 namespace App\Support\Services;
 
 use App\Models\Image;
-use App\Models\Lister;
 use App\Models\User;
 use App\Models\Product;
 use JD\Cloudder\Facades\Cloudder;
@@ -61,7 +60,7 @@ class AddImagesToEntity {
     public function uploadImage($image)
     {
 
-        if ( $this->entityClassName === User::class || $this->entityClassName=== Lister::class) {
+        if ( $this->entityClassName === User::class) {
 
             return $this->uploadUserImage($image);
         }
