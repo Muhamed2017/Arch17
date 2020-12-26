@@ -71,14 +71,11 @@ class UserController extends Controller
                 'message'=>'Error occurs, try agian !'
             ], 500);
         }
-    }
-    //end of create business account api
-
+    } //end of create business account api
 
 
 
     //create store api
-
     public function CreateStore(Request $request){
 
         $user_id = auth('user')->user()->id;
@@ -129,6 +126,7 @@ class UserController extends Controller
         }
 
     }
+    //end of create store api
 }
 
 
