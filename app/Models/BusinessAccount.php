@@ -20,4 +20,9 @@ class BusinessAccount extends Model
      public function user(){
          return $this->belonsTo('App\Models\User');
      }
+
+
+     public function stores(){
+         return $this->hasMany('App\Models\Store');
+     }
 }

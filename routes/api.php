@@ -28,5 +28,6 @@ Route::group(['prefix' => 'user/registration'], function () {
 
 Route::group(['middleware' => 'auth_user', 'prefix'=>'account'], function() {
     Route::post('create-business-account', 'UserController@CreateBusinessAccount');
+    Route::post('create-store', 'UserController@CreateStore');
 });
 
