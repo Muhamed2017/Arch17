@@ -117,7 +117,8 @@ class UserController extends Controller
         if( $store->save()){
              return response()->json([
                 'message'=>'Store Created Successfully',
-                'store'=> $store
+                'store'=> $store,
+                'user_stores'=>$user->stores
             ], 200);
         }else{
              return response()->json([

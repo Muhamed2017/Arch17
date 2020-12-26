@@ -73,13 +73,15 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-
     public function businessAccount(){
 
         return $this->hasOne('App\Models\BusinessAccount');
     }
 
 
+    public function stores(){
+        return $this->hasManyThrough('App\Models\Store', 'App\Models\BusinessAccount');
+    }
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
