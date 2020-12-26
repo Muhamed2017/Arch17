@@ -25,3 +25,8 @@ Route::group(['prefix' => 'user/registration'], function () {
     // Route::post('verify', 'Api\Site\RegisterController@verify')->name('user');
 
 });
+
+Route::group(['middleware' => 'auth_user', 'prefix'=>'account'], function() {
+    Route::post('create-business-account', 'UserController@CreateBusinessAccount');
+});
+

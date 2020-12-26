@@ -6,18 +6,20 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
+
+use Illumminate\Notifications\Notifiable;
+use App\Models\BusinessAccount;
 
 class User extends Authenticatable implements JWTSubject
 {
     // use HasFactory,
-     use Notifiable;
+    //  use Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
-     * 
+     *
      */
 
      protected $gaurd= 'user';
@@ -68,6 +70,13 @@ class User extends Authenticatable implements JWTSubject
     public function images()
     {
         return $this->morphMany('App\Models\Image', 'imageable');
+    }
+
+
+
+    public function businessAccount(){
+
+        return $this->hasOne('App\Models\BusinessAccount');
     }
 
 
