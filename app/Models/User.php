@@ -6,12 +6,14 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
+
+use Illumminate\Notifications\Notifiable;
+use App\Models\BusinessAccount;
 
 class User extends Authenticatable implements JWTSubject
 {
     // use HasFactory,
-     use Notifiable;
+    //  use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -71,6 +73,15 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
+    public function businessAccount(){
+
+        return $this->hasOne('App\Models\BusinessAccount');
+    }
+
+
+    public function stores(){
+        return $this->hasManyThrough('App\Models\Store', 'App\Models\BusinessAccount');
+    }
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
