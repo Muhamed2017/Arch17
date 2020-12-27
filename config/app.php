@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         'JD\Cloudder\CloudderServiceProvider',
-
+        Cviebrock\EloquentSluggable\ServiceProvider::class,
         /*
          * Application Service Providers...
          */

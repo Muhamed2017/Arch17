@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * The attributes that are mass assignable.
      *
      * @var array
-     * 
+     *
      */
 
      protected $gaurd= 'user';
@@ -112,4 +112,10 @@ class User extends Authenticatable implements JWTSubject
         });
     }
 
+
+    // relation between user and company one user has many companies
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class);
+    }
 }
