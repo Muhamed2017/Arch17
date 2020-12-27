@@ -4,6 +4,7 @@ namespace App\Support\Services;
 use App\Models\Image;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Company;
 use JD\Cloudder\Facades\Cloudder;
 use \Cloudinary\Uploader as Cloudinary;
 
@@ -41,7 +42,7 @@ class AddImagesToEntity {
         $this->uploadedImages = $uploadedImages;
         $this->entity = $entity;
         $this->options = $options;
-        $this->entityClassName = get_class($entity);;
+        $this->entityClassName = get_class($entity);
         // $this->tag = $tag;
     }
 
@@ -71,6 +72,10 @@ class AddImagesToEntity {
             return $this->uploadProductImage($image);
         }
 
+        if ( $this->entityClassName === Company::class ) {
+
+            return $this->uploadProductImage($image);
+        }
         return $this->uploadProductImage($image);
     }
 
@@ -116,6 +121,10 @@ class AddImagesToEntity {
 
         return $this->saveImage($cloudImage, $cloudThumb, $image->getClientOriginalName());
     }
+
+
+
+
 
 
     public function saveImage($cloudImage, $cloudThumb, $originalFileName)

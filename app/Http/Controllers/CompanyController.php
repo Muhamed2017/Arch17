@@ -184,7 +184,8 @@ class CompanyController extends Controller
 
     /**
      *
-     *
+     *  get company by slug from url 
+     * return if login user is owner  
      *
      * */
     public function get_company($slug)
@@ -193,12 +194,15 @@ class CompanyController extends Controller
         return response()->json([
             'successful' => '1',
             'status' => '01',
-            'message' => 'Your comapny is  here',
+            'message' => 'Your comapny is here',
             'data' => $company,
             'owner' => $this->isOwner($company->id)
             ]);
     }
-
+    /**
+     * upload designer avatae 
+     * using the same functions in add iamges to entity class
+     */
     public function upload_designer_avatar(Request $request)
     {
         if ($this->isOwner($request->company_id)) {
