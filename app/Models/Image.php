@@ -18,11 +18,11 @@ class Image extends Model {
         'img_public_id', 'thumb_public_id','imageable_id','imageable_type'
     ];
 
-    public function imageable()
-    {
-        return $this->morphTo('App\Models\Porduct');
-    }
-    
+    // public function imageable()
+    // {
+    //     return $this->morphTo('App\Models\Porduct');
+    // }
+
 
     public static function boot() {
         parent::boot();

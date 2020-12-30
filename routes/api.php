@@ -15,11 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('Subscription', 'SubscriptionController@create');
-Route::post('create_designer_page', 'CompanyController@save_company');
-Route::post('update_designer_page', 'CompanyController@update_company_info');
-Route::post('update_designer_info', 'CompanyController@update_company_profile');
-Route::post('upload_designer_avatar', 'CompanyController@upload_designer_avatar');
-Route::get('designer/{slug}', 'CompanyController@get_company');
 
 
 Route::group(['prefix' => 'user/registration'], function () {
@@ -34,6 +29,6 @@ Route::group(['prefix' => 'user/registration'], function () {
 Route::group(['middleware' => 'auth_user', 'prefix'=>'account'], function() {
     Route::post('create-business-account', 'UserController@CreateBusinessAccount');
     Route::post('create-store', 'UserController@CreateStore');
-    Route::post('add-product', 'ProductController@AddProducuct');
+    Route::post('add-product', 'ProductController@AddProduct');
 });
 
