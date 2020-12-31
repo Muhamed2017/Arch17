@@ -129,4 +129,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Company::class);
     }
+    // relation between user and company one user has many companies
+    public function collections()
+    {
+        return $this->hasMany(Collection::class , 'user_id');
+    }
 }

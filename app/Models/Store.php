@@ -27,4 +27,8 @@ class Store extends Model
 
 
     // protected $appens='logo';
+    public function followers()
+    {
+        return $this->morphMany(Follower::class , 'followerable');
+    }
 }

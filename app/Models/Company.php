@@ -12,6 +12,8 @@ class Company extends Model
     use Sluggable;
 
     protected $fillable  = ['name','email','types','country','city','about','website','phone','is_active'];
+    protected $appends = ['avatar'];
+
     protected $casts = [
         'types' => 'array',
         'is_active'=>'boolean'
@@ -24,6 +26,18 @@ class Company extends Model
     ];
 
 
+    public static function boot() {
+
+        parent::boot();
+        static::deleting(function($company) {
+
+            if (count($company->images) > 0) {
+                foreach ($company->images as $image) {
+                    $company->delete();
+                }
+            }
+        });
+    }
      public function getAvatarAttribute()
     {
         return $this->images != null ? $this->images->first() : '';
@@ -34,6 +48,10 @@ class Company extends Model
         return $this->morphMany('App\Models\Image', 'imageable');
     }
 
+    public function owner()
+    {
+        return $this->belongsToMany(User::class);
+    }
 
 
 
@@ -54,5 +72,9 @@ class Company extends Model
 
     public function getFullnameAttribute() {
         return $this->id . ' ' . $this->name;
+    }
+    public function followers()
+    {
+        return $this->morphMany(Follower::class , 'followerable');
     }
 }

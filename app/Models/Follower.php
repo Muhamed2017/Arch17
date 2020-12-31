@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Follower extends Model
 {
     use HasFactory;
-    public function collections()
+    protected $fillable= ['user_id'];
+    public function followerable()
     {
-        return $this->morphToMany(Collection::class , 'collectionable');
+        return $this->morphTo();
     }
 }

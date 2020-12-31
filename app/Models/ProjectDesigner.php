@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class ProjectDesigner extends Model
 {
     use HasFactory;
-    public function collections()
-    {
-        return $this->morphToMany(Collection::class , 'collectionable');
-    }
 }

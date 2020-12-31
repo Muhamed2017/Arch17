@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Follower;
 use Illuminate\Http\Request;
 use App\Support\Services\AddImagesToEntity;
-
+use JD\Cloudder\Facades\Cloudder;
+use \Cloudinary\Uploader as Cloudinary;
 class CompanyController extends Controller
 {
     /**
@@ -208,9 +210,34 @@ class CompanyController extends Controller
         if ($this->isOwner($request->company_id)) {
             $company = Company::find($request->company_id );
             if ($request->hasFile('avatar')) {
+                // Cloudinary::destroyImage('Products/Images/wwv9f7xpblzb856sglzf');
                 (new AddImagesToEntity($request->avatar, $company, ["width" => 600] ))->execute() ;
                 return response()->json($company->images);
             }
         }
     }
+
+    public function follow(Request $request)
+    {
+        if (!$this->isOwner($request->company_id)) {    
+            $company = Company::find($request->company_id);
+            $check_user_follower = in_array(auth()->user()->id ,  array_column( current((array) $company->followers) ,'user_id'));
+            if ($check_user_follower) {
+                $company->followers()->where(['user_id' => auth()->user()->id])->delete();
+            }else{
+                $company->followers()->create(['user_id'=>auth()->user()->id]);
+            }
+            return response()->json(
+                array(
+                'data' =>array(Company::find($request->company_id)->followers , $check_user_follower)
+            ));
+        }else{
+            return response()->json(
+                array(
+                'message' => 'you are owner you can not follow you self'
+            ));
+        }
+    }
+
+
 }
