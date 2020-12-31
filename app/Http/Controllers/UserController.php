@@ -180,6 +180,10 @@ class UserController extends Controller
             'collections'=>  $collections
         ], 200);
     }
+
+
+
+
 }
 
 

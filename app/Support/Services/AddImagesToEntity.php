@@ -109,7 +109,7 @@ class AddImagesToEntity {
         $options = array_merge($this->options , $this->imgOptions);
 
         //commented by muhamed gomaa
-//        $options['folder'] = $this->entity->imgFolderPath['image'];
+    //    $options['folder'] = $this->entity->imgFolderPath['image'];
 
         $cloudImage = $this->uploadToCloud($image->getRealPath(), $options);
 

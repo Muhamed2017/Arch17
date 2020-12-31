@@ -41,5 +41,6 @@ Route::group(['middleware' => 'auth_user', 'prefix'=>'account'], function() {
     Route::post('add-product-to-collection', 'UserController@add_product_to_collection');
     Route::post('remove-product-from-collection', 'UserController@remove_product_from_collection');
     Route::post('get-user-product-collection', 'UserController@geUserProductCollections');
+    Route::post('add-product', 'ProductController@AddProduct');
 });
 Route::post('add-project', 'ProjectController@AddProject');
