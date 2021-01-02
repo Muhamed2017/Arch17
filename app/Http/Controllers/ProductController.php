@@ -69,7 +69,7 @@ class ProductController extends Controller
 
 
     // product options and price - step two
-    public function addOptionToProduct(Request $request, Product $product)
+    public function addOptionToProduct(Request $request, $id)
     {
         $this->validate($request, [
             'material_name' => 'required|string|max:250',
@@ -86,7 +86,7 @@ class ProductController extends Controller
         $product_options = new ProductOptions();
 
 
-        $product_options->product_id = 1;
+        $product_options->product_id = $id;
         $product_options->material_name = $request->material_name;
         $product_options->size = $request->size;
         $product_options->price = $request->price;
@@ -136,88 +136,6 @@ class ProductController extends Controller
     }
 
 
-
-
-    public function getValidationRules($id = '')
-    {
-        return [
-
-            // Listing Scene
-            'name' => 'required|string|max:250',
-            'kind' => 'required|string|max:2000',
-            'category' => 'required|string|max:2000',
-            'style' => 'required|string|max:2000',
-
-            // Listing Location
-            'country' => 'required|string|max:250',
-            'city' => 'required|string|max:250',
-            // 'style' => 'required|string|max:250',
-            'size' => 'required|array',
-            'size.*.l' => 'required|numeric',
-            'size.*.w' => 'required|numeric',
-            'size.*.h' => 'required|numeric',
-
-            'text_description' => 'nullable|array',
-            'text_description.*' => 'nullable|string|max:250',
-
-            'material_name' => 'required|array',
-            'material_name.*' => 'string',
-
-            // Listing Rules
-            'places_tags' => 'nullable|array',
-            'places_tags.*' => 'string',
-
-            // Calender
-            'price' => 'required|array',
-            'price.*' => 'string',
-
-            'offer_price' => 'required|array',
-            'offer_price.*' => 'string',
-
-            'quantity' => 'required|array',
-            'quantity.*' => 'numeric'
-        ];
-    }
-
-    public function getProductInput(Request $request)
-    {
-        $input = $request->only(
-            'name',
-            'type',
-            'country',
-            'city',
-            'kind',
-            'style',
-            'places_tags',
-            'text_description',
-            'category'
-        );
-
-        return $input;
-    }
-
-
-
-    public function getProductOptionsInput(Request $request)
-    {
-
-        $input = $request->only(
-            'size',
-            'material_name',
-            'price',
-            'offer_price',
-            'quantity',
-        );
-
-        return $input;
-    }
-
-
-
-    // public function attachRelatedModels($product, $request)
-    // {
-    //     if ($request->hasFile('cover')) (new AddImagesToEntity($request->cover, $product, ["width" => 1024]))->execute();
-    // }
 
     public function attachRelatedModelsOptions($product_options, $request)
     {
