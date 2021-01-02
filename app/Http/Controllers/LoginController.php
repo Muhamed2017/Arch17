@@ -24,16 +24,17 @@ class LoginController extends Controller
         $this->auth = $auth;
     }
 
-    public function index(){
+    public function index()
+    {
         return view('welcome');
     }
 
     //Login Function
     public function login(Request $request)
     {
-        
+
         $guard = $request->route()->getName();
-        
+
         $request->validate([
             'email' => 'nullable|email|max:250',
             'password' => 'required',
@@ -41,7 +42,7 @@ class LoginController extends Controller
 
         $user = $this->getUser($request);
         // Check if user exist
-        if (!$user){
+        if (!$user) {
             return response()->json([
                 'successful' => '0',
                 'status' => '02',
@@ -56,12 +57,12 @@ class LoginController extends Controller
 
         // try login
         try {
-            if (! $token = auth($guard)->attempt($creds, ['exp' => Carbon::now()->addDays(70)->timestamp])) {
+            if (!$token = auth($guard)->attempt($creds, ['exp' => Carbon::now()->addDays(70)->timestamp])) {
                 return response()->json([
                     'successful' => '0',
                     'status' => '02',
                     'error'  => 'invalid email or passwords',
-                    'token'=>auth($guard)->attempt($creds, ['exp' => Carbon::now()->addDays(70)->timestamp])
+                    'token' => auth($guard)->attempt($creds, ['exp' => Carbon::now()->addDays(70)->timestamp])
                 ], 200);
             }
         } catch (JWTException $e) {
@@ -82,13 +83,13 @@ class LoginController extends Controller
                 'access_token' => $token,
                 'expires_at' => $tokenExpiresAt,
                 'id' => $user->id,
-                'fname'=>$user->fname,
-                'lname'=>$user->lname,
+                'fname' => $user->fname,
+                'lname' => $user->lname,
                 'email' => $user->email,
                 'mobile' => $user->mobile ?? '',
-                'avatar' => $user->avatar ?? '' ,
+                'avatar' => $user->avatar ?? '',
 
-                'type'=>$guard
+                'type' => $guard
             ]
         ], 200);
     }

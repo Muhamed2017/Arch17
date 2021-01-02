@@ -16,8 +16,9 @@ class CompanyController extends Controller
      *      1- update_company_info
      *      ]
      */
-    private function isOwner($id){
-        return in_array($id, array_column( current((array)auth()->user()->companies) ,'id'));
+    private function isOwner($id)
+    {
+        return in_array($id, array_column(current((array)auth()->user()->companies), 'id'));
     }
 
 
@@ -38,35 +39,35 @@ class CompanyController extends Controller
             $validated = $request->validate([
                 'name' => 'required',
                 'types' => 'required|array|distinct',
-                'country'=>  'required',
-                'city'=> 'required',
+                'country' =>  'required',
+                'city' => 'required',
                 'email' => 'required|email:rfc,dns'
             ]);
             $data = [
                 'name'     => $request->name,
                 'types'    => $request->types,
-                'country'  =>$request->country,
-                'city'     =>$request->city,
+                'country'  => $request->country,
+                'city'     => $request->city,
                 'email'    => $request->email
             ];
-            try{
+            try {
                 $company = new Company($data);
                 auth()->user()->companies()->save($company);
                 // resluggify
                 $company->slug = null;
                 $company->save();
                 return response()->json([
-                'data' => array($data,auth()->user()->companies),
-                'status'=>402
+                    'data' => array($data, auth()->user()->companies),
+                    'status' => 402
                 ]);
-            }catch(\Illuminate\Database\QueryException $error_message_sql) {
+            } catch (\Illuminate\Database\QueryException $error_message_sql) {
                 return response()->json([
                     'data' => $data,
-                    'report'=> $error_message_sql->getMessage(),
-                    'status'=>500
+                    'report' => $error_message_sql->getMessage(),
+                    'status' => 500
                 ]);
             }
-        }else{
+        } else {
             return response()->json([
                 'successful' => '0',
                 'status'  => '02',
@@ -89,20 +90,20 @@ class CompanyController extends Controller
         if ($this->isOwner($request->company_id)) {
             $validated = $request->validate([
                 'types' => 'required|array|distinct',
-                'country'=>  'required',
-                'city'=> 'required',
+                'country' =>  'required',
+                'city' => 'required',
                 'email' => 'required|email:rfc,dns',
-                'name'=>'required'
+                'name' => 'required'
             ]);
             $data = [
                 'types'    => $request->types,
-                'country'  =>$request->country,
-                'city'     =>$request->city,
+                'country'  => $request->country,
+                'city'     => $request->city,
                 'email'    => $request->email,
                 'name'    => $request->name,
                 'id'       => $request->company_id
             ];
-            try{
+            try {
                 // Company::where('id',$data['id'])->update($data);
                 $company = Company::find($request->company_id);
                 $company->name = $request->name;
@@ -114,26 +115,26 @@ class CompanyController extends Controller
                 $company->slug = null;
                 $company->save();
                 return response()->json([
-                'successful' => '1',
-                'status' => '01',
-                'message' => 'Your comapny has been updated successfully',
-                'data' =>$company,
+                    'successful' => '1',
+                    'status' => '01',
+                    'message' => 'Your comapny has been updated successfully',
+                    'data' => $company,
                 ]);
-            }catch(\Illuminate\Database\QueryException $error_message_sql) {
+            } catch (\Illuminate\Database\QueryException $error_message_sql) {
                 return response()->json([
                     'successful' => '0',
                     'status'  => '02',
                     'error' => 'failed, please try again',
-                    'report'=> $error_message_sql->getMessage(),
-                ],500);
+                    'report' => $error_message_sql->getMessage(),
+                ], 500);
             }
-        }else {
+        } else {
             return response()->json([
                 'successful' => '0',
                 'status'  => '02',
                 'error' => 'not authorized ',
-                'ids' => array_column( current((array)auth()->user()->companies) ,'id'),
-                'user' =>auth()->user()
+                'ids' => array_column(current((array)auth()->user()->companies), 'id'),
+                'user' => auth()->user()
             ], 400);
         }
     }
@@ -151,32 +152,32 @@ class CompanyController extends Controller
             $data = [
                 'about'     => $request->about,
                 'website'   => $request->website,
-                'phone'     =>$request->phone,
+                'phone'     => $request->phone,
                 'id'       => $request->company_id
             ];
-            try{
-                Company::where('id',$data['id'])->update($data);
+            try {
+                Company::where('id', $data['id'])->update($data);
                 return response()->json([
-                'successful' => '1',
-                'status' => '01',
-                'message' => 'Your comapny has been updated successfully',
-                'data' => Company::where('id',$data['id'])->get(),
+                    'successful' => '1',
+                    'status' => '01',
+                    'message' => 'Your comapny has been updated successfully',
+                    'data' => Company::where('id', $data['id'])->get(),
                 ]);
-            }catch(\Illuminate\Database\QueryException $error_message_sql) {
+            } catch (\Illuminate\Database\QueryException $error_message_sql) {
                 return response()->json([
                     'successful' => '0',
                     'status'  => '02',
                     'error' => 'failed, please try again',
-                    'report'=> $error_message_sql->getMessage(),
-                ],500);
+                    'report' => $error_message_sql->getMessage(),
+                ], 500);
             }
-        }else {
+        } else {
             return response()->json([
                 'successful' => '0',
                 'status'  => '02',
                 'error' => 'not authorized ',
-                'ids' => array_column( current((array)auth()->user()->companies) ,'id'),
-                'user' =>auth()->user()
+                'ids' => array_column(current((array)auth()->user()->companies), 'id'),
+                'user' => auth()->user()
             ], 400);
         }
     }
@@ -184,31 +185,31 @@ class CompanyController extends Controller
 
     /**
      *
-     *  get company by slug from url 
-     * return if login user is owner  
+     *  get company by slug from url
+     * return if login user is owner
      *
      * */
     public function get_company($slug)
     {
-        $company = Company::findOrFail($slug );
+        $company = Company::findOrFail($slug);
         return response()->json([
             'successful' => '1',
             'status' => '01',
             'message' => 'Your comapny is here',
             'data' => $company,
             'owner' => $this->isOwner($company->id)
-            ]);
+        ]);
     }
     /**
-     * upload designer avatae 
+     * upload designer avatae
      * using the same functions in add iamges to entity class
      */
     public function upload_designer_avatar(Request $request)
     {
         if ($this->isOwner($request->company_id)) {
-            $company = Company::find($request->company_id );
+            $company = Company::find($request->company_id);
             if ($request->hasFile('avatar')) {
-                (new AddImagesToEntity($request->avatar, $company, ["width" => 600] ))->execute() ;
+                (new AddImagesToEntity($request->avatar, $company, ["width" => 600]))->execute();
                 return response()->json($company->images);
             }
         }
