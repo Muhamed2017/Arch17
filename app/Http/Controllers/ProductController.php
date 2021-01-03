@@ -121,9 +121,16 @@ class ProductController extends Controller
         $product_description->product_id = $product->id;
         $product_description->description_text = $request->description_text;
 
+        if ($product->description) {
+            return response()->json([
+                'message' => 'product has already a description',
+                'product_description' => $product->description
+
+            ], 409);
+        }
         if ($product_description->save()) {
 
-            $this->attachdescr($product_description, $request);
+            $this->attachRelatedModels($product_description, $request);
             return response()->json(
                 [
                     'message' => 'description attached to product successfully',
@@ -140,10 +147,10 @@ class ProductController extends Controller
     {
         if ($request->hasFile('cover')) (new AddImagesToEntity($request->cover, $entity, ["width" => 1024]))->execute();
         if ($request->hasFile('material_pic')) (new AddImagesToEntity($request->material_pic, $entity, ["width" => 1024]))->execute();
+        if ($request->hasFile('description_media')) (new AddImagesToEntity($request->description_media, $entity, ["width" => 1024]))->execute();
     }
 
-    public function attachdescr($product_description, $request)
-    {
-        if ($request->hasFile('description_media')) (new AddImagesToEntity($request->description_media, $product_description, ["width" => 1024]))->execute();
-    }
+    // public function attachdescr($product_description, $request)
+    // {
+    // }
 }
