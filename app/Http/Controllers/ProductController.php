@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Support\Services\AddImagesToEntity;
 
 use App\Models\Product;
+use App\Models\ProductDescription;
 use App\Models\ProductOptions;
 use PhpOption\Option;
 
@@ -108,13 +109,13 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'description_text'    => 'required|array',
-            'description_text.*'  => 'string|min:255',
+            'description_text.*'  => 'string',
             'description_media'   => 'nullable|array',
             'description_media.*' => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
 
         ]);
 
-        $product_description = new ProductOptions();
+        $product_description = new ProductDescription();
         $product = Product::findOrFail($id);
 
         $product_description->product_id = $product->id;
@@ -122,11 +123,11 @@ class ProductController extends Controller
 
         if ($product_description->save()) {
 
-            $this->attachRelatedModels($product_description, $request);
+            $this->attachdescr($product_description, $request);
             return response()->json(
                 [
                     'message' => 'description attached to product successfully',
-                    // 'product_description' => $product->description
+                    'product_description' => $product->description
                 ],
                 200
             );
@@ -139,6 +140,10 @@ class ProductController extends Controller
     {
         if ($request->hasFile('cover')) (new AddImagesToEntity($request->cover, $entity, ["width" => 1024]))->execute();
         if ($request->hasFile('material_pic')) (new AddImagesToEntity($request->cover, $entity, ["width" => 1024]))->execute();
-        if ($request->hasFile('desctription_media')) (new AddImagesToEntity($request->cover, $entity, ["width" => 1024]))->execute();
+    }
+
+    public function attachdescr($product_description, $request)
+    {
+        if ($request->hasFile('description_media')) (new AddImagesToEntity($request->cover, $product_description, ["width" => 1024]))->execute();
     }
 }
