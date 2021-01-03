@@ -84,9 +84,8 @@ class ProductController extends Controller
         ]);
 
         $product_options = new ProductOptions();
-
-
-        $product_options->product_id = $id;
+        $product = Product::findOrFail($id);
+        $product_options->product_id = $product->id;
         $product_options->material_name = $request->material_name;
         $product_options->size = $request->size;
         $product_options->price = $request->price;
@@ -94,41 +93,40 @@ class ProductController extends Controller
         $product_options->quantity =  $request->quantity;
 
         if ($product_options->save()) {
-            $this->attachRelatedModelsOptions($product_options, $request);
+            $this->attachRelatedModels($product_options, $request);
 
             return response()->json([
                 'message' => 'option attached to product successfully',
-                'options' => $product_options
+                'options' => $product->options
             ], 200);
         }
     }
 
 
     // product description -step three
-    public function addDescriptionToProduct(Request $request, Product $product)
+    public function addDescriptionToProduct(Request $request, $id)
     {
         $this->validate($request, [
-
             'description_text'    => 'required|array',
-            'description_text.*'  => 'required|string',
+            'description_text.*'  => 'string|min:255',
             'description_media'   => 'nullable|array',
             'description_media.*' => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
 
         ]);
 
         $product_description = new ProductOptions();
+        $product = Product::findOrFail($id);
 
         $product_description->product_id = $product->id;
-        $product_description->material_name = $request->material_name;
-        $product_description->product_id = $request->size;
+        $product_description->description_text = $request->description_text;
 
         if ($product_description->save()) {
 
-            $this->attachRelatedModelsDescription($product_description, $request);
+            $this->attachRelatedModels($product_description, $request);
             return response()->json(
                 [
                     'message' => 'description attached to product successfully',
-                    'options' => $product_description
+                    // 'product_description' => $product->description
                 ],
                 200
             );
@@ -137,14 +135,10 @@ class ProductController extends Controller
 
 
 
-    public function attachRelatedModelsOptions($product_options, $request)
+    public function attachRelatedModels($entity, $request)
     {
-        if ($request->hasFile('cover')) (new AddImagesToEntity($request->cover, $product_options, ["width" => 1024]))->execute();
-        if ($request->hasFile('material_pic')) (new AddImagesToEntity($request->cover, $product_options, ["width" => 1024]))->execute();
-    }
-
-    public function attachRelatedModelsDescription($product_description, $request)
-    {
-        if ($request->hasFile('desctription_media')) (new AddImagesToEntity($request->cover, $product_description, ["width" => 1024]))->execute();
+        if ($request->hasFile('cover')) (new AddImagesToEntity($request->cover, $entity, ["width" => 1024]))->execute();
+        if ($request->hasFile('material_pic')) (new AddImagesToEntity($request->cover, $entity, ["width" => 1024]))->execute();
+        if ($request->hasFile('desctription_media')) (new AddImagesToEntity($request->cover, $entity, ["width" => 1024]))->execute();
     }
 }

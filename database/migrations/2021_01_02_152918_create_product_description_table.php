@@ -16,7 +16,7 @@ class CreateProductDescriptionTable extends Migration
         Schema::create('product_description', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id')->unsigned();
-            $table->integer('desctription_text')->nullable();
+            $table->string('description_text');
             $table->timestamps();
         });
     }

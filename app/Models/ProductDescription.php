@@ -11,6 +11,10 @@ class ProductDescription extends Model
 
     protected $table = 'product_description';
 
+    protected $casts = [
+        'description_text' => 'array',
+    ];
+
     protected $fillable = [
         'product_id', 'description_text'
     ];

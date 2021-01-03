@@ -18,7 +18,6 @@ Route::post('Subscription', 'SubscriptionController@create');
 
 
 Route::group(['prefix' => 'user/registration'], function () {
-
     Route::post('signin', 'LoginController@login')->name('user');
     Route::post('signup', 'RegisterController@register')->name('user');
     // Route::post('resetpassword', 'Api\Site\RegisterController@resetPassword')->name('user');
@@ -29,6 +28,11 @@ Route::group(['prefix' => 'user/registration'], function () {
 Route::group(['middleware' => 'auth_user', 'prefix' => 'account'], function () {
     Route::post('create-business-account', 'UserController@CreateBusinessAccount');
     Route::post('create-store', 'UserController@CreateStore');
-    Route::post('add-product', 'ProductController@AddProduct');
-    Route::post('add-product-option/{id}', 'ProductController@addOptionToProduct');
+});
+
+//add product process
+Route::group(['middleware' => 'auth_user', 'prefix' => 'addproduct'], function () {
+    Route::post('identity', 'ProductController@AddProduct');
+    Route::post('option-price/{id}', 'ProductController@addOptionToProduct');
+    Route::post('description/{id}', 'ProductController@addDescriptionToProduct');
 });
