@@ -134,4 +134,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Collection::class , 'user_id');
     }
+    
+    public function projects()
+    {
+        return $this->morphMany(Project::class,'authorable');
+    }
+
 }

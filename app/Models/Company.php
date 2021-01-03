@@ -77,4 +77,10 @@ class Company extends Model
     {
         return $this->morphMany(Follower::class , 'followerable');
     }
+    
+    public function projects()
+    {
+        return $this->morphMany(Project::class,'authorable');
+    }
+
 }

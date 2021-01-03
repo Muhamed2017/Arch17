@@ -16,15 +16,15 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('cover_name');
+            $table->string('cover_name')->nullable();
             $table->string('category');   
             $table->string('year');
             $table->string('country');
             $table->string('city');
             $table->json('types');
-            $table->json('text_description');
-            $table->integer('editorable_id');
-            $table->string('editorable_type');
+            $table->json('text_description')->nullable();
+            $table->integer('authorable_id');
+            $table->string('authorable_type');
             $table->timestamps();
         });
     }
