@@ -25,7 +25,6 @@ Route::get('designer/{slug}', 'CompanyController@get_company');
 
 
 Route::group(['prefix' => 'user/registration'], function () {
-
     Route::post('signin', 'LoginController@login')->name('user');
     Route::post('signup', 'RegisterController@register')->name('user');
     // Route::post('resetpassword', 'Api\Site\RegisterController@resetPassword')->name('user');
@@ -33,7 +32,7 @@ Route::group(['prefix' => 'user/registration'], function () {
 
 });
 
-Route::group(['middleware' => 'auth_user', 'prefix'=>'account'], function() {
+Route::group(['middleware' => 'auth_user', 'prefix' => 'account'], function () {
     Route::post('create-business-account', 'UserController@CreateBusinessAccount');
     Route::post('create-store', 'UserController@CreateStore');
     Route::post('add-product', 'ProductController@AddProducuct');
@@ -52,4 +51,12 @@ Route::group(['middleware' => 'auth_user', 'prefix'=>'account/addproject'], func
     Route::post('supplier', 'ProjectController@addProjectSupplier');
     Route::post('designer', 'ProjectController@addProjectDesigner');
     Route::post('cover', 'ProjectController@addProjectCover');
+});
+
+
+//add product process
+Route::group(['middleware' => 'auth_user', 'prefix' => 'addproduct'], function () {
+    Route::post('identity', 'ProductController@AddProduct');
+    Route::post('option-price/{id}', 'ProductController@addOptionToProduct');
+    Route::post('description/{id}', 'ProductController@addDescriptionToProduct');
 });

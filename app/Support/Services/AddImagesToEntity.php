@@ -1,14 +1,17 @@
 <?php
+
 namespace App\Support\Services;
 
 use App\Models\Image;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Company;
+use App\Models\ProductDescription;
 use JD\Cloudder\Facades\Cloudder;
 use \Cloudinary\Uploader as Cloudinary;
 
-class AddImagesToEntity {
+class AddImagesToEntity
+{
     public $uploadedImages;
     public $entity;
     public $entityClassName;
@@ -51,7 +54,7 @@ class AddImagesToEntity {
     {
         $images = collect();
 
-        foreach($this->uploadedImages as $image){
+        foreach ($this->uploadedImages as $image) {
             $images->push($this->uploadImage($image));
         }
 
@@ -61,18 +64,27 @@ class AddImagesToEntity {
     public function uploadImage($image)
     {
 
-        if ( $this->entityClassName === User::class) {
+        if ($this->entityClassName === User::class) {
 
             return $this->uploadUserImage($image);
         }
 
 
-        if ( $this->entityClassName === Product::class ) {
+        if ($this->entityClassName === Product::class) {
 
             return $this->uploadProductImage($image);
         }
 
-        if ( $this->entityClassName === Company::class ) {
+        if ($this->entityClassName === ProductOptions::class) {
+
+            return $this->uploadProductImage($image);
+        }
+        if ($this->entityClassName === ProductDescription::class) {
+
+            return $this->uploadProductImage($image);
+        }
+
+        if ($this->entityClassName === Company::class) {
 
             return $this->uploadProductImage($image);
         }
@@ -88,7 +100,7 @@ class AddImagesToEntity {
 
     public function uploadUserImage($image)
     {
-        $options = array_merge($this->options , $this->imgOptions);
+        $options = array_merge($this->options, $this->imgOptions);
 
         $options['folder'] = $this->entity->imgFolderPath['image'];
 
@@ -106,16 +118,16 @@ class AddImagesToEntity {
 
     public function uploadProductImage($image)
     {
-        $options = array_merge($this->options , $this->imgOptions);
+        $options = array_merge($this->options, $this->imgOptions);
 
         //commented by muhamed gomaa
-    //    $options['folder'] = $this->entity->imgFolderPath['image'];
+        //    $options['folder'] = $this->entity->imgFolderPath['image'];
 
         $cloudImage = $this->uploadToCloud($image->getRealPath(), $options);
 
         //commented by muhamed gomaa
         $thumbOptions = $this->thumbOptions;
-//        $thumbOptions['folder'] = $this->entity->imgFolderPath['thumb'];
+        //        $thumbOptions['folder'] = $this->entity->imgFolderPath['thumb'];
 
         $cloudThumb = $this->uploadToCloud($cloudImage['url'], $this->thumbOptions);
 
@@ -148,5 +160,4 @@ class AddImagesToEntity {
 
         return $image;
     }
-
 }

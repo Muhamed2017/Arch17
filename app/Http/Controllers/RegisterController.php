@@ -17,7 +17,8 @@ use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Str;
 use App\Support\Services\AddImagesToEntity;
-
+use App\Events\UserCreated;
+use Illuminate\Foundation\Events\Dispatchable;
 
 class RegisterController extends Controller
 {
@@ -77,13 +78,14 @@ class RegisterController extends Controller
             $token = auth('user')->login($user);
 
             $tokenExpiresAt = \Carbon\Carbon::now()->addMinutes(auth($guard)->factory()->getTTL() * 1)->toDateTimeString();
+             UserCreated::dispatch($user);
 
             return response()->json([
                 'successful' => '1',
                 'status' => '01',
                 'message' => 'Your account has been registered successfully',
                 'token_type' => 'Bearer',
-                'access_token' => $token,
+                'Bearer_token' => $token,
                 'expires_at' => $tokenExpiresAt,
                 'user' => $user,
                 'type' => $guard
