@@ -139,11 +139,11 @@ class ProductController extends Controller
     public function attachRelatedModels($entity, $request)
     {
         if ($request->hasFile('cover')) (new AddImagesToEntity($request->cover, $entity, ["width" => 1024]))->execute();
-        if ($request->hasFile('material_pic')) (new AddImagesToEntity($request->cover, $entity, ["width" => 1024]))->execute();
+        if ($request->hasFile('material_pic')) (new AddImagesToEntity($request->material_pic, $entity, ["width" => 1024]))->execute();
     }
 
     public function attachdescr($product_description, $request)
     {
-        if ($request->hasFile('description_media')) (new AddImagesToEntity($request->cover, $product_description, ["width" => 1024]))->execute();
+        if ($request->hasFile('description_media')) (new AddImagesToEntity($request->description_media, $product_description, ["width" => 1024]))->execute();
     }
 }
