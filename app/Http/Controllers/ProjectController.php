@@ -14,125 +14,6 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     /**
-     * 1- check if login 
-     * 2- check if allow to add project 
-     * 3- get the author of adding project like user or store or company
-     * 4- prepare project data 
-     * 5- prepare supplier data 
-     * 6- prepare designer data 
-     * 7- validate all data 
-     * 8- save project data 
-     * 9- save project suppliers data 
-     * 10- save project designers data 
-     * 11- append the project in the response 
-    */
-    // Todo ....
-    public function AddProject(Request $request){
-        #2- check if allow to add project 
-        if (auth()->user()->stores->count() > 0 || auth()->user()->companies->count()>0) {
-            #3- get the author of adding project like user or store or company
-            if ($request->has('store_id')) {
-                $author_id = $request->store_id;
-                $this->validate($request, $this->addValidationRules());
-                $projectData = $this->addProjectData($request);
-                $projectData['authorable_id'] = $author_id ;
-                $projectData['authorable_type'] = Store::class;
-                $project = new Project($projectData);
-                if ($project->save()) {
-                    return response()->json([
-                        'message'=>'Loading .....',
-                        'data'   =>[
-                            'auth()->user()->companies'=>auth()->user()->companies,
-                            'user_id'=>auth()->user()->id,
-                            'author'=>['store', $author_id],
-                            'data'=>['data',$projectData],
-                            '$project'=>$project,
-                            'store_projects'=> Store::find($author_id)->projects,
-                            'suppliers'=>$suppliers_array
-                            ]
-                    ], 200);
-                }
-            }else if($request->has('company_id')){
-                $author_id = $request->company_id;
-                $this->validate($request, $this->addValidationRules());
-                $projectData = $this->addProjectData($request);
-                $projectData['authorable_id'] = $author_id ;
-                $projectData['authorable_type'] = Company::class;
-                $project = new Project($projectData);
-                if ($project->save()) {
-                    return response()->json([
-                        'message'=>'Loading .....',
-                        'data'   =>[
-                            'auth()->user()->companies'=>auth()->user()->companies,
-                            'user_id'=>auth()->user()->id,
-                            'author'=>'company',[$author_id],
-                            'data'=>['data',$projectData],
-                            '$project'=>$project,
-                            'company_projects'=> Company::find($author_id)->projects
-                            ]
-                    ], 200);               
-                }
-            }else if ($request->has('author_id')) {
-                $author_id = $request->author_id;
-                $this->validate($request, $this->addValidationRules());
-                $projectData = $this->addProjectData($request);
-                $projectData['authorable_id'] = $author_id ;
-                $projectData['authorable_type'] = User::class;
-                $project = new Project($projectData);
-                if ($project->save()) {
-                    return response()->json([
-                        'message'=>'Loading .....',
-                        'data'   =>[
-                            'auth()->user()->user'=>auth()->user()->projects,
-                            'user_id'=>auth()->user()->id,
-                            'author'=>'User',[$author_id],
-                            'data'=>['data',$projectData],
-                            '$project'=>$project,
-                            'company_projects'=> User::find($author_id)->projects
-                            ]
-                    ], 200);               
-                }
-            }
-        }else{
-            return response()->json([
-                'message'=>'not allow to ad project'
-            ], 400);
-        }
-    }
-
-    public function addValidationRules($id = ''){
-        return [
-            'name' => 'required|string|max:250',
-            'cover_name' => 'required|string|max:250',
-            'category' => 'required|string|max:2000',
-            'country' => 'required|string|max:250',
-            'city' => 'required|string|max:250',
-            'year' => 'required|string|max:250',
-            'types' => 'required|array',
-            'text_description' => 'nullable|array',
-            'text_description.*' => 'nullable|string|max:250',
-        ];
-    }
-    public function addProjectData(Request $request)
-    {
-        $input = $request->only(
-            'name', 'types', 'country', 'city', 'text_description', 'category','cover_name','year'
-        );
-        return $input;
-    }
-    // public function addProjectSupplier(Request $request)
-    // {
-    //     $suppliersarray = [];
-    //     foreach ($request->suppliers as $key => $value) {
-    //         array_push($suppliersarray , [
-    //             'store_id'   => 2,
-    //             'project_id' => 5
-    //         ]);
-    //     }
-    //     return $suppliersarray;
-    // }
-
-    /**
      * functions 
      * 1- if allow to add project
      * 2- add project info 
@@ -147,12 +28,12 @@ class ProjectController extends Controller
      * 11- respones function
      */ 
 
-    public function isAuthor()
+    private function isAllowedToAddProject()
     {
-        if (auth()->user()->stores->count() > 0 || auth()->user()->companies->count()>0 || auth()->user()->allow_to_add_project === 1) {
-            return ;
+        if (auth()->user()->stores->count() <= 0 || auth()->user()->companies->count() <= 0 || auth()->user()->allow_to_add_project === 0) {
+            return false;        
         }else{
-            return false;
+            return true;
         }
     }
     public function getAuthor(Request $request)
@@ -214,7 +95,9 @@ class ProjectController extends Controller
     // 1-3 save project data 
     public function addProjectInfo(Request $request)
     {    
-        if (auth()->user()->stores->count() > 0 || auth()->user()->companies->count()>0 || auth()->user()->allow_to_add_project !== 0) {
+            if (!$this->isAllowedToAddProject()) {
+                return $this->returnProjectResponse(['message'=>'not alllow to add project']  , 200 );
+            } 
             $this->validate($request, $this->addInfoValidationRules());
             $author = $this->getAuthor($request);
             $info = $this->addProjectInfoData($request);
@@ -237,10 +120,6 @@ class ProjectController extends Controller
                 ];
                 return  $this->returnProjectResponse($response  , 200 );
             }
-        }else{
-            return false;
-        }
-
     }
 
 
@@ -261,7 +140,9 @@ class ProjectController extends Controller
     // 2-3 save description 
     public function addProjectDescription(Request $request)
     {
-        if (auth()->user()->stores->count() > 0 || auth()->user()->companies->count()>0 || auth()->user()->allow_to_add_project !== 0) {
+        if (!$this->isAllowedToAddProject()) {
+            return $this->returnProjectResponse(['message'=>'not alllow to add project']  , 200 );
+        } 
             $this->validate($request, $this->addDescriptionValidationRules());
             $project = Project::findOrFail($request->project_id);
             $project_description = new ProjectDescription();    
@@ -282,9 +163,7 @@ class ProjectController extends Controller
                 ] ;
                 return  $this->returnProjectResponse($response , 200 );
             }
-        }else{
-            return false;
-        }
+
 
     }
 
@@ -327,11 +206,9 @@ class ProjectController extends Controller
     }
     public function addProjectDesigner(Request $request)
     {
-        if (auth()->user()->stores->count() > 0 || auth()->user()->companies->count()>0 || auth()->user()->allow_to_add_project === 1) {
-            return ;
-        }else{
-            return false;
-        }
+        if (!$this->isAllowedToAddProject()) {
+            return $this->returnProjectResponse(['message'=>'not alllow to add project']  , 200 );
+        } 
         $this->validate($request, $this->addDesignerValidationRules());
         $project_designer = new ProjectDesigner();
         $project = Project::findOrFail($request->project_id);
@@ -349,19 +226,17 @@ class ProjectController extends Controller
     // 4- add designer cover
     public function addProjectCover(Request $request)
     {
-        if (auth()->user()->stores->count() > 0 || auth()->user()->companies->count()>0 || auth()->user()->allow_to_add_project !== 0) {
-            $project = Project::find($request->project_id);
-            $project->cover_name = $request->cover_name;
-            $project->save();
-            if ($request->hasFile('cover')) (new AddImagesToEntity($request->cover,$project, ["width" => 1024]))->execute();
-            return response()->json([
-                'message' => 'project cover saved ',
-                'project' => Project::findOrFail($request->project_id)->images
-            ], 200);
-        }else{
-            return false;
-        }
-
+        if (!$this->isAllowedToAddProject()) {
+            return $this->returnProjectResponse(['message'=>'not alllow to add project']  , 200 );
+        }       
+        $project = Project::find($request->project_id);
+        $project->cover_name = $request->cover_name;
+        $project->save();
+        if ($request->hasFile('cover')) (new AddImagesToEntity($request->cover,$project, ["width" => 1024]))->execute();
+        return response()->json([
+            'message' => 'project cover saved ',
+            'project' => Project::findOrFail($request->project_id)->images
+        ], 200);
     }
 
 

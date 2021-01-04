@@ -21,8 +21,8 @@ class CreateProjectsTable extends Migration
             $table->string('year');
             $table->string('country');
             $table->string('city');
-            $table->json('types');
-            $table->json('text_description')->nullable();
+            $table->text('types');
+            $table->text('text_description')->nullable();
             $table->integer('authorable_id');
             $table->string('authorable_type');
             $table->timestamps();
