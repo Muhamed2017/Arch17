@@ -25,7 +25,7 @@ class User extends Authenticatable implements JWTSubject
      protected $gaurd= 'user';
 
     protected $fillable = [
-        'fname','lname','email','password','mobile','country','city', 'address','user_description'
+        'fname','lname','email','password','mobile','country','city', 'address','user_description','allow_to_add_project'
     ];
 
 
@@ -129,4 +129,15 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Company::class);
     }
+    // relation between user and company one user has many companies
+    public function collections()
+    {
+        return $this->hasMany(Collection::class , 'user_id');
+    }
+    
+    public function projects()
+    {
+        return $this->morphMany(Project::class,'authorable');
+    }
+
 }

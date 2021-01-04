@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BusinessAccount;
+use App\Models\Product;
+use App\Models\Collection;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Store;
@@ -45,8 +47,8 @@ class UserController extends Controller
             return response()->json([
                 'successful' => '0',
                 'status'  => '02',
-                'error' => 'Invalid data: ' . $e,
-                'error_msg'=>$e
+                'error' => 'Invalid data: ' . $e->getMessage(),
+                'error_msg'=> $e
             ], 400);
         }
 
@@ -128,6 +130,56 @@ class UserController extends Controller
 
     }
     //end of create store api
+    public function create_product_collection(Request $request)
+    {
+        $product_id = $request->product_id;
+        $collection_name = $request->collection_name;
+        $product = Product::find($product_id);
+        $product->collections()->create(['name'=>$collection_name,'user_id'=>auth()->user()->id]);
+        return response()->json([
+            'message'=>'Collection Created Successfully',
+            'product'=>  Product::find($product_id)->collections,
+            'user_collections'=>auth()->user()->collections
+        ], 200);
+    }
+    public function add_product_to_collection(Request $request)
+    {
+        $product_id = $request->product_id;
+        $collection_id = $request->collection_id;
+        $product = Product::find($product_id);
+        $collection = Collection::find($collection_id);
+        $product->collections()->attach($collection);
+        return response()->json([
+            'message'=>'Collection',
+            'product'=>  $product->collections,
+            'collections'=> $collection
+        ], 200);
+    }
+    public function remove_product_from_collection(Request $request)
+    {
+        $product_id = $request->product_id;
+        $collection_id = $request->collection_id;
+        $product = Product::find($product_id);
+        $product->collections()->detach($collection_id);
+        return response()->json([
+            'message'=>'Collection',
+            'product'=>  $product->collections
+        ], 200);
+    }
+    public function geUserProductCollections()
+    {
+        $user = auth()->user();
+        foreach ($user->collections as $collection) {
+            $collections = array();
+            if ($collection->collection_type === 'product' ) {
+                array_push($collections , $collection);
+            }
+        }
+        return response()->json([
+            'message'=>'Collection',
+            'collections'=>  $collections
+        ], 200);
+    }
 
 
 

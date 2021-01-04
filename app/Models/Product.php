@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+    public function collections()
+    {
+        return $this->morphToMany(Collection::class , 'collectionable');
+    }
 
 
     protected $casts = [

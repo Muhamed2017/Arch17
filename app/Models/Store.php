@@ -30,8 +30,15 @@ class Store extends Model
         return $this->hasMany('App\Models\Product');
     }
 
-
+    public function projects()
+    {
+        return $this->morphMany(Project::class,'authorable');
+    }
 
 
     // protected $appens='logo';
+    public function followers()
+    {
+        return $this->morphMany(Follower::class , 'followerable');
+    }
 }
