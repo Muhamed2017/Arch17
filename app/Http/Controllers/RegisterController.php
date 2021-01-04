@@ -78,7 +78,7 @@ class RegisterController extends Controller
             $token = auth('user')->login($user);
 
             $tokenExpiresAt = \Carbon\Carbon::now()->addMinutes(auth($guard)->factory()->getTTL() * 1)->toDateTimeString();
-             UserCreated::dispatch($user);
+            //  UserCreated::dispatch($user);
 
             return response()->json([
                 'successful' => '1',
