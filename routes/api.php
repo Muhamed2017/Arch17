@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,7 @@ Route::group(['middleware' => 'auth_user', 'prefix' => 'account'], function () {
 });
 // Route::post('add-project', 'ProjectController@AddProject');
 
-Route::group(['middleware' => 'auth_user', 'prefix'=>'account/addproject'], function() {
+Route::group(['middleware' => 'auth_user', 'prefix' => 'account/addproject'], function () {
     Route::post('info', 'ProjectController@addProjectInfo');
     Route::post('description', 'ProjectController@addProjectDescription');
     Route::post('supplier', 'ProjectController@addProjectSupplier');
@@ -59,4 +60,16 @@ Route::group(['middleware' => 'auth_user', 'prefix' => 'addproduct'], function (
     Route::post('identity', 'ProductController@AddProduct');
     Route::post('option-price/{id}', 'ProductController@addOptionToProduct');
     Route::post('description/{id}', 'ProductController@addDescriptionToProduct');
+});
+
+Route::get('auth/redirect', function () {
+    return Socialite::driver('facebook')->redirect();
+});
+
+Route::get('auth/callback', function () {
+    $user = Socialite::driver('facebook')->stateless()->user();
+
+    return $user;
+
+    // $user->token
 });

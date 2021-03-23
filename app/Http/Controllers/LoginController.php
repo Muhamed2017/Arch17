@@ -78,19 +78,24 @@ class LoginController extends Controller
         return response()->json([
             'successful' => '1',
             'status' => '01',
-            'data' => [
-                'token_type' => 'Bearer',
-                'access_token' => $token,
-                'expires_at' => $tokenExpiresAt,
-                'id' => $user->id,
-                'fname' => $user->fname,
-                'lname' => $user->lname,
-                'email' => $user->email,
-                'mobile' => $user->mobile ?? '',
-                'avatar' => $user->avatar ?? '',
+            'message' => 'Welcome Back',
+            'token_type' => 'Bearer',
+            'Bearer_token' => $token,
+            'expires_at' => $tokenExpiresAt,
+            'user' => $user,
+            'type' => $guard
+            // 'data' => [
+            //     'token_type' => 'Bearer',
+            //     'access_token' => $token,
+            //     'expires_at' => $tokenExpiresAt,
+            //     'id' => $user->id,
+            //     'fname' => $user->fname,
+            //     'lname' => $user->lname,
+            //     'email' => $user->email,
+            //     'mobile' => $user->mobile ?? '',
+            //     'avatar' => $user->avatar ?? '',
 
-                'type' => $guard
-            ]
+            // ]
         ], 200);
     }
 
