@@ -22,10 +22,10 @@ class User extends Authenticatable implements JWTSubject
      *
      */
 
-     protected $gaurd= 'user';
+    protected $gaurd = 'user';
 
     protected $fillable = [
-        'fname','lname','email','password','mobile','country','city', 'address','user_description','allow_to_add_project'
+        'fname', 'lname', 'email', 'password', 'mobile', 'country', 'city', 'address', 'user_description', 'allow_to_add_project', 'facebook_user_id'
     ];
 
 
@@ -35,7 +35,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','images'
+        'password', 'remember_token', 'images'
     ];
 
     /**
@@ -62,7 +62,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
 
-     public function getAvatarAttribute()
+    public function getAvatarAttribute()
     {
         return $this->images != null ? $this->images->first() : '';
     }
@@ -73,13 +73,15 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-    public function businessAccount(){
+    public function businessAccount()
+    {
 
         return $this->hasOne('App\Models\BusinessAccount');
     }
 
 
-    public function stores(){
+    public function stores()
+    {
         return $this->hasManyThrough('App\Models\Store', 'App\Models\BusinessAccount');
     }
     /**
@@ -110,10 +112,11 @@ class User extends Authenticatable implements JWTSubject
 
 
 
-     public static function boot() {
+    public static function boot()
+    {
 
         parent::boot();
-        static::deleting(function($user) {
+        static::deleting(function ($user) {
 
             if (count($user->images) > 0) {
                 foreach ($user->images as $image) {
@@ -132,12 +135,11 @@ class User extends Authenticatable implements JWTSubject
     // relation between user and company one user has many companies
     public function collections()
     {
-        return $this->hasMany(Collection::class , 'user_id');
-    }
-    
-    public function projects()
-    {
-        return $this->morphMany(Project::class,'authorable');
+        return $this->hasMany(Collection::class, 'user_id');
     }
 
+    public function projects()
+    {
+        return $this->morphMany(Project::class, 'authorable');
+    }
 }
