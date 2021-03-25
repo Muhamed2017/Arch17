@@ -94,10 +94,10 @@ class ProjectController extends Controller
     }
     // 1-3 save project data 
     public function addProjectInfo(Request $request)
-    {    
+    {
             if (!$this->isAllowedToAddProject()) {
                 return $this->returnProjectResponse(['message'=>'not alllow to add project']  , 200 );
-            } 
+            }
             $this->validate($request, $this->addInfoValidationRules());
             $author = $this->getAuthor($request);
             $info = $this->addProjectInfoData($request);
@@ -163,8 +163,6 @@ class ProjectController extends Controller
                 ] ;
                 return  $this->returnProjectResponse($response , 200 );
             }
-
-
     }
 
 

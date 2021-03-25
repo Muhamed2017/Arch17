@@ -24,7 +24,8 @@ class CreateProjectsTable extends Migration
             $table->text('types');
             $table->text('text_description')->nullable();
             $table->integer('authorable_id');
-            $table->string('authorable_type');
+            $table->string('authorable_type')->nullable();
+            $table->string('state');
             $table->timestamps();
         });
     }

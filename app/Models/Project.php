@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','cover_name','category','year','country','city','types','text_description','authorable_id','authorable_type'];
+    protected $fillable = ['name','cover_name','category','year','country','city','types','text_description','authorable_id','authorable_type','state'];
     protected $casts = [
         'types' => 'array',
         'text_description' => 'array',
