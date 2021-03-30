@@ -10,6 +10,7 @@ use App\Models\ProjectDesigner;
 use App\Models\ProjectSupplier;
 use App\Support\Services\AddImagesToEntity;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class ProjectController extends Controller
 {
@@ -31,9 +32,9 @@ class ProjectController extends Controller
     private function isAllowedToAddProject()
     {
         if (auth()->user()->stores->count() <= 0 || auth()->user()->companies->count() <= 0 || auth()->user()->allow_to_add_project === 0) {
-            return false;        
+            return true;        
         }else{
-            return true;
+            return false;
         }
     }
     public function getAuthor(Request $request)
@@ -96,7 +97,7 @@ class ProjectController extends Controller
     public function addProjectInfo(Request $request)
     {
             if (!$this->isAllowedToAddProject()) {
-                return $this->returnProjectResponse(['message'=>'not alllow to add project']  , 200 );
+                return $this->returnProjectResponse(['message'=>array(auth()->user()->stores->count(),auth()->user()->companies->count())]  , 200 );
             }
             $this->validate($request, $this->addInfoValidationRules());
             $author = $this->getAuthor($request);
@@ -108,6 +109,7 @@ class ProjectController extends Controller
             $project->country   = $request->country;
             $project->city      = $request->city;
             $project->year      = $request->year;
+            $project->state      = $request->state;
             $project->authorable_id = $author['author_id'] ;
             $project->authorable_type = $author['author'] ;
             if ($project->save()) {
