@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Project extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','cover_name','category','year','country','city','types','text_description','authorable_id','authorable_type','state'];
+    use SoftDeletes;
+    protected $fillable = ['name','cover_name','category','year','country','city','types','authorable_id','authorable_type','state'];
     protected $casts = [
-        'types' => 'array',
-        'text_description' => 'array',
+        'types' => 'array'
     ];
     public function images(){
         return $this->morphMany('App\Models\Image', 'imageable');
@@ -19,13 +19,17 @@ class Project extends Model
     
     public function suppliers(){
         return $this->hasMany(ProjectSupplier::class);
-    }
+    }   
     public function designers(){
-        return $this->hasMany(ProjectDesigner::class);
+        return $this->morphMany(ProjectDesigner::class, 'designerable');
+    }
+    public function products()
+    {
+        return $this->hasManyThrough(Projects_product::class, Product::class);
     }
     public function description()
     {
-        return $this->hasOne(ProjectDescription::class);
+        return $this->hasMany(ProjectDescription::class);
     }
     public function collections()
     {

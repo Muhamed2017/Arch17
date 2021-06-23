@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('facebook_user_id')->nullable();
             $table->boolean('allow_to_add_project')->default(0);
+            $table->string('profession')->nullable();
+            $table->boolean('is_designer')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

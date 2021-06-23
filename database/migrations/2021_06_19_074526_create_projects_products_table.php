@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectDescriptionsTable extends Migration
+class CreateProjectsProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateProjectDescriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_descriptions', function (Blueprint $table) {
+        Schema::create('projects_products', function (Blueprint $table) {
             $table->id();
-            $table->string('description_text');
-            $table->string('description_type');
+            $table->integer('product_id');
             $table->integer('project_id');
             $table->timestamps();
         });
@@ -29,6 +28,6 @@ class CreateProjectDescriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_descriptions');
+        Schema::dropIfExists('projects_products');
     }
 }
