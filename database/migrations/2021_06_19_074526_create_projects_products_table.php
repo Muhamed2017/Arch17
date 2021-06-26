@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectDesignersTable extends Migration
+class CreateProjectsProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateProjectDesignersTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_designers', function (Blueprint $table) {
-            $table->id();   
-            $table->integer('designerable_id');
-            $table->string('designerable_type');
+        Schema::create('projects_products', function (Blueprint $table) {
+            $table->id();
+            $table->integer('product_id');
             $table->integer('project_id');
             $table->timestamps();
         });
@@ -29,6 +28,6 @@ class CreateProjectDesignersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_designers');
+        Schema::dropIfExists('projects_products');
     }
 }

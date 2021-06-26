@@ -142,4 +142,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->morphMany(Project::class, 'authorable');
     }
+
+    public function is_designer()
+    {
+        return $this->is_designer;
+    }
 }
