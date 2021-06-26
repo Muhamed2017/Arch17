@@ -7,8 +7,10 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Company;
 use App\Models\ProductDescription;
+use App\Models\ProjectDescription;
+use Illuminate\Support\Facades\Storage;
 use JD\Cloudder\Facades\Cloudder;
-use \Cloudinary\Uploader as Cloudinary;
+// use \Cloudinary\Uploader as Cloudinary;
 
 class AddImagesToEntity
 {
@@ -88,13 +90,19 @@ class AddImagesToEntity
 
             return $this->uploadProductImage($image);
         }
+        if ($this->entityClassName === ProjectDescription::class) {
+
+            return $this->uploadProductImage($image);
+        }
         return $this->uploadProductImage($image);
     }
 
 
     public function uploadToCloud($imagePath, $options)
     {
-        return Cloudinary::upload($imagePath, $options);
+        Storage::disk('public')->put('Projects/'.$imagePath->getClientOriginalName(), $imagePath->getClientOriginalName());
+        $url = Storage::Url($this->imgOptions['folder'].$imagePath->getClientOriginalName() );
+        return $url;
     }
 
 
@@ -123,15 +131,15 @@ class AddImagesToEntity
         //commented by muhamed gomaa
         //    $options['folder'] = $this->entity->imgFolderPath['image'];
 
-        $cloudImage = $this->uploadToCloud($image->getRealPath(), $options);
+        $cloudImage = $this->uploadToCloud($image, $options);
 
         //commented by muhamed gomaa
         $thumbOptions = $this->thumbOptions;
         //        $thumbOptions['folder'] = $this->entity->imgFolderPath['thumb'];
 
-        $cloudThumb = $this->uploadToCloud($cloudImage['url'], $this->thumbOptions);
+        // $cloudThumb = $this->uploadToCloud($cloudImage['url'], $this->thumbOptions);
 
-        return $this->saveImage($cloudImage, $cloudThumb, $image->getClientOriginalName());
+        return $this->saveImage($cloudImage,  $image->getClientOriginalName());
     }
 
 
@@ -139,25 +147,43 @@ class AddImagesToEntity
 
 
 
-    public function saveImage($cloudImage, $cloudThumb, $originalFileName)
+    public function saveImage($cloudImage,  $originalFileName)
     {
 
         $image = new Image;
 
-        $image->img_url = $cloudImage['secure_url'];
-        $image->thumb_url = $cloudThumb['secure_url'];
-        $image->img_public_id = $cloudImage['public_id'];
-        $image->thumb_public_id = $cloudThumb['public_id'];
-        $image->img_width = $cloudImage['width'];
-        $image->img_height = $cloudImage['height'];
-        $image->thumb_width = $cloudThumb['width'];
-        $image->thumb_height = $cloudThumb['height'];
-        $image->img_bytes = $cloudImage['bytes'];
-        $image->thumb_bytes = $cloudThumb['bytes'];
-        $image->format = $cloudImage['format'];
-        $image->original_filename = $originalFileName;
+        $image->img_url = $cloudImage;
+        $image->thumb_url = $cloudImage;
+        // $image->img_public_id = $cloudImage['public_id'];
+        // $image->thumb_public_id = $cloudThumb['public_id'];
+        // $image->img_width = $cloudImage['width'];
+        // $image->img_height = $cloudImage['height'];
+        // $image->thumb_width = $cloudThumb['width'];
+        // $image->thumb_height = $cloudThumb['height'];
+        // $image->img_bytes = $cloudImage['bytes'];
+        // $image->thumb_bytes = $cloudThumb['bytes'];
+        // $image->format = $cloudImage['format'];
+        // $image->original_filename = $originalFileName;
         $this->entity->images()->save($image);
 
         return $image;
     }
+
+
+    public function UploadAndSave($entity , $image_file ) 
+    {
+        // $image      = $image_file;
+        // $fileName   = time() . '.' . $image->getClientOriginalExtension();
+        // // $path = Storage::disk('public')->put($fileName, $fileName );
+        // $url = Storage::Url('content_media/'. $fileName);
+        $image = new Image;
+        $image->img_url = 'content_media/'.$image;
+        $image->thumb_url = 'content_media/'.$image;
+        // $image->imageable_id = '1';
+        // $image->imageable_type = new ProjectDescription();
+        // $image->save();
+        $this->entity->images()->save($image);
+
+        return array($image);
+    } 
 }

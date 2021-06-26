@@ -23,4 +23,9 @@ class ProjectDescription extends Model
     {
         return $this->belongsTo(Project::class);
     }
+    public static function findOrCreate($id)
+        {
+            $obj = static::find($id);
+            return $obj ?: new static;
+        }
 }

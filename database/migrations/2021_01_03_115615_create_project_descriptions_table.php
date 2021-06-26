@@ -15,7 +15,7 @@ class CreateProjectDescriptionsTable extends Migration
     {
         Schema::create('project_descriptions', function (Blueprint $table) {
             $table->id();
-            $table->string('description_text');
+            $table->text('description_text')->nullable();
             $table->integer('project_id')->unsigned()->index();
             $table->timestamps();
         });
