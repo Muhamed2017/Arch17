@@ -61,6 +61,7 @@ class AddImagesToEntity
         return $images;
     }
 
+
     public function uploadImage($image)
     {
 
@@ -141,9 +142,7 @@ class AddImagesToEntity
 
     public function saveImage($cloudImage, $cloudThumb, $originalFileName)
     {
-
         $image = new Image;
-
         $image->img_url = $cloudImage['secure_url'];
         $image->thumb_url = $cloudThumb['secure_url'];
         $image->img_public_id = $cloudImage['public_id'];
