@@ -50,7 +50,9 @@ Route::group(['middleware' => 'auth_user', 'prefix' => 'account/addproject'], fu
     Route::post('info', 'ProjectController@addProjectInfo');
     Route::post('description', 'ProjectController@addProjectDescription');
     Route::post('supplier', 'ProjectController@addProjectSupplier');
+    Route::post('addContentImage', 'ProjectController@addProjectContentImage');
     Route::post('designer', 'ProjectController@addProjectDesigner');
+    Route::post('role' , 'ProjectController@addProjectRole');
     Route::post('cover', 'ProjectController@addProjectCover');
 });
 

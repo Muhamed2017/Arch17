@@ -15,16 +15,18 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('cover_name')->nullable();
-            $table->string('category');   
-            $table->string('year');
-            $table->string('country');
-            $table->string('city');
-            $table->text('types');
-            $table->text('text_description')->nullable();
+            $table->string('cover_image')->nullable();
             $table->integer('authorable_id');
             $table->string('authorable_type');
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('year')->nullable();
+            $table->string('category')->nullable();   
+            $table->text('types')->nullable();
+            $table->boolean('display_home')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

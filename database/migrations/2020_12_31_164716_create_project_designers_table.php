@@ -15,8 +15,9 @@ class CreateProjectDesignersTable extends Migration
     {
         Schema::create('project_designers', function (Blueprint $table) {
             $table->id();   
-            $table->integer('user_id')->unsigned()->index();
-            $table->integer('project_id')->unsigned()->index();
+            $table->integer('designerable_id');
+            $table->string('designerable_type');
+            $table->integer('project_id');
             $table->timestamps();
         });
     }

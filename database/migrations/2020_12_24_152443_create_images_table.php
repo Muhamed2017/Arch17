@@ -19,22 +19,22 @@ class CreateImagesTable extends Migration
             $table->integer('imageable_id');
             $table->string('imageable_type');
             
-            $table->string('img_public_id');
-            $table->string('thumb_public_id');
+            $table->string('img_public_id')->nullable();
+            $table->string('thumb_public_id')->nullable();
             
             $table->string('img_url');
             $table->string('thumb_url');
 
-            $table->string('img_width');
-            $table->string('img_height');
-            $table->string('thumb_width');
-            $table->string('thumb_height');
+            $table->string('img_width')->nullable();
+            $table->string('img_height')->nullable();
+            $table->string('thumb_width')->nullable();
+            $table->string('thumb_height')->nullable();
 
-            $table->string('img_bytes');
-            $table->string('thumb_bytes');
+            $table->string('img_bytes')->nullable();
+            $table->string('thumb_bytes')->nullable();
 
-            $table->string('format');
-            $table->string('original_filename');
+            $table->string('format')->nullable();
+            $table->string('original_filename')->nullable();
 
             $table->timestamps();
         });

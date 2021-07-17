@@ -83,6 +83,9 @@ class LoginController extends Controller
             'Bearer_token' => $token,
             'expires_at' => $tokenExpiresAt,
             'user' => $user,
+            'companies' => $user->companies,
+            'stores' => $user->stores,
+            'is_designer' => $user->is_designer,
             'type' => $guard
             // 'data' => [
             //     'token_type' => 'Bearer',

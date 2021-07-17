@@ -167,7 +167,8 @@ return [
         /*
          * Package Service Providers...
          */
-        'JD\Cloudder\CloudderServiceProvider',
+        Intervention\Image\ImageServiceProvider::class,
+        // 'JD\Cloudder\CloudderServiceProvider',
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         /*
          * Application Service Providers...
@@ -229,11 +230,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Cloudder' => 'JD\Cloudder\Facades\Cloudder',
+        // 'Cloudder' => 'JD\Cloudder\Facades\Cloudder',
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-
-
-
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];
