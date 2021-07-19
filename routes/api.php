@@ -52,17 +52,17 @@ Route::group(['middleware' => 'auth_user', 'prefix' => 'account/addproject'], fu
     Route::post('supplier', 'ProjectController@addProjectSupplier');
     Route::post('addContentImage', 'ProjectController@addProjectContentImage');
     Route::post('designer', 'ProjectController@addProjectDesigner');
-    Route::post('role' , 'ProjectController@addProjectRole');
+    Route::post('role', 'ProjectController@addProjectRole');
     Route::post('cover', 'ProjectController@addProjectCover');
 });
 
 
 //add product process
-Route::group(['middleware' => 'auth_user', 'prefix' => 'addproduct'], function () {
-    Route::post('identity', 'ProductController@AddProduct');
-    Route::post('option-price/{id}', 'ProductController@addOptionToProduct');
-    Route::post('description/{id}', 'ProductController@addDescriptionToProduct');
-});
+// Route::group(['middleware' => 'auth_user', 'prefix' => 'addproduct'], function () {
+Route::post('identity', 'ProductController@AddProduct');
+Route::post('option-price/{id}', 'ProductController@addOptionToProduct');
+Route::post('description/{id}', 'ProductController@addDescriptionToProduct');
+// });
 
 Route::get('auth/redirect', function () {
     return Socialite::driver('facebook')->redirect();

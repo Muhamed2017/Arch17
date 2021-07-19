@@ -9,12 +9,13 @@ use Spatie\Permission\Traits\HasRoles;
 
 use Illumminate\Notifications\Notifiable;
 use App\Models\BusinessAccount;
+use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 
 class User extends Authenticatable implements JWTSubject
 {
     // use HasFactory,
     //  use Notifiable;
-
+    use MediaAlly;
     /**
      * The attributes that are mass assignable.
      *

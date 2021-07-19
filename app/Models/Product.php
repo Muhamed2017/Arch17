@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
+
 
 class Product extends Model
 {
     use HasFactory;
+    // use MediaAlly;
     public function collections()
     {
-        return $this->morphToMany(Collection::class , 'collectionable');
+        return $this->morphToMany(Collection::class, 'collectionable');
     }
 
 
@@ -19,8 +22,8 @@ class Product extends Model
     ];
 
     protected $fillable = [
-        'store_id', 'user_id',  'business_account_id', 'name', 'kind', 'city', 'style', 'category', 'text_description', 'places_tags', 'country', 'city',
-
+        'store_id', 'user_id',  'business_account_id', 'name', 'kind', 'city', 'style', 'category', 'material', 'places_tags', 'country', 'shape', 'base', 'seats', 'is_outdoor', 'is_for_kids', 'type',
+        'product_file_kind'
     ];
 
 

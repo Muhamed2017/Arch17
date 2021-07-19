@@ -168,6 +168,9 @@ return [
          * Package Service Providers...
          */
         Intervention\Image\ImageServiceProvider::class,
+        CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
+
+
         // 'JD\Cloudder\CloudderServiceProvider',
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         /*
@@ -232,7 +235,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         // 'Cloudder' => 'JD\Cloudder\Facades\Cloudder',
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class
+
     ],
 
 ];

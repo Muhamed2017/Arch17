@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Store extends Model
 {
     use HasFactory;
+    use MediaAlly;
 
     protected $table = 'stores';
 
@@ -15,30 +17,32 @@ class Store extends Model
         'business_account_id', 'user_id', 'name', 'country', 'city', 'about', 'phone', 'email', 'official_website'
     ];
 
-     protected $dates = [
+    protected $dates = [
         'created_at',
         'updated_at'
     ];
 
 
-    public function businessAccont(){
+    public function businessAccont()
+    {
         return $this->belongsTo('App\Models\BusinessAccount');
     }
 
 
-    public function products(){
+    public function products()
+    {
         return $this->hasMany('App\Models\Product');
     }
 
     public function projects()
     {
-        return $this->morphMany(Project::class,'authorable');
+        return $this->morphMany(Project::class, 'authorable');
     }
 
 
     // protected $appens='logo';
     public function followers()
     {
-        return $this->morphMany(Follower::class , 'followerable');
+        return $this->morphMany(Follower::class, 'followerable');
     }
 }

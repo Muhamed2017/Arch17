@@ -26,36 +26,48 @@ class ProductController extends Controller
             // step one
             'name'          => 'required|string|max:250',
             'kind'          => 'required|string|max:2000',
+            'type'          => 'nullable|string|max:2000',
             'category'      => 'required|string|max:2000',
             'style'         => 'required|string|max:2000',
+            'kind'          => 'required|string|max:250',
+            'material'      => 'nullable|string|max:250',
+            'base'      =>     'nullable|string|max:250',
+            'seats'      =>     'nullable|string|max:250',
+            'shape'      =>     'nullable|string|max:250',
             'country'       => 'required|string|max:250',
-            'country'       => 'required|string|max:250',
-            'text_description'       => 'required|string|max:250',
             'places_tags'   => 'required|array',
-            'city'          => 'required|string|max:250',
             'places_tags.*' => 'string|max:250',
-
+            'is_outdoor'    => 'nullable|string|max:250',
+            'is_for_kids'    => 'nullable|string|max:250',
+            'product_file_kind' => 'nullable|string|max:250',
         ]);
 
-        if (!$user) {
-            return response()->json([
-                'message' => 'user not found'
-            ], 404);
-        }
+        // if (!$user) {
+        //     return response()->json([
+        //         'message' => 'user not found'
+        //     ], 404);
+        // }
         $product = new Product();
-        $product->store_id = $store_id;
-        $product->user_id = $user->id;
-        $product->business_account_id = $business_account_id;
+        // $product->store_id = $store_id;
+        // $product->user_id = $user->id;
+        // $product->business_account_id = $business_account_id;
+        $product->store_id = 1;
+        $product->user_id = 1;
+        $product->business_account_id = 1;
         $product->name = $request->name;
         $product->kind = $request->kind;
         $product->places_tags = $request->places_tags;
         $product->style = $request->style;
         $product->category = $request->category;
         $product->country = $request->country;
-        $product->city = $request->city;
-        $product->text_description = $request->text_description;
-
-
+        $product->type = $request->type;
+        $product->base = $request->base;
+        $product->shape = $request->shape;
+        $product->seats = $request->seats;
+        $product->material = $request->material;
+        $product->is_outdoor = $request->is_outdoor;
+        $product->is_for_kids = $request->is_for_kids;
+        $product->product_file_kind = $request->product_file_kind;
         if ($product->save()) {
             return response()->json([
                 'message' => 'product_identity created, ready to add option and price',

@@ -37,21 +37,13 @@ class RegisterController extends Controller
     {
         $guard = $request->route()->getName();
 
-        try {
-            $this->validate($request, [
-                'fname' => 'nullable|string|max:255',
-                'lname' => 'nullable|string|max:250',
-                'email' => $guard == 'user' ? 'required|email|max:255|unique:users,email' : 'required|email|max:255|unique:users,email',
-                'password' => 'required|confirmed|min:6|max:255',
+        $this->validate($request, [
+            'fname' => 'nullable|string|max:255',
+            'lname' => 'nullable|string|max:250',
+            'email' => $guard == 'user' ? 'required|email|max:255|unique:users,email' : 'required|email|max:255|unique:users,email',
+            'password' => 'required|confirmed|min:6|max:255',
 
-            ]);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'successful' => '0',
-                'status'  => '02',
-                'error' => 'Invalid data: ' . $e
-            ], 400);
-        }
+        ]);
 
         $user_input = $request->only(
             'fname',
@@ -72,7 +64,8 @@ class RegisterController extends Controller
         if ($user->save()) {
 
             if ($request->hasFile('avatar')) {
-                (new AddImagesToEntity($request->avatar, $user, ["width" => 600]))->execute();
+                $user->attachMedia($request->avatar);
+                // (new AddImagesToEntity($request->avatar, $user, ["width" => 600]))->execute();
             }
 
             $token = auth('user')->login($user);
