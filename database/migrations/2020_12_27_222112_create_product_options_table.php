@@ -16,11 +16,11 @@ class CreateProductOptionsTable extends Migration
         Schema::create('product_options', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id')->unsigned();
-            $table->string('material_name');
+            $table->string('material_name')->nullable();
             $table->string('size')->nullable();
-            $table->string('price');
+            $table->string('price')->nullable();
             $table->string('offer_price')->nullable();
-            $table->string('quantity');
+            $table->string('quantity')->nullable();
             $table->timestamps();
         });
     }

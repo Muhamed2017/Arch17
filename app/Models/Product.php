@@ -10,33 +10,39 @@ use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 class Product extends Model
 {
     use HasFactory;
-    // use MediaAlly;
+    use MediaAlly;
+
+
     public function collections()
     {
         return $this->morphToMany(Collection::class, 'collectionable');
     }
 
 
-    protected $casts = [
-        'places_tags' => 'array',
-    ];
-
     protected $fillable = [
-        'store_id', 'user_id',  'business_account_id', 'name', 'kind', 'city', 'style', 'category', 'material', 'places_tags', 'country', 'shape', 'base', 'seats', 'is_outdoor', 'is_for_kids', 'type',
-        'product_file_kind'
+        'store_id', 'user_id',  'business_account_id', 'kind'
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at'
+    ];
 
     public function images()
     {
         return $this->morphMany('App\Models\Image', 'imageable');
     }
 
+    public function identity()
+    {
+        return $this->hasOne('App\Models\ProductIdentity');
+    }
 
     public function options()
     {
         return $this->hasMany('App\Models\ProductOptions');
     }
+
     public function description()
     {
         return $this->hasOne('App\Models\ProductDescription');

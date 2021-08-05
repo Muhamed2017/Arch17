@@ -2,20 +2,21 @@
 
 namespace App\Models;
 
+use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
+// use App\Support\Services\Medially;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductOptions extends Model
 {
     use HasFactory;
-
+    use MediaAlly;
     protected $table = 'product_options';
 
 
     protected $fillable = [
         'product_id', 'material_name', 'price', 'size', 'quantity', 'offer_price'
     ];
-
 
     public function images()
     {

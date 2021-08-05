@@ -59,9 +59,15 @@ Route::group(['middleware' => 'auth_user', 'prefix' => 'account/addproject'], fu
 
 //add product process
 // Route::group(['middleware' => 'auth_user', 'prefix' => 'addproduct'], function () {
-Route::post('identity', 'ProductController@AddProduct');
+
+Route::post('addproduct', 'ProductController@AddProduct');
+Route::post('identity/{id}', 'ProductController@AddProductIdentity');
 Route::post('option-price/{id}', 'ProductController@addOptionToProduct');
 Route::post('description/{id}', 'ProductController@addDescriptionToProduct');
+
+// test image upload ...
+Route::post('upload', 'ProductController@testImageUpload');
+
 // });
 
 Route::get('auth/redirect', function () {
@@ -69,9 +75,9 @@ Route::get('auth/redirect', function () {
 });
 
 Route::get('auth/callback', function () {
-    $user = Socialite::driver('facebook')->stateless()->user();
+    //    s // $user = Socialite::driver('facebook')->stateless()->user();
 
-    return $user;
+    // return $user;
 
     // $user->token
 });

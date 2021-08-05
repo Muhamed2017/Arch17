@@ -8,6 +8,7 @@ use App\Support\Services\AddImagesToEntity;
 
 use App\Models\Product;
 use App\Models\ProductDescription;
+use App\Models\ProductIdentity;
 use App\Models\ProductOptions;
 use PhpOption\Option;
 
@@ -15,12 +16,41 @@ class ProductController extends Controller
 {
 
 
-    // product identity - step one
+    // product entity - step zero
+
     public function AddProduct(Request $request)
     {
-        $user = auth('user')->user();
-        $store_id = 1;
-        $business_account_id = 1;
+        $this->validate($request, [
+            'kind'          => 'required|string|max:2000',
+        ]);
+
+        // $product->store_id = $store_id;
+        // $product->user_id = $user->id;
+        // $product->business_account_id = $business_account_id;
+        $product = new Product();
+        $product->store_id = 1;
+        $product->user_id = 1;
+        $product->business_account_id = 1;
+        $product->kind = $request->kind;
+
+        if ($product->save()) {
+            $product->identity()->create();
+            return response()->json([
+                'message' => 'product_identity created, ready to add option and price',
+                'product' => $product,
+
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Error occured, try agian later'
+            ], 500);
+        }
+    }
+
+    // product identity - step one
+    public function AddProductIdentity(Request $request, $id)
+    {
+        // $user = auth('user')->user();
 
         $this->validate($request, [
             // step one
@@ -41,38 +71,32 @@ class ProductController extends Controller
             'is_for_kids'    => 'nullable|string|max:250',
             'product_file_kind' => 'nullable|string|max:250',
         ]);
+        $product = Product::findOrFail($id);
+        $product_identity = ProductIdentity::findOrFail($product->id);
+        $product_identity->name = $request->name;
+        $product_identity->kind = $request->kind;
+        $product_identity->places_tags = $request->places_tags;
+        $product_identity->style = $request->style;
+        $product_identity->category = $request->category;
+        $product_identity->country = $request->country;
+        $product_identity->type = $request->type;
+        $product_identity->base = $request->base;
+        $product_identity->shape = $request->shape;
+        $product_identity->seats = $request->seats;
+        $product_identity->material = $request->material;
+        $product_identity->is_outdoor = $request->is_outdoor;
+        $product_identity->is_for_kids = $request->is_for_kids;
+        $product_identity->product_file_kind = $request->product_file_kind;
+        if ($product_identity->save()) {
+            $options_prices = new ProductOptions();
+            $options_prices->product_id = $product_identity->product_id;
+            if ($options_prices->save()) {
+                return response()->json([
+                    'message' => 'product_identity created, ready to add option and price',
+                    'identity' => $product_identity,
 
-        // if (!$user) {
-        //     return response()->json([
-        //         'message' => 'user not found'
-        //     ], 404);
-        // }
-        $product = new Product();
-        // $product->store_id = $store_id;
-        // $product->user_id = $user->id;
-        // $product->business_account_id = $business_account_id;
-        $product->store_id = 1;
-        $product->user_id = 1;
-        $product->business_account_id = 1;
-        $product->name = $request->name;
-        $product->kind = $request->kind;
-        $product->places_tags = $request->places_tags;
-        $product->style = $request->style;
-        $product->category = $request->category;
-        $product->country = $request->country;
-        $product->type = $request->type;
-        $product->base = $request->base;
-        $product->shape = $request->shape;
-        $product->seats = $request->seats;
-        $product->material = $request->material;
-        $product->is_outdoor = $request->is_outdoor;
-        $product->is_for_kids = $request->is_for_kids;
-        $product->product_file_kind = $request->product_file_kind;
-        if ($product->save()) {
-            return response()->json([
-                'message' => 'product_identity created, ready to add option and price',
-                'product' => $product,
-            ], 200);
+                ], 200);
+            }
         } else {
             return response()->json([
                 'message' => 'Error occured, try agian later'
@@ -93,11 +117,11 @@ class ProductController extends Controller
             'cover'         => 'nullable|array',
             'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
             'material_pic'  => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024'
-
         ]);
 
-        $product_options = new ProductOptions();
         $product = Product::findOrFail($id);
+        $product_options = $product->options;
+
         $product_options->product_id = $product->id;
         $product_options->material_name = $request->material_name;
         $product_options->size = $request->size;
@@ -105,9 +129,10 @@ class ProductController extends Controller
         $product_options->offer_price =  $request->offer_price;
         $product_options->quantity =  $request->quantity;
 
-        if ($product_options->save()) {
-            $this->attachRelatedModels($product_options, $request);
 
+        if ($product_options->save()) {
+            $product_options->attachMedia($request->cover);
+            $product_options->attachMedia($request->material_pic);
             return response()->json([
                 'message' => 'option attached to product successfully',
                 'options' => $product->options
@@ -153,16 +178,28 @@ class ProductController extends Controller
         }
     }
 
-
-
-    public function attachRelatedModels($entity, $request)
+    public function testImageUpload(Request $request)
     {
-        if ($request->hasFile('cover')) (new AddImagesToEntity($request->cover, $entity, ["width" => 1024]))->execute();
-        if ($request->hasFile('material_pic')) (new AddImagesToEntity($request->material_pic, $entity, ["width" => 1024]))->execute();
-        if ($request->hasFile('description_media')) (new AddImagesToEntity($request->description_media, $entity, ["width" => 1024]))->execute();
+        $this->validate($request, [
+            'img'   => 'nullable|array',
+            'img.*' => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000'
+
+        ]);
+        $product = Product::find(1);
+
+        if ($request->hasFile('img')) {
+
+            foreach ($request->img as $img) {
+                $product->attachMedia($img);
+            }
+        }
+
+
+        return response()->json([
+            'message' => "Successfully Imaged Uploaded!",
+            'img' => $product->fetchAllMedia()
+        ], 200);
     }
 
-    // public function attachdescr($product_description, $request)
-    // {
     // }
 }
