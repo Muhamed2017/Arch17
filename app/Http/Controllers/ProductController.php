@@ -10,7 +10,10 @@ use App\Models\Product;
 use App\Models\ProductDescription;
 use App\Models\ProductIdentity;
 use App\Models\ProductOptions;
+use CloudinaryLabs\CloudinaryLaravel\Model\Media;
 use PhpOption\Option;
+
+use function GuzzleHttp\Promise\each;
 
 class ProductController extends Controller
 {
@@ -108,37 +111,61 @@ class ProductController extends Controller
     // product options and price - step two
     public function addOptionToProduct(Request $request, $id)
     {
-        $this->validate($request, [
-            'material_name' => 'required|string|max:250',
-            'size'          => 'required|string|max:2000',
-            'price'         => 'required|string|max:2000',
-            'offer_price'   => 'required|string|max:2000',
-            'quantity'      => 'required|string|max:250',
-            'cover'         => 'nullable|array',
-            'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
-            'material_pic'  => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024'
-        ]);
 
-        $product = Product::findOrFail($id);
-        $product_options = $product->options;
-
-        $product_options->product_id = $product->id;
-        $product_options->material_name = $request->material_name;
-        $product_options->size = $request->size;
-        $product_options->price = $request->price;
-        $product_options->offer_price =  $request->offer_price;
-        $product_options->quantity =  $request->quantity;
-
-
-        if ($product_options->save()) {
-            $product_options->attachMedia($request->cover);
-            $product_options->attachMedia($request->material_pic);
-            return response()->json([
-                'message' => 'option attached to product successfully',
-                'options' => $product->options
-            ], 200);
+        $data = $request->all();
+        $row_covers = $request->allFiles();
+        foreach ($data as $option) {
+            $option_price = new ProductOptions($option);
+            $option_price->product_id = $id;
+            // $option_price->save();
+            if ($option_price->save()) {
+                if (!empty($row_covers)) {
+                    foreach ($row_covers as $covers) {
+                        foreach ($covers as $cover) {
+                            $option_price->attachMedia($cover);
+                        }
+                    }
+                }
+            }
+            // $option_price->save();
         }
+
+        return response()->json($data);
+        // return $covers;
     }
+    // $this->validate($request, [
+    //     'material_name' => 'required|string|max:250',
+    //     'size'          => 'required|string|max:2000',
+    //     'price'         => 'required|string|max:2000',
+    //     'offer_price'   => 'required|string|max:2000',
+    //     'quantity'      => 'required|string|max:250',
+    //     'cover'         => 'nullable|array',
+    //     'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
+    //     'material_pic'  => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024'
+    // ]);
+
+    // $product = Product::findOrFail($id);
+    // // $product_options = $product->options();
+    // $product_options = new ProductOptions();
+
+    // $product_options->product_id = $product->id;
+    // $product_options->material_name = $request->material_name;
+    // $product_options->size = $request->size;
+    // $product_options->price = $request->price;
+    // $product_options->offer_price =  $request->offer_price;
+    // $product_options->quantity =  $request->quantity;
+
+    // if ($product_options->save()) {
+    //     // $product_options->attachMedia($request->cover);
+    //     // $product_options->attachMedia($request->material_pic);
+    //     return response()->json([
+    //         'message' => 'option attached to product successfully',
+    //         'options' => $product->options
+    //     ], 200);
+    // }
+
+    // return $request->all();
+    // }
 
 
     // product description -step three
