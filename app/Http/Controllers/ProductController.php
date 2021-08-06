@@ -112,60 +112,73 @@ class ProductController extends Controller
     public function addOptionToProduct(Request $request, $id)
     {
 
-        $data = $request->all();
-        $row_covers = $request->allFiles();
-        foreach ($data as $option) {
-            $option_price = new ProductOptions($option);
-            $option_price->product_id = $id;
-            // $option_price->save();
-            if ($option_price->save()) {
-                if (!empty($row_covers)) {
-                    foreach ($row_covers as $covers) {
-                        foreach ($covers as $cover) {
-                            $option_price->attachMedia($cover);
-                        }
-                    }
-                }
+        // $data = $request->all();
+        // $added_options = [];
+        // $row_covers = $request["cover"];
+        // foreach ($data as $option) {
+        //     $option_price = new ProductOptions($option);
+        //     $option_price->product_id = $id;
+        //     // $option_price->save();
+        //     if ($option_price->save()) {
+
+        //         // $added_
+        //         // foreach ($row_covers as $covers) {
+        //         //     foreach ($covers as $cover) {
+        //         //         $option_price->attachMedia($cover);
+        //         //     }
+        //         // }
+        //         // if (!empty($row_covers)) {
+        //         //     foreach ($row_covers as $covers) {
+        //         //         foreach ($covers as $cover) {
+        //         //             $option_price->attachMedia($cover);
+        //         //         }
+        //         //     }
+        //         // }
+        //         // foreach ($option["cover"] as $cover) {
+        //         //     foreach ($cover as $one) {
+        //         //         $option_price->attachMedia($one);
+        //         //     }
+        //         // }
+        //     }
+        //     // $option_price->save();
+        // }
+        $this->validate($request, [
+            'material_name' => 'required|string|max:250',
+            'size'          => 'required|string|max:2000',
+            'price'         => 'required|string|max:2000',
+            'offer_price'   => 'required|string|max:2000',
+            'quantity'      => 'required|string|max:250',
+            'cover'         => 'required|array',
+            // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
+            // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
+            'cover.*'       => 'required|image|mimes:jpeg,bmp,jpg,png',
+            'material_pic'  => 'required|image|mimes:jpeg,bmp,jpg,png'
+        ]);
+
+        $product = Product::find($id);
+        $product_options = new ProductOptions();
+
+        $product_options->product_id = $product->id;
+        $product_options->material_name = $request->material_name;
+        $product_options->size = $request->size;
+        $product_options->price = $request->price;
+        $product_options->offer_price =  $request->offer_price;
+        $product_options->quantity =  $request->quantity;
+
+        if ($product_options->save()) {
+            foreach ($request->cover as $cover) {
+                $product_options->attachMedia($cover);
             }
-            // $option_price->save();
+            $product_options->attachMedia($request->material_pic);
+            return response()->json([
+                'message' => 'option attached to product successfully',
+                'options' => $product->options
+            ], 200);
         }
-
-        return response()->json($data);
-        // return $covers;
+        return response()->json([
+            'message' => 'Something went wrong ',
+        ], 500);
     }
-    // $this->validate($request, [
-    //     'material_name' => 'required|string|max:250',
-    //     'size'          => 'required|string|max:2000',
-    //     'price'         => 'required|string|max:2000',
-    //     'offer_price'   => 'required|string|max:2000',
-    //     'quantity'      => 'required|string|max:250',
-    //     'cover'         => 'nullable|array',
-    //     'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
-    //     'material_pic'  => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024'
-    // ]);
-
-    // $product = Product::findOrFail($id);
-    // // $product_options = $product->options();
-    // $product_options = new ProductOptions();
-
-    // $product_options->product_id = $product->id;
-    // $product_options->material_name = $request->material_name;
-    // $product_options->size = $request->size;
-    // $product_options->price = $request->price;
-    // $product_options->offer_price =  $request->offer_price;
-    // $product_options->quantity =  $request->quantity;
-
-    // if ($product_options->save()) {
-    //     // $product_options->attachMedia($request->cover);
-    //     // $product_options->attachMedia($request->material_pic);
-    //     return response()->json([
-    //         'message' => 'option attached to product successfully',
-    //         'options' => $product->options
-    //     ], 200);
-    // }
-
-    // return $request->all();
-    // }
 
 
     // product description -step three
