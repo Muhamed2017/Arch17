@@ -28,7 +28,7 @@ class Product extends Model
         'updated_at'
     ];
 
-    public $appends = ['identity', 'options', 'files'];
+    public $appends = ['identity', 'options', 'description', 'files'];
 
     public function images()
     {
@@ -72,6 +72,11 @@ class Product extends Model
     public function getOptionsAttribute()
     {
         return $this->options()->get();
+    }
+
+     public function getDescriptionAttribute()
+    {
+        return $this->description()->get();
     }
 
     public static function boot()
