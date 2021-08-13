@@ -64,6 +64,9 @@ Route::post('addproduct', 'ProductController@AddProduct');
 Route::post('identity/{id}', 'ProductController@AddProductIdentity');
 Route::post('option-price/{id}', 'ProductController@addOptionToProduct');
 Route::post('description/{id}', 'ProductController@addDescriptionToProduct');
+Route::post('desc/{id}', 'ProductController@ProductDescription');
+Route::post('files/{id}', 'ProductController@ProductFiles');
+Route::get('product/{id}', 'ProductController@getProductById');
 
 // test image upload ...
 Route::post('upload', 'ProductController@testImageUpload');

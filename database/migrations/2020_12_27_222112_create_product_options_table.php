@@ -17,6 +17,8 @@ class CreateProductOptionsTable extends Migration
             $table->id();
             $table->integer('product_id')->unsigned();
             $table->string('material_name')->nullable();
+            $table->string('material_image')->nullable();
+            $table->text('cover')->nullable();
             $table->string('size')->nullable();
             $table->string('price')->nullable();
             $table->string('offer_price')->nullable();
@@ -24,7 +26,6 @@ class CreateProductOptionsTable extends Migration
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

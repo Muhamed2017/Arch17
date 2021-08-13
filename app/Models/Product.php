@@ -28,6 +28,8 @@ class Product extends Model
         'updated_at'
     ];
 
+    public $appends = ['options', 'files'];
+
     public function images()
     {
         return $this->morphMany('App\Models\Image', 'imageable');
@@ -48,12 +50,26 @@ class Product extends Model
         return $this->hasOne('App\Models\ProductDescription');
     }
 
+    public function files()
+    {
+        return $this->hasOne('App\Models\ProductFiles');
+    }
+
+
     public function store()
     {
         return $this->belonsTo('App\Models\Store');
     }
 
 
+    public function getFilesAttribute()
+    {
+        return $this->files()->get();
+    }
+    public function getOptionsAttribute()
+    {
+        return $this->options()->get();
+    }
 
     public static function boot()
     {

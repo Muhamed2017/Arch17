@@ -13,15 +13,18 @@ class ProductOptions extends Model
     use MediaAlly;
     protected $table = 'product_options';
 
-
     protected $fillable = [
-        'product_id', 'material_name', 'price', 'size', 'quantity', 'offer_price'
+        'product_id', 'cover', 'material_name', 'material_image', 'price', 'size', 'quantity', 'offer_price'
     ];
 
-    public function images()
-    {
-        return $this->morphMany('App\Models\Image', 'imageable');
-    }
+    protected $casts = [
+        'cover' => 'array',
+    ];
+
+    protected $hidden = [
+        'id', 'product_id'
+    ];
+
 
     public function product()
     {

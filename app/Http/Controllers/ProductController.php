@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\ProductDescription;
 use App\Models\ProductIdentity;
 use App\Models\ProductOptions;
+use App\Models\ProductFiles;
 use CloudinaryLabs\CloudinaryLaravel\Model\Media;
 use PhpOption\Option;
 
@@ -74,7 +75,7 @@ class ProductController extends Controller
             'is_for_kids'    => 'nullable|string|max:250',
             'product_file_kind' => 'nullable|string|max:250',
         ]);
-        $product = Product::findOrFail($id);
+        $product = Product::find($id);
         $product_identity = ProductIdentity::findOrFail($product->id);
         $product_identity->name = $request->name;
         $product_identity->kind = $request->kind;
@@ -111,68 +112,39 @@ class ProductController extends Controller
     // product options and price - step two
     public function addOptionToProduct(Request $request, $id)
     {
-
-        // $data = $request->all();
-        // $added_options = [];
-        // $row_covers = $request["cover"];
-        // foreach ($data as $option) {
-        //     $option_price = new ProductOptions($option);
-        //     $option_price->product_id = $id;
-        //     // $option_price->save();
-        //     if ($option_price->save()) {
-
-        //         // $added_
-        //         // foreach ($row_covers as $covers) {
-        //         //     foreach ($covers as $cover) {
-        //         //         $option_price->attachMedia($cover);
-        //         //     }
-        //         // }
-        //         // if (!empty($row_covers)) {
-        //         //     foreach ($row_covers as $covers) {
-        //         //         foreach ($covers as $cover) {
-        //         //             $option_price->attachMedia($cover);
-        //         //         }
-        //         //     }
-        //         // }
-        //         // foreach ($option["cover"] as $cover) {
-        //         //     foreach ($cover as $one) {
-        //         //         $option_price->attachMedia($one);
-        //         //     }
-        //         // }
-        //     }
-        //     // $option_price->save();
-        // }
         $this->validate($request, [
             'material_name' => 'required|string|max:250',
+            'material_image' => 'required|image|mimes:png,jpg',
             'size'          => 'required|string|max:2000',
             'price'         => 'required|string|max:2000',
             'offer_price'   => 'required|string|max:2000',
             'quantity'      => 'required|string|max:250',
             'cover'         => 'required|array',
-            // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
-            // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
             'cover.*'       => 'required|image|mimes:jpeg,bmp,jpg,png',
-            'material_pic'  => 'required|image|mimes:jpeg,bmp,jpg,png'
+            // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
+            // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
+
         ]);
 
         $product = Product::find($id);
         $product_options = new ProductOptions();
-
         $product_options->product_id = $product->id;
         $product_options->material_name = $request->material_name;
         $product_options->size = $request->size;
         $product_options->price = $request->price;
         $product_options->offer_price =  $request->offer_price;
         $product_options->quantity =  $request->quantity;
+        $cover_path = [];
+        foreach ($request->cover as $cover) {
+            array_push($cover_path, $cover->storeOnCloudinary()->getSecurePath());
+        }
+        $product_options->material_image =  $request->material_image->storeOnCloudinary()->getSecurePath();
+        $product_options->cover = $cover_path;
 
         if ($product_options->save()) {
-            foreach ($request->cover as $cover) {
-                $product_options->attachMedia($cover);
-            }
-            $product_options->attachMedia($request->material_pic);
             return response()->json([
                 'message' => 'option attached to product successfully',
-                'options' => $product->options
+                'options' => $product_options
             ], 200);
         }
         return response()->json([
@@ -181,48 +153,137 @@ class ProductController extends Controller
     }
 
 
-    // product description -step three
-    public function addDescriptionToProduct(Request $request, $id)
+
+
+    public function ProductDescription(Request $request, $id)
     {
         $this->validate($request, [
-            'description_text'    => 'required|array',
-            'description_text.*'  => 'string',
-            'description_media'   => 'nullable|array',
-            'description_media.*' => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
-
+            'desc_overview_img'   => 'nullable|array',
+            'desc_overview_img.*' => 'nullable|mimes:jpeg,bmp,jpg,png',
+            'desc_mat_desc_img'   => 'nullable|array',
+            'desc_mat_desc_img.*' => 'nullable|mimes:jpeg,bmp,jpg,png',
+            'desc_dimension_img'   => 'nullable|array',
+            'desc_dimension_img.*' => 'nullable|mimes:jpeg,bmp,jpg,png',
+            'desc_gallery_files'   => 'nullable|array',
+            'desc_gallery_files.*' => 'nullable|mimes:jpeg,bmp,jpg,png,mp4'
         ]);
-
-        $product_description = new ProductDescription();
-        $product = Product::findOrFail($id);
-
-        $product_description->product_id = $product->id;
-        $product_description->description_text = $request->description_text;
-
-        if ($product->description) {
+        $product = Product::find($id);
+        if (!$product) {
             return response()->json([
-                'message' => 'product has already a description',
-                'product_description' => $product->description
-
-            ], 409);
+                'message' => "product not found or deleted"
+            ], 404);
         }
-        if ($product_description->save()) {
+        $product_desc = new ProductDescription();
+        $product_desc->product_id = $product->id;
+        $overview_path = [];
+        $materials_path = [];
+        $dimensions_path = [];
+        $gallery_path = [];
 
-            $this->attachRelatedModels($product_description, $request);
-            return response()->json(
-                [
-                    'message' => 'description attached to product successfully',
-                    'product_description' => $product->description
-                ],
-                200
-            );
+        if ($request->hasFile('desc_overview_img')) {
+            foreach ($request->desc_overview_img as $img) {
+                array_push($overview_path, $img->storeOnCloudinary()->getSecurePath());
+            }
+            $product_desc->desc_overview_img = $overview_path;
+        }
+        if ($request->hasFile('desc_mat_desc_img')) {
+            foreach ($request->desc_mat_desc_img as $img) {
+                array_push($materials_path, $img->storeOnCloudinary()->getSecurePath());
+            }
+            $product_desc->desc_mat_desc_img = $materials_path;
+        }
+        if ($request->hasFile('desc_dimension_img')) {
+            foreach ($request->desc_dimension_img as $img) {
+                array_push($dimensions_path, $img->storeOnCloudinary()->getSecurePath());
+            }
+            $product_desc->desc_dimension_img = $dimensions_path;
+        }
+        if ($request->hasFile('desc_gallery_files')) {
+            foreach ($request->desc_gallery_files as $img) {
+                array_push($gallery_path, $img->storeOnCloudinary()->getSecurePath());
+            }
+            $product_desc->desc_gallery_files = $gallery_path;
+        }
+        if ($product_desc->save()) {
+            return response()->json([
+                'message' => 'product description added successfully',
+                'product_desc' => $product_desc,
+            ], 201);
         }
     }
 
+
+    public function ProductFiles(Request $request, $id)
+    {
+        $this->validate($request, [
+            'files_cad_2d'   => 'nullable|array',
+            'files_cad_2d.*' => 'nullable',
+            'files_3d'   => 'nullable|array',
+            'files_3d.*' => 'nullable',
+            'files_pdf_cats'   => 'nullable|array',
+            'files_pdf_cats.*' => 'nullable|mimes:pdf',
+        ]);
+        $product = Product::find($id);
+
+        if (!$product) {
+            return response()->json([
+                'message' => "product not found or deleted"
+            ], 404);
+        }
+        $product_files = new ProductFiles();
+        $product_files->product_id = $product->id;
+
+        $two_d_files_path = [];
+        $three_d_files_path = [];
+        $pfd_cats_files_path = [];
+
+        if ($request->hasFile('files_cad_2d')) {
+            foreach ($request->files_cad_2d as $img) {
+                array_push($two_d_files_path, $img->storeOnCloudinary()->getSecurePath());
+            }
+            $product_files->files_cad_2d = $two_d_files_path;
+        }
+        if ($request->hasFile('files_3d')) {
+            foreach ($request->files_3d as $img) {
+                array_push($three_d_files_path, $img->storeOnCloudinary()->getSecurePath());
+            }
+            $product_files->files_3d = $three_d_files_path;
+        }
+        if ($request->hasFile('files_pdf_cats')) {
+            foreach ($request->files_pdf_cats as $img) {
+                array_push($pfd_cats_files_path, $img->storeOnCloudinary()->getSecurePath());
+            }
+            $product_files->files_pdf_cats = $pfd_cats_files_path;
+        }
+
+        if ($product_files->save()) {
+            return response()->json([
+                'message' => 'product description added successfully',
+                'product_desc' => $product_files,
+            ], 201);
+        }
+    }
+
+
+    public function getProductById($id)
+    {
+
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json([
+                'message' => "product not found or deleted"
+            ], 404);
+        }
+
+        return response()->json([
+            'product' => $product
+        ], 200);
+    }
     public function testImageUpload(Request $request)
     {
         $this->validate($request, [
             'img'   => 'nullable|array',
-            'img.*' => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000'
+            'img.*' => 'nullable|mimes:jpeg,bmp,jpg,png,mp4'
 
         ]);
         $product = Product::find(1);
@@ -240,6 +301,4 @@ class ProductController extends Controller
             'img' => $product->fetchAllMedia()
         ], 200);
     }
-
-    // }
 }
