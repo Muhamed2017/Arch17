@@ -114,13 +114,13 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'material_name' => 'required|string|max:250',
-            'material_image' => 'required|image|mimes:png,jpg',
+            'material_image' => 'required|mimes:png,jpg',
             'size'          => 'nullable|string|max:2000',
             'price'         => 'nullable|string|max:2000',
             'offer_price'   => 'nullable|string|max:2000',
             'quantity'      => 'required|string|max:250',
             'cover'         => 'required|array',
-            'cover.*'       => 'required|image|mimes:jpeg,bmp,jpg,png',
+            'cover.*'       => 'required|mimes:jpeg,jpg,png',
             // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
             // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
 
