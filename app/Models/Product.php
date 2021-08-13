@@ -28,7 +28,7 @@ class Product extends Model
         'updated_at'
     ];
 
-    public $appends = ['options', 'files'];
+    public $appends = ['identity', 'options', 'files'];
 
     public function images()
     {
@@ -55,12 +55,15 @@ class Product extends Model
         return $this->hasOne('App\Models\ProductFiles');
     }
 
-
     public function store()
     {
         return $this->belonsTo('App\Models\Store');
     }
 
+    public function getIdentityAttribute()
+    {
+        return $this->identity()->get();
+    }
 
     public function getFilesAttribute()
     {
