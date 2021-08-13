@@ -115,9 +115,9 @@ class ProductController extends Controller
         $this->validate($request, [
             'material_name' => 'required|string|max:250',
             'material_image' => 'required|image|mimes:png,jpg',
-            'size'          => 'required|string|max:2000',
-            'price'         => 'required|string|max:2000',
-            'offer_price'   => 'required|string|max:2000',
+            'size'          => 'nullable|string|max:2000',
+            'price'         => 'nullable|string|max:2000',
+            'offer_price'   => 'nullable|string|max:2000',
             'quantity'      => 'required|string|max:250',
             'cover'         => 'required|array',
             'cover.*'       => 'required|image|mimes:jpeg,bmp,jpg,png',
@@ -125,7 +125,6 @@ class ProductController extends Controller
             // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
 
         ]);
-
         $product = Product::find($id);
         $product_options = new ProductOptions();
         $product_options->product_id = $product->id;
@@ -217,9 +216,9 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'files_cad_2d'   => 'nullable|array',
-            'files_cad_2d.*' => 'nullable',
+            'files_cad_2d.*' => 'nullable|mimes:dwg',
             'files_3d'   => 'nullable|array',
-            'files_3d.*' => 'nullable',
+            'files_3d.*' => 'nullable|mimes:3ds,stl,obj ',
             'files_pdf_cats'   => 'nullable|array',
             'files_pdf_cats.*' => 'nullable|mimes:pdf',
         ]);
@@ -289,7 +288,6 @@ class ProductController extends Controller
         $product = Product::find(1);
 
         if ($request->hasFile('img')) {
-
             foreach ($request->img as $img) {
                 $product->attachMedia($img);
             }
