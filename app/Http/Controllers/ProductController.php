@@ -218,7 +218,7 @@ class ProductController extends Controller
             'files_cad_2d'   => 'nullable|array',
             'files_cad_2d.*' => 'nullable|mimes:dwg',
             'files_3d'   => 'nullable|array',
-            'files_3d.*' => 'nullable|mimes:3ds,stl,obj ',
+            'files_3d.*' => 'nullable|mimes:3ds,skp,obj',
             'files_pdf_cats'   => 'nullable|array',
             'files_pdf_cats.*' => 'nullable|mimes:pdf',
         ]);
