@@ -174,7 +174,7 @@ class ProductController extends Controller
         }
         $product_desc = null;
         if ($product->description) {
-            $product_desc = ProductDescription::findOrFail($product->id);
+            $product_desc = ProductDescription::where("product_id", $product->id);
         } else {
             $product_desc = new ProductDescription();
             $product_desc->product_id = $product->id;
@@ -236,7 +236,7 @@ class ProductController extends Controller
         }
         $product_desc = null;
         if ($product->description) {
-            $product_desc = ProductDescription::findOrFail($product->id);
+            $product_desc = ProductDescription::where('product_id', $product->id);
         } else {
             $product_desc = new ProductDescription();
             $product_desc->product_id = $product->id;
