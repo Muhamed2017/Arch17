@@ -172,8 +172,16 @@ class ProductController extends Controller
                 'message' => "product not found or deleted"
             ], 404);
         }
-        $product_desc = new ProductDescription();
-        $product_desc->product_id = $product->id;
+        $product_desc = null;
+        if ($product->description) {
+            $product_desc = ProductDescription::findOrFail($product->id);
+        } else {
+            $product_desc = new ProductDescription();
+            $product_desc->product_id = $product->id;
+        }
+
+        // $product_desc = new ProductDescription();
+        // $product_desc->product_id = $product->id;
         $overview_path = [];
         $materials_path = [];
         $dimensions_path = [];
@@ -226,8 +234,13 @@ class ProductController extends Controller
                 'message' => "product not found or deleted"
             ], 404);
         }
-        $product_desc = new ProductDescription();
-        $product_desc->product_id = $product->id;
+        $product_desc = null;
+        if ($product->description) {
+            $product_desc = ProductDescription::findOrFail($product->id);
+        } else {
+            $product_desc = new ProductDescription();
+            $product_desc->product_id = $product->id;
+        }
 
         if ($request->has('overview_content')) {
 

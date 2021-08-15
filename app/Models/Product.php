@@ -74,7 +74,7 @@ class Product extends Model
         return $this->options()->get();
     }
 
-     public function getDescriptionAttribute()
+    public function getDescriptionAttribute()
     {
         return $this->description()->get();
     }
