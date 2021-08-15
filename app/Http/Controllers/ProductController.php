@@ -175,7 +175,7 @@ class ProductController extends Controller
         $product_desc = null;
         if ($product->description) {
             // $product_desc = ProductDescription::with("")->where("product_id", $product->id);
-            $product_desc = $product->description;
+            $product_desc = ProductDescription::find($product->description->id);
         } else {
             $product_desc = new ProductDescription();
             $product_desc->product_id = $product->id;
@@ -238,7 +238,8 @@ class ProductController extends Controller
         $product_desc = null;
         if ($product->description) {
             // $product_desc = ProductDescription::with("")->where('product_id', $product->id);
-            $product_desc = $product->description;
+            // $product_desc = $product->description();
+            $product_desc = ProductDescription::find($product->description->id);
         } else {
             $product_desc = new ProductDescription();
             $product_desc->product_id = $product->id;
