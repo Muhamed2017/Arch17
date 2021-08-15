@@ -14,7 +14,7 @@ class ProductDescription extends Model
 
 
     protected $fillable = [
-        'product_id', 'desc_overview_img', 'desc_mat_desc_img', 'desc_dimension_img', 'desc_gallery_files'
+        'product_id', 'overview_content', 'mat_desc_content', 'size_content', 'desc_overview_img', 'desc_mat_desc_img', 'desc_dimension_img', 'desc_gallery_files'
     ];
 
     protected $casts = [

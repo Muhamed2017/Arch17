@@ -16,6 +16,9 @@ class CreateProductDescriptionTable extends Migration
         Schema::create('product_description', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id')->unsigned();
+            $table->longText('overview_content')->nullable();
+            $table->longText('mat_desc_content')->nullable();
+            $table->longText('size_content')->nullable();
             $table->text('desc_overview_img')->nullable();
             $table->text('desc_mat_desc_img')->nullable();
             $table->text('desc_dimension_img')->nullable();
