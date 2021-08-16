@@ -232,7 +232,7 @@ class ProductController extends Controller
         ]);
 
         $product = Product::find($id);
-        $desc_id = $product->description->id;
+        $desc_id = $product->description()->id;
         $product_desc = ProductDescription::find($desc_id);
 
         if (!$product) {
