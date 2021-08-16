@@ -374,10 +374,11 @@ class ProductController extends Controller
             }
         }
 
-
+        $latest_img = count($product->fetchAllMedia()) - 1;
         return response()->json([
             'message' => "Successfully Imaged Uploaded!",
-            'img' => $product->fetchAllMedia()
+            'img' => $product->fetchAllMedia(),
+            'lastIndex' => $latest_img
         ], 200);
     }
 }
