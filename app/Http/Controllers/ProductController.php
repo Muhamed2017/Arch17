@@ -214,12 +214,13 @@ class ProductController extends Controller
         //     // $product_desc->desc_gallery_files = $gallery_path;
         //     $product->description()->des
         // }
-        if ($product->push()) {
-            return response()->json([
-                'message' => 'product description added successfully',
-                'product_desc' => $product,
-            ], 201);
-        }
+        $product->push();
+        // if ($product->push()) {
+        return response()->json([
+            //         'message' => 'product description added successfully',
+            //         'product_desc' => $product,
+        ], 201);
+        // }
     }
 
     public function ProductDescriptionContent(Request $request, $id)
