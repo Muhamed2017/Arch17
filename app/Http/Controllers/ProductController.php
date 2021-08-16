@@ -236,8 +236,13 @@ class ProductController extends Controller
             ], 404);
         }
 
-        $product->description()->mat_desc_content = $request->mat_desc_content;
-        $product->description()->size_content = $request->size_content;
+        if ($request->has('mat_desc_content')) {
+            $product->description()->mat_desc_content = $request->mat_desc_content;
+        }
+        if ($request->has('mat_desc_content')) {
+            $product->description()->size_content = $request->size_content;
+        }
+
         if ($product->push()) {
             return response()->json([
                 'message' => 'product description added successfully',
