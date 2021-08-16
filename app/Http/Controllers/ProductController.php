@@ -232,6 +232,9 @@ class ProductController extends Controller
         ]);
 
         $product = Product::find($id);
+        $desc_id = $product->description->id;
+        $product_desc = ProductDescription::find($desc_id);
+
         if (!$product) {
             return response()->json([
                 'message' => "product not found or deleted"
@@ -239,13 +242,15 @@ class ProductController extends Controller
         }
 
         if ($request->has('mat_desc_content')) {
-            $product->description->mat_desc_content = $request->mat_desc_content;
+            // $product->description->mat_desc_content = $request->mat_desc_content;
+            $product_desc->mat_desc_content = $request->mat_desc_content;
         }
         if ($request->has('mat_desc_content')) {
-            $product->description->size_content = $request->size_content;
+            // $product->description->size_content = $request->size_content;
+            $product_desc->size_content = $request->size_content;
         }
 
-        if ($product->push()) {
+        if ($product_desc->save()) {
             return response()->json([
                 'message' => 'product description added successfully',
                 'product_desc' => $product,
