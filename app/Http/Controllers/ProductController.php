@@ -172,14 +172,14 @@ class ProductController extends Controller
                 'message' => "product not found or deleted"
             ], 404);
         }
-        $product_desc = null;
-        if ($product->description) {
-            // $product_desc = ProductDescription::with("")->where("product_id", $product->id);
-            $product_desc = ProductDescription::where('product_id', '==', $id);
-        } else {
-            $product_desc = new ProductDescription();
-            $product_desc->product_id = $product->id;
-        }
+        // $product_desc = null;
+        // if ($product->description) {
+        //     // $product_desc = ProductDescription::with("")->where("product_id", $product->id);
+        //     $product_desc = ProductDescription::where('product_id', '==', $id);
+        // } else {
+        //     $product_desc = new ProductDescription();
+        //     $product_desc->product_id = $product->id;
+        // }
 
         // $product_desc = new ProductDescription();
         // $product_desc->product_id = $product->id;
@@ -192,30 +192,32 @@ class ProductController extends Controller
             foreach ($request->desc_overview_img as $img) {
                 array_push($overview_path, $img->storeOnCloudinary()->getSecurePath());
             }
-            $product_desc->desc_overview_img = $overview_path;
+            $product->description()->desc_overview_img = $overview_path;
         }
         if ($request->hasFile('desc_mat_desc_img')) {
             foreach ($request->desc_mat_desc_img as $img) {
                 array_push($materials_path, $img->storeOnCloudinary()->getSecurePath());
             }
-            $product_desc->desc_mat_desc_img = $materials_path;
+            // $product_desc->desc_mat_desc_img = $materials_path;
+            $product->description()->desc_mat_desc_img = $materials_path;
         }
         if ($request->hasFile('desc_dimension_img')) {
             foreach ($request->desc_dimension_img as $img) {
                 array_push($dimensions_path, $img->storeOnCloudinary()->getSecurePath());
             }
-            $product_desc->desc_dimension_img = $dimensions_path;
+            $product->description()->desc_dimension_img = $dimensions_path;
         }
-        if ($request->hasFile('desc_gallery_files')) {
-            foreach ($request->desc_gallery_files as $img) {
-                array_push($gallery_path, $img->storeOnCloudinary()->getSecurePath());
-            }
-            $product_desc->desc_gallery_files = $gallery_path;
-        }
-        if ($product_desc->save()) {
+        // if ($request->hasFile('desc_gallery_files')) {
+        //     foreach ($request->desc_gallery_files as $img) {
+        //         array_push($gallery_path, $img->storeOnCloudinary()->getSecurePath());
+        //     }
+        //     // $product_desc->desc_gallery_files = $gallery_path;
+        //     $product->description()->des
+        // }
+        if ($product->push()) {
             return response()->json([
                 'message' => 'product description added successfully',
-                'product_desc' => $product_desc,
+                'product_desc' => $product->description(),
             ], 201);
         }
     }
