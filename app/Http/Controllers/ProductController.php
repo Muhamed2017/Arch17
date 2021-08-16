@@ -224,7 +224,7 @@ class ProductController extends Controller
     {
 
         $this->validate($request, [
-            'overview_content'   => 'nullable|string',
+            // 'overview_content'   => 'nullable|string',
             'mat_desc_content'   => 'nullable|string',
             'size_content'   => 'nullable|string',
         ]);
@@ -235,39 +235,51 @@ class ProductController extends Controller
                 'message' => "product not found or deleted"
             ], 404);
         }
-        $product_desc = null;
-        if ($product->description) {
-            // $product_desc = ProductDescription::with("")->where('product_id', $product->id);
-            // $product_desc = $product->description();
-            // $product_desc = ProductDescription::find($product->description()->id);
-            $product_desc = ProductDescription::where('product_id', '==', $id);
-        } else {
-            $product_desc = new ProductDescription();
-            $product_desc->product_id = $product->id;
-        }
 
-        if ($request->has('overview_content')) {
-
-            $product_desc->overview_content = $request->overview_content;
-        }
-
-        if ($request->has('mat_desc_content')) {
-
-            $product_desc->mat_desc_content = $request->mat_desc_content;
-        }
-        if ($request->has('size_content')) {
-
-            $product_desc->size_content = $request->size_content;
-        }
-
-        if ($product_desc->save()) {
+        $product->description()->mat_desc_content = $request->mat_desc_content;
+        $product->description()->size_content = $request->size_content;
+        if ($product->push()) {
             return response()->json([
                 'message' => 'product description added successfully',
-                'product_desc' => $product_desc,
+                'product_desc' => $product->description(),
             ], 201);
         }
     }
 
+    public function ProductDescriptionCotentOverview(Request $request, $id)
+    {
+
+        $this->validate($request, [
+            'overview_content'   => 'nullable|string',
+            // 'mat_desc_content'   => 'nullable|string',
+            // 'size_content'   => 'nullable|string',
+        ]);
+
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json([
+                'message' => "product not found or deleted"
+            ], 404);
+        }
+
+        $product_desc = new ProductDescription();
+        $product_desc->product_id = $product->id;
+        $product_desc->overview_content = $request->overview_content;
+
+        if ($product_desc->save()) {
+            if ($product_desc->save()) {
+                return response()->json([
+                    'message' => 'product description Overview added successfully',
+                    'product_desc' => $product_desc,
+                ], 201);
+            }
+        }
+        if ($product_desc->save()) {
+            return response()->json([
+                'message' => 'Error Happenned',
+            ], 500);
+        }
+    }
 
     public function ProductFiles(Request $request, $id)
     {
