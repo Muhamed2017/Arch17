@@ -227,7 +227,6 @@ class ProductController extends Controller
     {
 
         $this->validate($request, [
-            // 'overview_content'   => 'nullable|string',
             'mat_desc_content'   => 'nullable|string',
             'size_content'   => 'nullable|string',
         ]);
@@ -240,10 +239,10 @@ class ProductController extends Controller
         }
 
         if ($request->has('mat_desc_content')) {
-            $product->description()->mat_desc_content = $request->mat_desc_content;
+            $product->description->mat_desc_content = $request->mat_desc_content;
         }
         if ($request->has('mat_desc_content')) {
-            $product->description()->size_content = $request->size_content;
+            $product->description->size_content = $request->size_content;
         }
 
         if ($product->push()) {
