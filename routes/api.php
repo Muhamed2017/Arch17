@@ -71,7 +71,7 @@ Route::post('overviewContnet/{id}', 'ProductController@ProductDescriptionCotentO
 
 Route::post('descContent/{id}', 'ProductController@ProductDescriptionContent');
 // test image upload ...
-Route::post('upload', 'ProductController@testImageUpload');
+Route::post('upload/{id}', 'ProductController@testImageUpload');
 
 // });
 

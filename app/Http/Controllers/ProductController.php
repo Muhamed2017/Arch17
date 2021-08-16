@@ -188,12 +188,12 @@ class ProductController extends Controller
         $dimensions_path = [];
         $gallery_path = [];
 
-        if ($request->hasFile('desc_overview_img')) {
-            foreach ($request->desc_overview_img as $img) {
-                array_push($overview_path, $img->storeOnCloudinary()->getSecurePath());
-            }
-            $product->description()->desc_overview_img = $overview_path;
-        }
+        // if ($request->hasFile('desc_overview_img')) {
+        //     foreach ($request->desc_overview_img as $img) {
+        //         array_push($overview_path, $img->storeOnCloudinary()->getSecurePath());
+        //     }
+        //     $product->description()->desc_overview_img = $overview_path;
+        // }
         if ($request->hasFile('desc_mat_desc_img')) {
             foreach ($request->desc_mat_desc_img as $img) {
                 array_push($materials_path, $img->storeOnCloudinary()->getSecurePath());
@@ -217,8 +217,8 @@ class ProductController extends Controller
         $product->push();
         // if ($product->push()) {
         return response()->json([
-            //         'message' => 'product description added successfully',
-            //         'product_desc' => $product,
+            'message' => 'product description added successfully',
+            'product_desc' => $product,
         ], 201);
         // }
     }
@@ -254,6 +254,9 @@ class ProductController extends Controller
         }
     }
 
+    public function ProductDescriptionMedia(Request $request)
+    {
+    }
     public function ProductDescriptionCotentOverview(Request $request, $id)
     {
 
@@ -291,6 +294,7 @@ class ProductController extends Controller
 
     public function ProductFiles(Request $request, $id)
     {
+
         $this->validate($request, [
             'files_cad_2d'   => 'nullable|array',
             'files_cad_2d.*' => 'nullable|mimes:dwg',
@@ -355,14 +359,14 @@ class ProductController extends Controller
             'product' => $product
         ], 200);
     }
-    public function testImageUpload(Request $request)
+    public function testImageUpload(Request $request, $id)
     {
         $this->validate($request, [
             'img'   => 'nullable|array',
             'img.*' => 'nullable|mimes:jpeg,bmp,jpg,png,mp4'
 
         ]);
-        $product = Product::find(1);
+        $product = Product::find($id);
 
         if ($request->hasFile('img')) {
             foreach ($request->img as $img) {
