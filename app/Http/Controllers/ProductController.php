@@ -60,14 +60,20 @@ class ProductController extends Controller
             // step one
             'name'          => 'required|string|max:250',
             'kind'          => 'required|string|max:2000',
-            'type'          => 'nullable|string|max:2000',
             'category'      => 'required|string|max:2000',
-            'style'         => 'required|string|max:2000',
+            'type'          => 'nullable|array',
+            'type.*'          => 'nullable|string|max:2000',
+            'style'         => 'nullable|array',
+            'style.*'         => 'nullable|string|max:2000',
             'kind'          => 'required|string|max:250',
-            'material'      => 'nullable|string|max:250',
-            'base'      =>     'nullable|string|max:250',
-            'seats'      =>     'nullable|string|max:250',
-            'shape'      =>     'nullable|string|max:250',
+            'material'      => 'nullable|array',
+            'material.*'      => 'nullable|string|max:250',
+            'base'      =>     'nullable|array',
+            'base.*'      =>     'nullable|string|max:250',
+            'seats'      =>     'nullable|array',
+            'seats.*'      =>     'nullable|string|max:250',
+            'shape'      =>     'nullable|array',
+            'shape.*'      =>     'nullable|string|max:250',
             'country'       => 'required|string|max:250',
             'places_tags'   => 'required|array',
             'places_tags.*' => 'string|max:250',
@@ -258,9 +264,6 @@ class ProductController extends Controller
         // }
     }
 
-    public function ProductDescriptionMedia(Request $request)
-    {
-    }
     public function ProductDescriptionCotentOverview(Request $request, $id)
     {
 

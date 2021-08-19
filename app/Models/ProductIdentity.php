@@ -11,6 +11,12 @@ class ProductIdentity extends Model
 
     protected $casts = [
         'places_tags' => 'array',
+        'material' => 'array',
+        'style' => 'array',
+        'shape' => 'array',
+        'base' => 'array',
+        'seats' => 'array',
+        'type' => 'array',
     ];
 
     protected $fillable = [
