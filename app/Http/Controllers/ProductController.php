@@ -119,12 +119,12 @@ class ProductController extends Controller
     public function addOptionToProduct(Request $request, $id)
     {
         $this->validate($request, [
-            'material_name' => 'required|string|max:250',
-            'material_image' => 'required|mimes:png,jpg|between:1,10000',
+            'material_name' => 'nullable|string|max:250',
+            'material_image' => 'nullable|mimes:png,jpg|between:1,10000',
             'size'          => 'nullable|string|max:2000',
             'price'         => 'nullable|string|max:2000',
             'offer_price'   => 'nullable|string|max:2000',
-            'quantity'      => 'required|string|max:250',
+            'quantity'      => 'nullable|string|max:250',
             'cover'         => 'required|array',
             'cover.*'       => 'required|mimes:jpeg,jpg,png|between:1,10000',
             // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
