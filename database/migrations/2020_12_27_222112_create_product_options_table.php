@@ -23,6 +23,7 @@ class CreateProductOptionsTable extends Migration
             $table->string('price')->nullable();
             $table->string('offer_price')->nullable();
             $table->string('quantity')->nullable();
+            $table->string('code')->nullable();
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@ class ProductOptions extends Model
     protected $table = 'product_options';
 
     protected $fillable = [
-        'product_id', 'cover', 'material_name', 'material_image', 'price', 'size', 'quantity', 'offer_price'
+        'product_id', 'cover', 'material_name', 'material_image', 'price', 'size', 'quantity', 'code', 'offer_price'
     ];
 
     protected $casts = [
