@@ -327,7 +327,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('files_cad_2d')) {
             foreach ($request->files_cad_2d as $img) {
-                array_push($two_d_files_path, $img->storeOnCloudinary("dwgs", "file.dwg")->getSecurePath());
+                array_push($two_d_files_path, $img->storeOnCloudinaryAs("dwgs", "file.dwg")->getSecurePath());
             }
             $product_files->files_cad_2d = $two_d_files_path;
         }
