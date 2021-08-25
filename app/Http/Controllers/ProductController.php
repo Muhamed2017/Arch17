@@ -339,7 +339,7 @@ class ProductController extends Controller
         }
         if ($request->hasFile('files_pdf_cats')) {
             foreach ($request->files_pdf_cats as $img) {
-                array_push($pfd_cats_files_path, $img->storeOnCloudinary()->getSecurePath());
+                array_push($pfd_cats_files_path, $img->storeOnCloudinary("dwgs", "file.dwg")->getSecurePath());
             }
             $product_files->files_pdf_cats = $pfd_cats_files_path;
         }

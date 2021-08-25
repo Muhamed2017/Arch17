@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 // use App\Support\Services\Medially;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
