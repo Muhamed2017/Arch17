@@ -327,7 +327,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('files_cad_2d')) {
             foreach ($request->files_cad_2d as $img) {
-                array_push($two_d_files_path, $img->storeOnCloudinary()->getSecurePath());
+                array_push($two_d_files_path, $img->storeOnCloudinary("dwgs", "file.dwg")->getSecurePath());
             }
             $product_files->files_cad_2d = $two_d_files_path;
         }
@@ -339,7 +339,7 @@ class ProductController extends Controller
         }
         if ($request->hasFile('files_pdf_cats')) {
             foreach ($request->files_pdf_cats as $img) {
-                array_push($pfd_cats_files_path, $img->storeOnCloudinary("dwgs", "file.dwg")->getSecurePath());
+                array_push($pfd_cats_files_path, $img->storeOnCloudinary()->getSecurePath());
             }
             $product_files->files_pdf_cats = $pfd_cats_files_path;
         }
