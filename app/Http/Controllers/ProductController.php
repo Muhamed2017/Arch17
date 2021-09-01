@@ -371,11 +371,10 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'img'   => 'nullable|array',
-            'img.*' => 'nullable|mimes:jpeg,bmp,jpg,png,mp4'
+            'img.*' => "required|mimes:jpeg,jpg,png|between:1,5000"
 
         ]);
         $product = Product::find($id);
-
         if ($request->hasFile('img')) {
             foreach ($request->img as $img) {
                 $product->attachMedia($img);
@@ -388,5 +387,30 @@ class ProductController extends Controller
             'img' => $product->fetchAllMedia(),
             'lastIndex' => $latest_img
         ], 200);
+    }
+
+    public function attachProductOptionPictures(Request $request, $id)
+    {
+        $this->validate($request, [
+            'cover'   => 'nullable|array',
+            'cover.*' => "required|mimes:jpeg,jpg,png|between:1,5000"
+        ]);
+        $product = Product::find($id);
+        $product_options = new ProductOptions();
+        $product_options->product_id = $product->id;
+        $cover_path = [];
+        foreach ($request->cover as $cover) {
+            array_push($cover_path, $cover->storeOnCloudinary()->getSecurePath());
+        }
+        $product_options->cover = $cover_path;
+        if ($product_options->save()) {
+            return response()->json([
+                'message' => 'option attached to product successfully',
+                'options' => $product_options
+            ], 200);
+        }
+        return response()->json([
+            'message' => 'Something went wrong',
+        ], 500);
     }
 }

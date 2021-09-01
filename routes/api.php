@@ -72,6 +72,7 @@ Route::post('overviewContnet/{id}', 'ProductController@ProductDescriptionCotentO
 Route::post('descContent/{id}', 'ProductController@ProductDescriptionContent');
 // test image upload ...
 Route::post('upload/{id}', 'ProductController@testImageUpload');
+Route::post('option-covers/{id}', 'ProductController@attachProductOptionPictures');
 
 // });
 
