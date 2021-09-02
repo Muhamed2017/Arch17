@@ -141,12 +141,12 @@ class ProductController extends Controller
         $product_options->offer_price =  $request->offer_price;
         $product_options->quantity =  $request->quantity;
         $product_options->code =  $request->code;
-        $cover_path = [];
-        foreach ($request->cover as $cover) {
-            array_push($cover_path, $cover->storeOnCloudinary()->getSecurePath());
-        }
+        // $cover_path = [];
+        // foreach ($request->cover as $cover) {
+        //     array_push($cover_path, $cover->storeOnCloudinary()->getSecurePath());
+        // }
         $product_options->material_image =  $request->material_image->storeOnCloudinary()->getSecurePath();
-        $product_options->cover = $cover_path;
+        // $product_options->cover = $cover_path;
 
         if ($product_options->save()) {
             return response()->json([
