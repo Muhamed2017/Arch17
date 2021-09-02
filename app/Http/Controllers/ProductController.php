@@ -126,8 +126,8 @@ class ProductController extends Controller
             'offer_price'   => 'nullable|string|max:2000',
             'quantity'      => 'nullable|string|max:250',
             'code'          => 'nullable|string|max:250',
-            'cover'         => 'required|array',
-            'cover.*'       => 'required|mimes:jpeg,jpg,png|between:1,10000',
+            'cover'         => 'nullable|array',
+            'cover.*'       => 'nullable|mimes:jpeg,jpg,png|between:1,10000',
             // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
             // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
 
