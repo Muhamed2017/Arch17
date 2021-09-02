@@ -116,7 +116,7 @@ class ProductController extends Controller
 
 
     // product options and price - step two
-    public function addOptionToProduct(Request $request, $id)
+    public function addOptionToProduct(Request $request, $id, $option_id)
     {
         $this->validate($request, [
             'material_name' => 'nullable|string|max:250',
@@ -133,7 +133,8 @@ class ProductController extends Controller
 
         ]);
         $product = Product::find($id);
-        $product_options = new ProductOptions();
+        // $product_options = new ProductOptions();
+        $product_options = ProductOptions::find($option_id);
         $product_options->product_id = $product->id;
         $product_options->material_name = $request->material_name;
         $product_options->size = $request->size;
