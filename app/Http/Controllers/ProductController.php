@@ -407,7 +407,8 @@ class ProductController extends Controller
         if ($product_options->save()) {
             return response()->json([
                 'message' => 'option attached to product successfully',
-                'options' => $product_options
+                'options' => $product_options,
+                'option_id' => $product_options->id
             ], 200);
         }
         return response()->json([
