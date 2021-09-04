@@ -28,7 +28,7 @@ class Product extends Model
         'updated_at'
     ];
 
-    public $appends = ['identity', 'options', 'description', 'files'];
+    public $appends = ['identity', 'options', 'description', 'files', 'gallery'];
 
     public function images()
     {
@@ -55,6 +55,11 @@ class Product extends Model
         return $this->hasOne('App\Models\ProductFiles');
     }
 
+    public function gallery()
+    {
+        return $this->hasOne('App\Models\ProductGallery');
+    }
+
     public function store()
     {
         return $this->belonsTo('App\Models\Store');
@@ -77,6 +82,10 @@ class Product extends Model
     public function getDescriptionAttribute()
     {
         return $this->description()->get();
+    }
+    public function getGalleryAttribute()
+    {
+        return $this->gallery()->get();
     }
 
     public static function boot()
