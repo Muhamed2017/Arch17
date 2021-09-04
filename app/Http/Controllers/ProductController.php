@@ -176,10 +176,12 @@ class ProductController extends Controller
                 'message' => "product not found or deleted"
             ], 404);
         }
-        if ($desc_id != "") {
-            $product_desc = ProductDescription::find($desc_id);
+        if ($desc_id == "") {
+            $product_desc = new ProductDescription();
+            $product_desc->product_id = $product->id;
         } else {
-            $product_desc = $product->description();
+            // $product_desc = $product->description();
+            $product_desc = ProductDescription::find($desc_id);
         }
 
         $gallery_path = [];
