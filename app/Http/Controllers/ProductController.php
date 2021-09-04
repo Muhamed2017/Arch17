@@ -180,7 +180,6 @@ class ProductController extends Controller
             $product_desc = new ProductDescription();
             $product_desc->product_id = $product->id;
         } else {
-            // $product_desc = $product->description();
             $product_desc = ProductDescription::find($desc_id);
         }
 
@@ -192,11 +191,22 @@ class ProductController extends Controller
             // $product->description()->desc_gallery_files = $gallery_path;
             $product_desc->desc_gallery_files = $gallery_path;
         }
-        $product->push();
-        return response()->json([
-            'message' => 'product description added successfully',
-            'product_desc' => $product->description,
-        ], 201);
+        // $product->push();
+        // return response()->json([
+        //     'message' => 'product description added successfully',
+        //     'product_desc' => $product->description,
+        // ], 201);
+        if ($product_desc->save()) {
+            return response()->json([
+                'message' => 'product description added successfully',
+                'product_desc' => $product->description,
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'error',
+                // 'product_desc' => $product->description,
+            ], 500);
+        }
     }
 
     public function ProductDescriptionContent(Request $request, $id)
