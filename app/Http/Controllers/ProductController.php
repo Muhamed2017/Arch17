@@ -163,7 +163,7 @@ class ProductController extends Controller
 
 
 
-    public function ProductDescription(Request $request, $id, $desc_id = "")
+    public function ProductDescription(Request $request, $id)
     {
         $this->validate($request, [
             'desc_gallery_files'   => 'nullable|array',
@@ -176,11 +176,11 @@ class ProductController extends Controller
                 'message' => "product not found or deleted"
             ], 404);
         }
-        if ($desc_id == "") {
+        if ($request->desc_id == "") {
             $product_desc = new ProductDescription();
             $product_desc->product_id = $id;
         } else {
-            $product_desc = ProductDescription::find($desc_id);
+            $product_desc = ProductDescription::find($request->desc_id);
         }
 
         $gallery_path = [];
