@@ -173,7 +173,7 @@ class ProductController extends Controller
             'desc_dimension_img'   => 'nullable|array',
             'desc_dimension_img.*' => 'nullable|mimes:jpeg,bmp,jpg,png|between:1,10000',
             'desc_gallery_files'   => 'nullable|array',
-            'desc_gallery_files.*' => 'nullable|mimes:jpeg,bmp,jpg,png,mp4|between:1,10000'
+            'desc_gallery_files.*' => 'nullable|mimes:jpg,jpeg,png'
         ]);
         $product = Product::find($id);
         if (!$product) {
@@ -216,13 +216,14 @@ class ProductController extends Controller
             }
             $product->description()->desc_dimension_img = $dimensions_path;
         }
-        // if ($request->hasFile('desc_gallery_files')) {
-        //     foreach ($request->desc_gallery_files as $img) {
-        //         array_push($gallery_path, $img->storeOnCloudinary()->getSecurePath());
-        //     }
-        //     // $product_desc->desc_gallery_files = $gallery_path;
-        //     $product->description()->des
-        // }
+
+        if ($request->hasFile('desc_gallery_files')) {
+            foreach ($request->desc_gallery_files as $img) {
+                array_push($gallery_path, $img->storeOnCloudinary()->getSecurePath());
+            }
+            // $product_desc->desc_gallery_files = $gallery_path;
+            $product->description()->desc_gallery_files = $gallery_path;
+        }
         $product->push();
         // if ($product->push()) {
         return response()->json([
