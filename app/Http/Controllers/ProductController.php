@@ -255,13 +255,13 @@ class ProductController extends Controller
         }
     }
 
-    public function ProductDescriptionCotentOverview(Request $request, $id)
+    public function ProductDescriptionCotent(Request $request, $id)
     {
 
         $this->validate($request, [
             'overview_content'   => 'nullable|string',
-            // 'mat_desc_content'   => 'nullable|string',
-            // 'size_content'   => 'nullable|string',
+            'mat_desc_content'   => 'nullable|string',
+            'size_content'   => 'nullable|string',
         ]);
 
         $product = Product::find($id);
@@ -275,16 +275,16 @@ class ProductController extends Controller
         } else {
             $product_desc = new ProductDescription();
             $product_desc->product_id = $product->id;
-            $product_desc->overview_content = $request->overview_content;
         }
+        $product_desc->overview_content = $request->overview_content;
+        $product_desc->mat_desc_content = $request->mat_desc_content;
+        $product_desc->size_content = $request->size_content;
 
-        // if ($product_desc->save()) {
         if ($product_desc->save()) {
             return response()->json([
                 'message' => 'product description Overview added successfully',
                 'product_desc' => $product_desc,
             ], 201);
-            // }
         }
         if ($product_desc->save()) {
             return response()->json([

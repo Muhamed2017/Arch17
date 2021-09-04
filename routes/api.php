@@ -67,7 +67,7 @@ Route::post('description/{id}', 'ProductController@addDescriptionToProduct');
 Route::post('desc/{id}', 'ProductController@ProductDescription');
 Route::post('files/{id}', 'ProductController@ProductFiles');
 Route::get('product/{id}', 'ProductController@getProductById');
-Route::post('overviewContnet/{id}', 'ProductController@ProductDescriptionCotentOverview');
+Route::post('overviewContnet/{id}', 'ProductController@ProductDescriptionCotent');
 
 Route::post('descContent/{id}', 'ProductController@ProductDescriptionContent');
 // test image upload ...
