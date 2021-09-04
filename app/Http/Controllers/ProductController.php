@@ -258,10 +258,13 @@ class ProductController extends Controller
                 'message' => "product not found or deleted"
             ], 404);
         }
-
-        $product_desc = new ProductDescription();
-        $product_desc->product_id = $product->id;
-        $product_desc->overview_content = $request->overview_content;
+        if ($request->desc_id != "") {
+            $product_desc = ProductDescription::find($request->id);
+        } else {
+            $product_desc = new ProductDescription();
+            $product_desc->product_id = $product->id;
+            $product_desc->overview_content = $request->overview_content;
+        }
 
         if ($product_desc->save()) {
             if ($product_desc->save()) {
