@@ -11,6 +11,7 @@ use App\Models\ProductDescription;
 use App\Models\ProductIdentity;
 use App\Models\ProductOptions;
 use App\Models\ProductFiles;
+use App\Models\ProductGallery;
 use CloudinaryLabs\CloudinaryLaravel\Model\Media;
 use PhpOption\Option;
 
@@ -176,27 +177,16 @@ class ProductController extends Controller
                 'message' => "product not found or deleted"
             ], 404);
         }
-        if ($request->desc_id == "") {
-            $product_desc = new ProductDescription();
-            $product_desc->product_id = $id;
-        } else {
-            $product_desc = ProductDescription::find($request->desc_id);
-        }
-
+        $product_gallery = new ProductGallery();
+        $product_gallery->product_id = $id;
         $gallery_path = [];
         if ($request->hasFile('desc_gallery_files')) {
             foreach ($request->desc_gallery_files as $img) {
                 array_push($gallery_path, $img->storeOnCloudinary()->getSecurePath());
             }
-            // $product->description()->desc_gallery_files = $gallery_path;
-            $product_desc->desc_gallery_files = $gallery_path;
+            $product_gallery->desc_gallery_files = $gallery_path;
         }
-        // $product->push();
-        // return response()->json([
-        //     'message' => 'product description added successfully',
-        //     'product_desc' => $product->description,
-        // ], 201);
-        if ($product_desc->save()) {
+        if ($product_gallery->save()) {
             return response()->json([
                 'message' => 'product description added successfully',
                 'product_desc' => $product,
@@ -204,7 +194,6 @@ class ProductController extends Controller
         } else {
             return response()->json([
                 'message' => 'error',
-                // 'product_desc' => $product->description,
             ], 500);
         }
     }
@@ -270,12 +259,8 @@ class ProductController extends Controller
                 'message' => "product not found or deleted"
             ], 404);
         }
-        if ($request->desc_id != "") {
-            $product_desc = ProductDescription::find($request->id);
-        } else {
-            $product_desc = new ProductDescription();
-            $product_desc->product_id = $product->id;
-        }
+        $product_desc = new ProductDescription();
+        $product_desc->product_id = $product->id;
         $product_desc->overview_content = $request->overview_content;
         $product_desc->mat_desc_content = $request->mat_desc_content;
         $product_desc->size_content = $request->size_content;
