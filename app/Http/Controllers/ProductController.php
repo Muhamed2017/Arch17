@@ -199,7 +199,7 @@ class ProductController extends Controller
         if ($product_desc->save()) {
             return response()->json([
                 'message' => 'product description added successfully',
-                'product_desc' => $product->description,
+                'product_desc' => $product,
             ], 201);
         } else {
             return response()->json([
