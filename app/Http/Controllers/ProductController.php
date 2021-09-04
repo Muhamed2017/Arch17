@@ -178,7 +178,7 @@ class ProductController extends Controller
         }
         if ($desc_id == "") {
             $product_desc = new ProductDescription();
-            $product_desc->product_id = $product->id;
+            $product_desc->product_id = $id;
         } else {
             $product_desc = ProductDescription::find($desc_id);
         }
