@@ -193,7 +193,7 @@ class ProductController extends Controller
         $product->push();
         return response()->json([
             'message' => 'product description added successfully',
-            'product_desc' => $product_desc,
+            'product_desc' => $product->description(),
         ], 201);
     }
 
