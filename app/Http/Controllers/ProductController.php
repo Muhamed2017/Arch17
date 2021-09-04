@@ -163,74 +163,38 @@ class ProductController extends Controller
 
 
 
-    public function ProductDescription(Request $request, $id)
+    public function ProductDescription(Request $request, $id, $desc_id = "")
     {
         $this->validate($request, [
-            'desc_overview_img'   => 'nullable|array',
-            'desc_overview_img.*' => 'nullable|mimes:jpeg,bmp,jpg,png|between:1,10000',
-            'desc_mat_desc_img'   => 'nullable|array',
-            'desc_mat_desc_img.*' => 'nullable|mimes:jpeg,bmp,jpg,png|between:1,10000',
-            'desc_dimension_img'   => 'nullable|array',
-            'desc_dimension_img.*' => 'nullable|mimes:jpeg,bmp,jpg,png|between:1,10000',
             'desc_gallery_files'   => 'nullable|array',
             'desc_gallery_files.*' => 'nullable|mimes:jpg,jpeg,png'
         ]);
+
         $product = Product::find($id);
         if (!$product) {
             return response()->json([
                 'message' => "product not found or deleted"
             ], 404);
         }
-        // $product_desc = null;
-        // if ($product->description) {
-        //     // $product_desc = ProductDescription::with("")->where("product_id", $product->id);
-        //     $product_desc = ProductDescription::where('product_id', '==', $id);
-        // } else {
-        //     $product_desc = new ProductDescription();
-        //     $product_desc->product_id = $product->id;
-        // }
+        if ($desc_id != "") {
+            $product_desc = ProductDescription::find($desc_id);
+        } else {
+            $product_desc = $product->description();
+        }
 
-        // $product_desc = new ProductDescription();
-        // $product_desc->product_id = $product->id;
-        $overview_path = [];
-        $materials_path = [];
-        $dimensions_path = [];
         $gallery_path = [];
-
-        // if ($request->hasFile('desc_overview_img')) {
-        //     foreach ($request->desc_overview_img as $img) {
-        //         array_push($overview_path, $img->storeOnCloudinary()->getSecurePath());
-        //     }
-        //     $product->description()->desc_overview_img = $overview_path;
-        // }
-        if ($request->hasFile('desc_mat_desc_img')) {
-            foreach ($request->desc_mat_desc_img as $img) {
-                array_push($materials_path, $img->storeOnCloudinary()->getSecurePath());
-            }
-            // $product_desc->desc_mat_desc_img = $materials_path;
-            $product->description()->desc_mat_desc_img = $materials_path;
-        }
-        if ($request->hasFile('desc_dimension_img')) {
-            foreach ($request->desc_dimension_img as $img) {
-                array_push($dimensions_path, $img->storeOnCloudinary()->getSecurePath());
-            }
-            $product->description()->desc_dimension_img = $dimensions_path;
-        }
-
         if ($request->hasFile('desc_gallery_files')) {
             foreach ($request->desc_gallery_files as $img) {
                 array_push($gallery_path, $img->storeOnCloudinary()->getSecurePath());
             }
-            // $product_desc->desc_gallery_files = $gallery_path;
-            $product->description()->desc_gallery_files = $gallery_path;
+            // $product->description()->desc_gallery_files = $gallery_path;
+            $product_desc->desc_gallery_files = $gallery_path;
         }
         $product->push();
-        // if ($product->push()) {
         return response()->json([
             'message' => 'product description added successfully',
             'product_desc' => $product,
         ], 201);
-        // }
     }
 
     public function ProductDescriptionContent(Request $request, $id)
