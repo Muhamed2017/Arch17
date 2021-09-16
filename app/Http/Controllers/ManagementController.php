@@ -44,8 +44,6 @@ class ManagementController extends Controller
         } else {
             return response()->json(['message' => 'something went wrong, try again later'], 500);
         }
-
-        // return response()->json(['message' => 'not saved', 'found' => $found], 200);
     }
 
     public function validatingCode(Request $request)
@@ -61,9 +59,10 @@ class ManagementController extends Controller
             ], 404);
         }
         if ($found->code === $code) {
-            $this->auth->updateUser($uid, ['emailVerified' => true]);
+            $user =  $this->auth->updateUser($uid, ['emailVerified' => true]);
             return response()->json([
-                'message' => 'Email has been verified successfully'
+                'message' => 'Email has been verified successfully',
+                'user' => $user
             ], 200);
         } else {
             return response()->json([
