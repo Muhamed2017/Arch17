@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 // use Response;
 use Kreait\Firebase\Auth;
-use App\Mail\SendMail;
+use App\Mail\sendMail;
 use App\Models\UserVerifications;
 
 class ManagementController extends Controller
@@ -39,7 +39,7 @@ class ManagementController extends Controller
             $found->code = $code;
         }
         if ($found->save()) {
-            Mail::to($user->email)->send(new SendMail($code));
+            Mail::to($user->email)->send(new sendMail($code));
             return response()->json(['message' => 'verification code has been sent to your email', 'user' => $user], 200);
         } else {
             return response()->json(['message' => 'something went wrong, try again later'], 500);
