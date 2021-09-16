@@ -74,16 +74,6 @@ Route::post('descContent/{id}', 'ProductController@ProductDescriptionContent');
 Route::post('upload/{id}', 'ProductController@testImageUpload');
 Route::post('option-covers/{id}', 'ProductController@attachProductOptionPictures');
 
-// });
 
-Route::get('auth/redirect', function () {
-    return Socialite::driver('facebook')->redirect();
-});
-
-Route::get('auth/callback', function () {
-    //    s // $user = Socialite::driver('facebook')->stateless()->user();
-
-    // return $user;
-
-    // $user->token
-});
+Route::post('user', 'ManagementController@verifyEmailCode');
+Route::post('validate-code', 'ManagementController@validatingCode');

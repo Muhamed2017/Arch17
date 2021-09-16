@@ -169,7 +169,7 @@ return [
          */
         Intervention\Image\ImageServiceProvider::class,
         CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
-
+        Kreait\Laravel\Firebase\ServiceProvider::class,
 
         // 'JD\Cloudder\CloudderServiceProvider',
         Cviebrock\EloquentSluggable\ServiceProvider::class,
