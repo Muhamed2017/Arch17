@@ -77,7 +77,7 @@ class ManagementController extends Controller
         $phone = $request->phone;
 
         if ($phone) {
-            $user =  $this->auth->updateUser($uid, ['phoneNumber' => $phone]);
+            $user =  $this->auth->updateUser($uid, ['phoneNumber' => $phone, 'email' => $phone . "@arch17.com"]);
         }
 
         if ($user) {
