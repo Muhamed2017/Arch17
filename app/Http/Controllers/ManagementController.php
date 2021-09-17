@@ -70,4 +70,24 @@ class ManagementController extends Controller
             ], 405);
         }
     }
+
+    public function updatePhoneNumber(Request $request)
+    {
+        $uid = $request->uid;
+        $phone = $request->phone;
+
+        if ($phone) {
+            $user =  $this->auth->updateUser($uid, ['phoneNumber' => $phone]);
+        }
+
+        if ($user) {
+            return response()->json([
+                'message' => 'Phone has been Updated successfully',
+                'user' => $user
+            ], 200);
+        }
+        return response()->json([
+            'message' => 'Something went Wrong, try again',
+        ], 500);
+    }
 }

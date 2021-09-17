@@ -77,3 +77,4 @@ Route::post('option-covers/{id}', 'ProductController@attachProductOptionPictures
 
 Route::post('user', 'ManagementController@verifyEmailCode');
 Route::post('validate-code', 'ManagementController@validatingCode');
+Route::post("update-phone", "ManagementController@updatePhoneNumber");
