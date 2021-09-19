@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
-// use Response;
 use Kreait\Firebase\Auth;
 use App\Mail\sendMail;
 use App\Models\UserVerifications;
@@ -88,6 +87,117 @@ class ManagementController extends Controller
         }
         return response()->json([
             'message' => 'Something went Wrong, try again',
+        ], 500);
+    }
+
+    public function registerUser(Request $request)
+    {
+        $this->validate($request, [
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+            'email' => 'required|email|max:250',
+            'password' => 'required|string|max:255',
+        ]);
+        $email = $request->email;
+        $password = $request->password;
+        $fname = $request->fname;
+        $lname = $request->lname;
+        $user = $this->auth->createUserWithEmailAndPassword($email, $password);
+        if ($user) {
+            $newUser = $this->auth->updateUser($user->uid, ['displayName' => $fname . " " . $lname]);
+            if ($newUser) {
+                return response()->json([
+                    'message' => "Registered Succeffully",
+                    'user' => [
+                        'uid' => $newUser->uid,
+                        'displayName' => $newUser->displayName,
+                        'email' => $newUser->email,
+                        'emailVerified' => $newUser->emailVerified,
+                        'photoURL' => $newUser->photoUrl ?? null,
+                        'phoneNumber' => $newUser->phoneNumber,
+                        'disabled' => $newUser->disabled,
+                        'providerData' => $newUser->providerData ?? null
+
+                    ]
+                ], 200);
+            }
+        }
+
+        return response()->json([
+            'message' => "Error, try again",
+        ], 500);
+    }
+
+    // login by firebase
+    public function loginUser(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|max:250',
+            'password' => 'required|string|max:255',
+        ]);
+
+        $signInResult = $this->auth->signInWithEmailAndPassword($request->email, $request->password);
+        if ($signInResult) {
+            $user = $signInResult->data();
+            return response()->json([
+                'message' => "Logged in Succeffully",
+                'user' => [
+                    'uid' => $user['localId'],
+                    'displayName' => $user['displayName'],
+                    'email' => $user['email'],
+                    'emailVerified' => false,
+                    'photoURL' => $user['profilePicture'] ?? null,
+                    'phoneNumber' => null,
+                    'disabled' => false,
+                ]
+            ], 200);
+        }
+        return response()->json([
+            'message' => "Login Failed",
+        ], 500);
+    }
+
+    public function updateDisplayName(Request $request)
+    {
+        $this->validate($request, [
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+        ]);
+        $uid = $request->uid;
+        $fname = $request->fname;
+        $lname = $request->lname;
+        $user = $this->auth->updateUser($uid, ['displayName' => $fname . " " . $lname]);
+        if ($user) {
+            return response()->json([
+                'message' => "Name has been Updated successfully",
+                'user' => $user
+            ], 200);
+        }
+        return response()->json([
+            'message' => "Error occured, try again",
+        ], 500);
+    }
+
+    public function updateProfilePic(Request $request)
+    {
+        $this->validate($request, [
+            'photo' => 'nullable|image|mimes:jpeg,jpg,png|between:1,5000'
+        ]);
+
+        $user = null;
+        if ($request->hasFile('photo')) {
+            $uid = $request->uid;
+            $photoURL =   $request->photo->storeOnCloudinary()->getSecurePath();
+            $user = $this->auth->updateUser($uid, ['photoURL' => $photoURL]);
+        }
+        if ($user) {
+            return response()->json([
+                'message' => "Photo has been Updated successfully",
+                'user' => $user
+            ], 200);
+        }
+        return response()->json([
+            'message' => "Error occured, try again",
         ], 500);
     }
 }

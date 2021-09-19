@@ -74,7 +74,10 @@ Route::post('descContent/{id}', 'ProductController@ProductDescriptionContent');
 Route::post('upload/{id}', 'ProductController@testImageUpload');
 Route::post('option-covers/{id}', 'ProductController@attachProductOptionPictures');
 
-
+Route::post('user/register', 'ManagementController@registerUser');
+Route::post('user/login', 'ManagementController@loginUser');
+Route::post('user/update-name', 'ManagementController@updateDisplayName');
+Route::post('user/update-photo', 'ManagementController@updateProfilePic');
 Route::post('user', 'ManagementController@verifyEmailCode');
 Route::post('validate-code', 'ManagementController@validatingCode');
 Route::post("update-phone", "ManagementController@updatePhoneNumber");
