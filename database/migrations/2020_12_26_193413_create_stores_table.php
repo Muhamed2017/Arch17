@@ -16,14 +16,15 @@ class CreateStoresTable extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('business_account_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->string('country');
             $table->string('city')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('phone');
             $table->text('about')->nullable();
-            $table->string('email')->nullable()->unique();
+            $table->string('email')->unique();
             $table->string('official_website')->nullable();
+            $table->text('product_types');
+            $table->string('types');
             $table->timestamps();
         });
     }

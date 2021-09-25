@@ -11,18 +11,19 @@ class BusinessAccount extends Model
 
     protected $table = 'business_account';
 
-     protected $fillable = [
-        'proffession_name', 'email' ,  'passcode', 'phone'
-     ];
+    protected $fillable = [
+        'proffession_name', 'email',  'passcode', 'phone'
+    ];
 
 
 
-     public function user(){
-         return $this->belonsTo('App\Models\User');
-     }
+    public function user()
+    {
+        return $this->belonsTo('App\Models\User');
+    }
 
 
-     public function stores(){
-         return $this->hasMany('App\Models\Store');
-     }
+    //  public function stores(){
+    //      return $this->hasMany('App\Models\Store');
+    //  }
 }

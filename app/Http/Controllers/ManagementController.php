@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Kreait\Firebase\Auth;
 use App\Mail\sendMail;
+use App\Models\Store;
 use App\Models\UserVerifications;
 
 class ManagementController extends Controller
@@ -198,6 +199,40 @@ class ManagementController extends Controller
         }
         return response()->json([
             'message' => "Error occured, try again",
+        ], 500);
+    }
+
+
+    // brand apis
+
+    public function createBrand(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|email|max:250',
+            'product_types' => 'required|array',
+            'type' => 'required|max:250',
+            'product_types.*' => 'required|email|max:250',
+            'country' => 'required|email|max:250',
+            'phone' => 'required|email|max:250',
+            'email' => 'required|email|max:250',
+        ]);
+        if ($request->has('uid')) {
+            $store = new Store();
+            $store->user_id = $request->uid;
+            $store->name = $request->name;
+            $store->type = $request->type;
+            $store->product_types = $request->product_types;
+            $store->country = $request->country;
+            $store->phone = $request->phone;
+        }
+        if ($store->save()) {
+            return response()->json([
+                'message' => 'Store has been created successfully',
+                'store' => $store
+            ], 200);
+        }
+        return response()->json([
+            'message' => 'something went wrong, try again',
         ], 500);
     }
 }

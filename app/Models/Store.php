@@ -14,7 +14,7 @@ class Store extends Model
     protected $table = 'stores';
 
     protected $fillable = [
-        'business_account_id', 'user_id', 'name', 'country', 'city', 'about', 'phone', 'email', 'official_website'
+        'user_id', 'name', 'country', 'city', 'about', 'phone', 'email', 'official_website', 'product_types', 'types'
     ];
 
     protected $dates = [
@@ -22,11 +22,14 @@ class Store extends Model
         'updated_at'
     ];
 
+    protected $casts = [
+        'product_types' => 'array'
+    ];
 
-    public function businessAccont()
-    {
-        return $this->belongsTo('App\Models\BusinessAccount');
-    }
+    // public function businessAccont()
+    // {
+    //     return $this->belongsTo('App\Models\BusinessAccount');
+    // }
 
 
     public function products()
