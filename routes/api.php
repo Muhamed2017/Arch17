@@ -81,3 +81,6 @@ Route::post('user/update-photo', 'ManagementController@updateProfilePic');
 Route::post('user', 'ManagementController@verifyEmailCode');
 Route::post('validate-code', 'ManagementController@validatingCode');
 Route::post("update-phone", "ManagementController@updatePhoneNumber");
+
+// brand endpoints..
+Route::post("brand", "ManagementController@createBrand");
