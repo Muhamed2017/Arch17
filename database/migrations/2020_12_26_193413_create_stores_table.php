@@ -24,7 +24,7 @@ class CreateStoresTable extends Migration
             $table->string('email')->unique();
             $table->string('official_website')->nullable();
             $table->text('product_types');
-            $table->string('types');
+            $table->string('type');
             $table->timestamps();
         });
     }
