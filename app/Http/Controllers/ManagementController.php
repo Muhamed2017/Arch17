@@ -208,12 +208,12 @@ class ManagementController extends Controller
     public function createBrand(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|email|max:250',
+            'name' => 'required|string|max:250',
             'product_types' => 'required|array',
-            'type' => 'required|max:250',
-            'product_types.*' => 'required|email|max:250',
-            'country' => 'required|email|max:250',
-            'phone' => 'required|email|max:250',
+            'type' => 'required|string|max:250',
+            'product_types.*' => 'required|string|max:250',
+            'country' => 'required|string|max:250',
+            'phone' => 'required|string|max:250',
             'email' => 'required|email|max:250',
         ]);
         if ($request->has('uid')) {
