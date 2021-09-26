@@ -220,6 +220,7 @@ class ManagementController extends Controller
             $store = new Store();
             $store->user_id = $request->uid;
             $store->name = $request->name;
+            $store->email = $request->email;
             $store->type = $request->type;
             $store->product_types = $request->product_types;
             $store->country = $request->country;
