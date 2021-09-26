@@ -230,10 +230,70 @@ class ManagementController extends Controller
             return response()->json([
                 'message' => 'Store has been created successfully',
                 'store' => $store
-            ], 200);
+            ], 201);
         }
         return response()->json([
             'message' => 'something went wrong, try again',
         ], 500);
+    }
+
+    public function getBrandById($id)
+    {
+        $store = Store::find($id);
+        if (!$store) {
+            return response()->json([
+                'message' => 'Brand Not Found!',
+            ], 404);
+        }
+        return response()->json([
+            'store' => $store,
+            'owner' => [
+                'name' => 'Muhamed Magdy',
+                'uid' => "GgZSlJOVS5hQsXH3ml9wrGOc5Zy1"
+            ]
+        ], 200);
+    }
+
+    public function updateBrand(Request $request, $id)
+    {
+        $store = Store::find($id);
+        if (!$store) {
+            return response()->json([
+                'message' => 'Brand Not Found!',
+            ], 404);
+        }
+
+        $this->validate($request, [
+            'name' => 'nullable|string|max:250',
+            'product_types' => 'nullable|array',
+            'type' => 'nullable|string|max:250',
+            'product_types.*' => 'nullable|string|max:250',
+            'country' => 'nullable|string|max:250',
+            'city' => 'nullable|string|max:250',
+            'phone' => 'nullable|string|max:250',
+            'phone' => 'nullable|string|max:250',
+            'official_website' => 'nullable|string|max:250',
+            'email' => 'nullable|email|max:250',
+        ]);
+        $store->name = $request->name;
+        $store->email = $request->email;
+        $store->type = $request->type;
+        $store->about = $request->about;
+        $store->product_types = $request->product_types;
+        $store->country = $request->country;
+        $store->city = $request->city;
+        $store->phone = $request->phone;
+        $store->official_website = $request->official_website;
+
+        if ($store->save()) {
+            return response()->json([
+                'message' => 'Brand has been Updated successfully',
+                'store' => $store,
+                'owner' => [
+                    'name' => 'Muhamed Magdy',
+                    'uid' => "GgZSlJOVS5hQsXH3ml9wrGOc5Zy1"
+                ]
+            ], 200);
+        }
     }
 }
