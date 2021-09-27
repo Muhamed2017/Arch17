@@ -25,9 +25,9 @@ class Store extends Model
     protected $casts = [
         'product_types' => 'array'
     ];
-    public $appends = ['products'];
+    public $appends = ['products', 'collections'];
 
-    public function brands()
+    public function collections()
     {
         return $this->hasMany('App\Models\Collection');
     }
@@ -40,6 +40,11 @@ class Store extends Model
     public function getProductsAttribute()
     {
         return $this->products()->get();
+    }
+
+    public function getCollectionsAttribute()
+    {
+        return $this->collections()->get();
     }
     public function projects()
     {
