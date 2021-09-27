@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Kreait\Firebase\Auth;
 use App\Mail\sendMail;
+use App\Models\Collection;
+use App\Models\CollectionProduct;
 use App\Models\Store;
 use App\Models\UserVerifications;
 
@@ -294,6 +296,50 @@ class ManagementController extends Controller
                     'uid' => "GgZSlJOVS5hQsXH3ml9wrGOc5Zy1"
                 ]
             ], 200);
+        }
+    }
+    public function addProductToCollection(Request $request)
+    {
+        $this->validate($request, [
+            'collection_name' => 'nullable|string|max:250',
+            'collection_id' => 'nullable|string|max:250',
+            'store_id' => 'nullable|string|max:250',
+            'store_uid' => 'nullable|string|max:250',
+        ]);
+
+        if ($request->has('collection_id')) {
+            $collection = Collection::find($request->collection_id);
+            if (!$collection) {
+                return response()->json([
+                    'message' => 'Collection Not Found or deleted!',
+                ], 404);
+            } else {
+                $this->createCollection($request->store_id, $request->product_id);
+            }
+        }
+        $collection = new Collection();
+        $collection->collection_name = $request->collection_name;
+        $collection->store_id = $request->store_id;
+        $collection->store_uid = $request->store_uid;
+        if ($collection->save()) {
+            $this->createCollection($request->store_id, $request->product_id);
+        }
+    }
+    public function createCollection($store_id, $product_id)
+    {
+        $collect_product = new CollectionProduct();
+        $collect_product->store_id = $store_id;
+        $collect_product->product_id = $product_id;
+
+        if ($collect_product->save()) {
+            return response()->json([
+                'message' => 'Brand has been Updated successfully',
+                'collection' => $collect_product,
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'something went wrong, try again',
+            ], 500);
         }
     }
 }
