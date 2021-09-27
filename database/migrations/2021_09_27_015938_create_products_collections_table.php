@@ -16,7 +16,8 @@ class CreateProductsCollectionsTable extends Migration
         Schema::create('products_collections', function (Blueprint $table) {
             $table->id();
             $table->bigInteger("product_id")->unsigned();
-            $table->bigInteger("brand_id")->unsigned();
+            $table->bigInteger("store_id")->unsigned();
+            $table->string("store_uid")->nullable();
             $table->timestamps();
         });
     }

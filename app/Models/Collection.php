@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Collection extends Model
 {
     use HasFactory;
-    protected $fillable = ['collection_name', 'brand_id', 'brand_uid'];
+    protected $fillable = ['collection_name', 'store_id', 'store_uid'];
 
     public function brand()
     {
