@@ -86,3 +86,4 @@ Route::post("update-phone", "ManagementController@updatePhoneNumber");
 Route::post("brand", "ManagementController@createBrand");
 Route::post("brand/update/{id}", "ManagementController@updateBrand");
 Route::get("brand/{id}", "ManagementController@getBrandById");
+Route::post("collect", "ManagementController@addProductToCollection");
