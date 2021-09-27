@@ -9,6 +9,6 @@ class CollectionProduct extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'product_id', 'brand_id'
+        'product_id', 'store_id',
     ];
 }
