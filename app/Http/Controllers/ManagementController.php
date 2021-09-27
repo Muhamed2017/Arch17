@@ -320,7 +320,7 @@ class ManagementController extends Controller
         $collection = new Collection();
         $collection->collection_name = $request->collection_name;
         $collection->store_id = $request->store_id;
-        $collection->store_uid = $request->store_uid;
+        // $collection->store_uid = $request->store_uid;
         if ($collection->save()) {
             $this->createCollection($request->store_id, $request->product_id);
         }
