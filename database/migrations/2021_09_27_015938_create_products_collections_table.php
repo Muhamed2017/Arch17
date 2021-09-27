@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCollectionsTable extends Migration
+class CreateProductsCollectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCollectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('collections', function (Blueprint $table) {
+        Schema::create('products_collections', function (Blueprint $table) {
             $table->id();
-            $table->string('collection_name');
-            $table->integer('brand_id');
+            $table->bigInteger("product_id")->unsigned();
+            $table->bigInteger("brand_id")->unsigned();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateCollectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('collections');
+        Schema::dropIfExists('products_collections');
     }
 }

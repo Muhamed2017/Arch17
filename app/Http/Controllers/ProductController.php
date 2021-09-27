@@ -12,6 +12,7 @@ use App\Models\ProductIdentity;
 use App\Models\ProductOptions;
 use App\Models\ProductFiles;
 use App\Models\ProductGallery;
+use App\Models\Store;
 use CloudinaryLabs\CloudinaryLaravel\Model\Media;
 use PhpOption\Option;
 
@@ -23,17 +24,21 @@ class ProductController extends Controller
 
     // product entity - step zero
 
-    public function AddProduct(Request $request)
+    public function AddProduct(Request $request, $store_id)
     {
         $this->validate($request, [
             'kind'          => 'required|string|max:2000',
         ]);
 
-        // $product->store_id = $store_id;
-        // $product->user_id = $user->id;
-        // $product->business_account_id = $business_account_id;
+
+        $store = Store::find($store_id);
+        if (!$store) {
+            return response()->json([
+                'message' => 'No Sotre with this record, create store then add product'
+            ], 404);
+        }
         $product = new Product();
-        $product->store_id = 1;
+        $product->store_id = $store_id;
         $product->user_id = 1;
         $product->business_account_id = 1;
         $product->kind = $request->kind;

@@ -13,10 +13,10 @@ class Product extends Model
     use MediaAlly;
 
 
-    public function collections()
-    {
-        return $this->morphToMany(Collection::class, 'collectionable');
-    }
+    // public function collections()
+    // {
+    //     return $this->morphToMany(Collection::class, 'collectionable');
+    // }
 
 
     protected $fillable = [
@@ -86,6 +86,11 @@ class Product extends Model
     public function getGalleryAttribute()
     {
         return $this->gallery()->get();
+    }
+
+    public function collections()
+    {
+        $this->belongsToMany("App\Models\Collection");
     }
 
     public static function boot()

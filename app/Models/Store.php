@@ -26,11 +26,10 @@ class Store extends Model
         'product_types' => 'array'
     ];
 
-    // public function businessAccont()
-    // {
-    //     return $this->belongsTo('App\Models\BusinessAccount');
-    // }
-
+    public function brands()
+    {
+        return $this->hasMany('App\Models\Collection');
+    }
 
     public function products()
     {
@@ -41,7 +40,6 @@ class Store extends Model
     {
         return $this->morphMany(Project::class, 'authorable');
     }
-
 
     // protected $appens='logo';
     public function followers()

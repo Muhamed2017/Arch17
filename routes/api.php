@@ -60,7 +60,7 @@ Route::group(['middleware' => 'auth_user', 'prefix' => 'account/addproject'], fu
 //add product process
 // Route::group(['middleware' => 'auth_user', 'prefix' => 'addproduct'], function () {
 
-Route::post('addproduct', 'ProductController@AddProduct');
+Route::post('addproduct/{store_id}', 'ProductController@AddProduct');
 Route::post('identity/{id}', 'ProductController@AddProductIdentity');
 Route::post('option-price/{id}/{option_id}', 'ProductController@addOptionToProduct');
 Route::post('description/{id}', 'ProductController@addDescriptionToProduct');
