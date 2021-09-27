@@ -27,7 +27,6 @@ class Store extends Model
     ];
     public $appends = ['products'];
 
-
     public function brands()
     {
         return $this->hasMany('App\Models\Collection');
