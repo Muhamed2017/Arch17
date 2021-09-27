@@ -25,6 +25,8 @@ class Store extends Model
     protected $casts = [
         'product_types' => 'array'
     ];
+    public $appends = ['products'];
+
 
     public function brands()
     {
