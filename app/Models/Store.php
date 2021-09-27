@@ -36,6 +36,10 @@ class Store extends Model
         return $this->hasMany('App\Models\Product');
     }
 
+    public function getProductsAttribute()
+    {
+        return $this->products()->get();
+    }
     public function projects()
     {
         return $this->morphMany(Project::class, 'authorable');
