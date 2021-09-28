@@ -341,4 +341,26 @@ class ManagementController extends Controller
             ], 500);
         }
     }
+
+    public function addProductToExistingCollection(Request $request)
+    {
+        $this->validate($request, [
+            'collection_id' => 'nullable|string|max:250',
+            'store_id' => 'nullable|string|max:250',
+        ]);
+        $id = $request->collection_id;
+        $collection = Collection::find($id);
+        if (!$collection) {
+            return response()->json([
+                'message' => 'Collection not found or deleted',
+            ], 404);
+        }
+
+        $collecting = new CollectionProduct();
+        $collecting->product_id = $request->product_id;
+        $collecting->store_id = $request->collection_id;
+    }
+    public function addProductToNewColelction()
+    {
+    }
 }
