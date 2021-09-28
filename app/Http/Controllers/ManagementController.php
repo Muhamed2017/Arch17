@@ -304,7 +304,6 @@ class ManagementController extends Controller
             'collection_name' => 'nullable|string|max:250',
             'collection_id' => 'nullable|string|max:250',
             'store_id' => 'nullable|string|max:250',
-            'store_uid' => 'nullable|string|max:250',
         ]);
 
         if ($request->has('collection_id')) {
@@ -314,15 +313,15 @@ class ManagementController extends Controller
                     'message' => 'Collection Not Found or deleted!',
                 ], 404);
             } else {
-                $this->createCollection($request->store_id, $request->product_id);
+                return $this->createCollection($request->store_id, $request->product_id);
             }
-        }
-        $collection = new Collection();
-        $collection->collection_name = $request->collection_name;
-        $collection->store_id = $request->store_id;
-        // $collection->store_uid = $request->store_uid;
-        if ($collection->save()) {
-            $this->createCollection($request->store_id, $request->product_id);
+        } else {
+            $collection = new Collection();
+            $collection->collection_name = $request->collection_name;
+            $collection->store_id = $request->store_id;
+            if ($collection->save()) {
+                return $this->createCollection($request->store_id, $request->product_id);
+            }
         }
     }
     public function createCollection($store_id, $product_id)
