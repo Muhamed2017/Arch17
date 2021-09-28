@@ -298,36 +298,11 @@ class ManagementController extends Controller
             ], 200);
         }
     }
-    public function addProductToCollection(Request $request)
-    {
-        $this->validate($request, [
-            'collection_name' => 'nullable|string|max:250',
-            'collection_id' => 'nullable|string|max:250',
-            'store_id' => 'nullable|string|max:250',
-        ]);
 
-        if ($request->has('collection_id')) {
-            $collection = Collection::find($request->collection_id);
-            if (!$collection) {
-                return response()->json([
-                    'message' => 'Collection Not Found or deleted!',
-                ], 404);
-            } else {
-                return $this->createCollection($request->store_id, $request->product_id);
-            }
-        } else {
-            $collection = new Collection();
-            $collection->collection_name = $request->collection_name;
-            $collection->store_id = $request->store_id;
-            if ($collection->save()) {
-                return $this->createCollection($request->store_id, $request->product_id);
-            }
-        }
-    }
-    public function createCollection($store_id, $product_id)
+    public function createCollection($collection_id, $product_id)
     {
         $collect_product = new CollectionProduct();
-        $collect_product->store_id = $store_id;
+        $collect_product->collection_id = $collection_id;
         $collect_product->product_id = $product_id;
 
         if ($collect_product->save()) {
@@ -346,7 +321,7 @@ class ManagementController extends Controller
     {
         $this->validate($request, [
             'collection_id' => 'nullable|string|max:250',
-            'store_id' => 'nullable|string|max:250',
+            'product_id' => 'nullable|string|max:250',
         ]);
         $id = $request->collection_id;
         $collection = Collection::find($id);
@@ -358,9 +333,35 @@ class ManagementController extends Controller
 
         $collecting = new CollectionProduct();
         $collecting->product_id = $request->product_id;
-        $collecting->store_id = $request->collection_id;
+        $collecting->collection_id = $request->collection_id;
+        if ($collecting->save()) {
+            return response()->json([
+                'message' => 'Collection has been created and product has been added to it.',
+                'product_collected' => $collecting
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'Error occured, try again later',
+            ], 500);
+        }
     }
-    public function addProductToNewColelction()
+    public function addProductToNewColelction(Request $request)
     {
+        $this->validate($request, [
+            'collection_name' => 'required|string|max:250',
+            'store_id' => 'nullable|string|max:250',
+            'product_id' => 'nullable|string|max:250',
+        ]);
+        $collection = new Collection();
+        $collection->collection_name = $request->collection_name;
+        $collection->store_id = $request->store_id;
+
+        if ($collection->save()) {
+            return $this->createCollection($collection->id, $request->product_id);
+        } else {
+            return response()->json([
+                'message' => 'Error occured, try again later',
+            ], 500);
+        }
     }
 }
