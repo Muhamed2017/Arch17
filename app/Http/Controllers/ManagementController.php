@@ -364,4 +364,12 @@ class ManagementController extends Controller
             ], 500);
         }
     }
+    public function getAllCollectionsbyStoreId($store_id)
+    {
+
+        $collections = CollectionProduct::where('store_id', $store_id)->get();
+        return response()->json([
+            'collections' => $collections
+        ], 200);
+    }
 }

@@ -88,3 +88,4 @@ Route::post("brand/update/{id}", "ManagementController@updateBrand");
 Route::get("brand/{id}", "ManagementController@getBrandById");
 Route::post("collect", "ManagementController@addProductToNewColelction");
 Route::post("add-to-collection", "ManagementController@addProductToExistingCollection");
+Route::get("collections/{store_id}", "ManagementController@getAllCollectionsbyStoreId");
