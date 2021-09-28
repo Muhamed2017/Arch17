@@ -366,7 +366,6 @@ class ManagementController extends Controller
     }
     public function getAllCollectionsbyStoreId($store_id)
     {
-
         $collections = Collection::where('store_id', $store_id)->get();
         return response()->json([
             'collections' => $collections
