@@ -21,8 +21,8 @@ class Collection extends Model
     {
         return $this->belongsToMany("App\Models\Product");
     }
-    public function getProductsAttribute()
-    {
-        return $this->products()->get();
-    }
+    // public function getProductsAttribute()
+    // {
+    //     return $this->products()->get();
+    // }
 }
