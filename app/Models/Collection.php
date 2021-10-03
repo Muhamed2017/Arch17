@@ -10,7 +10,7 @@ class Collection extends Model
     use HasFactory;
     protected $fillable = ['collection_name', 'store_id'];
 
-    public $appends = ['products'];
+    // public $appends = ['products'];
 
     public function brand()
     {
