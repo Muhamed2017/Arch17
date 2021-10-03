@@ -10,6 +10,7 @@ use Kreait\Firebase\Auth;
 use App\Mail\sendMail;
 use App\Models\Collection;
 use App\Models\CollectionProduct;
+use App\Models\Product;
 use App\Models\Store;
 use App\Models\UserVerifications;
 
@@ -370,5 +371,19 @@ class ManagementController extends Controller
         return response()->json([
             'collections' => $collections
         ], 200);
+    }
+    public function getStoreIdByProductId($product_id)
+    {
+        $product = Product::find($product_id);
+        if (!$product) {
+            return response()->json([
+                'message' => "Product Not Found or deleted!"
+            ], 404);
+        } else {
+            $store_id = $product->store_id;
+            return response()->json([
+                'store_id' => $store_id
+            ], 200);
+        }
     }
 }
