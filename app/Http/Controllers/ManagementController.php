@@ -324,13 +324,14 @@ class ManagementController extends Controller
             'collection_id' => 'nullable|string|max:250',
             'product_id' => 'nullable|string|max:250',
         ]);
-        $id = $request->collection_id;
-        $collection = Collection::find($id);
-        if (!$collection) {
-            return response()->json([
-                'message' => 'Collection not found or deleted',
-            ], 404);
-        }
+        // $id = $request->collection_id;
+        // $collection = Collection::find($id);
+        // if (!$collection) {
+        //     return response()->json([
+        //         'message' => 'Collection not found or deleted',
+        //         // 'collection' => Collection::find($id)
+        //     ], 404);
+        // }
 
         $collecting = new CollectionProduct();
         $collecting->product_id = $request->product_id;
