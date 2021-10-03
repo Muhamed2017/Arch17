@@ -10,13 +10,19 @@ class Collection extends Model
     use HasFactory;
     protected $fillable = ['collection_name', 'store_id'];
 
+    public $appends = ['products'];
+
     public function brand()
     {
-        $this->belongsTo("App\Models\Store");
+        return $this->belongsTo("App\Models\Store");
     }
 
     public function products()
     {
-        $this->hasMany("App\Models\Product");
+        return $this->hasMany("App\Models\Product");
+    }
+    public function getProductsAttribute()
+    {
+        return $this->products()->get();
     }
 }
