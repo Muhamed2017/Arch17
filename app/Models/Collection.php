@@ -23,6 +23,6 @@ class Collection extends Model
     }
     public function getProductsAttribute()
     {
-        return $this->products()->get();
+        return $this->pivot;
     }
 }
