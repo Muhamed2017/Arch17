@@ -44,7 +44,7 @@ class Store extends Model
 
     public function getCollectionsAttribute()
     {
-        return $this->collections()->get();
+        return $this->collections()->with('product')->get();
     }
     public function projects()
     {
