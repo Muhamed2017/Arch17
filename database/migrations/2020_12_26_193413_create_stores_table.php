@@ -15,7 +15,7 @@ class CreateStoresTable extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('user_id');
             $table->string('country')->nullable();
             $table->string('city')->nullable();
@@ -23,8 +23,8 @@ class CreateStoresTable extends Migration
             $table->text('about')->nullable();
             $table->string('email')->unique();
             $table->string('official_website')->nullable();
-            $table->text('product_types');
-            $table->string('type');
+            $table->text('product_types')->nullable();
+            $table->string('type')->nullable();
             $table->string('logo')->nullable();
             $table->string('cover')->nullable();
             $table->timestamps();
