@@ -409,13 +409,16 @@ class ManagementController extends Controller
         if ($request->hasFile('cover')) {
             $brand->cover = $request->cover->storeOnCloudinary()->getSecurePath();
         }
+        if ($request->has('product_types')) {
+            $brand->product_types = $request->product_types;
+        }
         $brand->name = $request->name;
         $brand->email = $request->email;
         $brand->phone = $request->phone;
         $brand->country = $request->country;
         $brand->city = $request->city;
         $brand->about = $request->about;
-        $brand->product_types = $request->product_types;
+
         $brand->type = $request->type;
         $brand->official_website = $request->official_website;
         if ($brand->save()) {
