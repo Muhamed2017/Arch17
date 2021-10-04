@@ -380,4 +380,53 @@ class ManagementController extends Controller
             ], 200);
         }
     }
+    public function editBrandById(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'nullable|string|max:250',
+            'product_types' => 'nullable|array',
+            'type' => 'nullable|string|max:250',
+            'product_types.*' => 'nullable|string|max:250',
+            'country' => 'nullable|string|max:250',
+            'city' => 'nullable|string|max:250',
+            'phone' => 'nullable|string|max:250',
+            'email' => 'nullable|email|max:250',
+            'logo' => 'nullable|string|max:250',
+            'cover' => 'nullable|string|max:250',
+            'official_website' => 'nullable|string|max:250',
+        ]);
+
+        $brand = Store::find($id);
+
+        if (!$brand) {
+            return response()->json([
+                'message' => 'Brand Not Found or deleted'
+            ], 404);
+        }
+        if ($request->hasFile('logo')) {
+            $brand->logo = $request->logo->storeOnCloudinary()->getSecurePath();
+        }
+        if ($request->hasFile('cover')) {
+            $brand->cover = $request->cover->storeOnCloudinary()->getSecurePath();
+        }
+        $brand->name = $request->name;
+        $brand->email = $request->email;
+        $brand->phone = $request->phone;
+        $brand->country = $request->country;
+        $brand->city = $request->city;
+        $brand->about = $request->about;
+        $brand->product_types = $request->product_types;
+        $brand->type = $request->type;
+        $brand->official_website = $request->official_website;
+        if ($brand->save()) {
+            return response()->json([
+                'brand' => $brand,
+                'message' => 'Brand information has been updated'
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'error occured, try again'
+            ], 500);
+        }
+    }
 }

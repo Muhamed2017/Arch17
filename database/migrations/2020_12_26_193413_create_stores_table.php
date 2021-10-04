@@ -25,6 +25,8 @@ class CreateStoresTable extends Migration
             $table->string('official_website')->nullable();
             $table->text('product_types');
             $table->string('type');
+            $table->string('logo');
+            $table->string('cover');
             $table->timestamps();
         });
     }

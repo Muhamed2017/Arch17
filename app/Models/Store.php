@@ -14,7 +14,7 @@ class Store extends Model
     protected $table = 'stores';
 
     protected $fillable = [
-        'user_id', 'name', 'country', 'city', 'about', 'phone', 'email', 'official_website', 'product_types', 'type'
+        'user_id', 'name', 'country', 'city', 'about', 'logo', 'cover', 'phone', 'email', 'official_website', 'product_types', 'type'
     ];
 
     protected $dates = [
