@@ -11,6 +11,7 @@ use App\Mail\sendMail;
 use App\Models\Collection;
 use App\Models\CollectionProduct;
 use App\Models\Product;
+use App\Models\ProductIdentity;
 use App\Models\Store;
 use App\Models\UserVerifications;
 
@@ -425,6 +426,30 @@ class ManagementController extends Controller
             return response()->json([
                 'brand' => $brand,
                 'message' => 'Brand information has been updated'
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'error occured, try again'
+            ], 500);
+        }
+    }
+
+    public function editNameForProductPublishing(Request $request, $identity_id)
+    {
+
+        $product_identity = ProductIdentity::find($identity_id);
+
+        if (!$product_identity) {
+            return response()->json([
+                'message' => 'Not Found, try again'
+            ], 404);
+        }
+
+        $product_identity->name = $request->display_name;
+        if ($product_identity->save()) {
+            return response()->json([
+                'identity' => $product_identity,
+                'message' => 'Product Name has been updated'
             ], 200);
         } else {
             return response()->json([
