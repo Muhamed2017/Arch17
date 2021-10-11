@@ -92,3 +92,4 @@ Route::post("add-to-collection", "ManagementController@addProductToExistingColle
 Route::get("collections/{store_id}", "ManagementController@getAllCollectionsbyStoreId");
 Route::get("store-id/{product_id}", "ManagementController@getStoreIdByProductId");
 Route::post("publish-name/{identity_id}", "ManagementController@editNameForProductPublishing");
+Route::post("preview", "ManagementController@previewProduct");
