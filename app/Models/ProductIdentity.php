@@ -21,7 +21,7 @@ class ProductIdentity extends Model
 
     protected $fillable = [
         'product_id', 'name', 'kind', 'city', 'style', 'category', 'material', 'places_tags', 'country', 'shape', 'base', 'seats', 'is_outdoor', 'is_for_kids', 'type',
-        'product_file_kind'
+        'product_file_kind', 'preview_cover', 'preview_price'
     ];
 
     public function product()

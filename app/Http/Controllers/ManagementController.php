@@ -275,7 +275,7 @@ class ManagementController extends Controller
             'country' => 'nullable|string|max:250',
             'city' => 'nullable|string|max:250',
             'phone' => 'nullable|string|max:250',
-            'phone' => 'nullable|string|max:250',
+            // 'phone' => 'nullable|string|max:250',
             'official_website' => 'nullable|string|max:250',
             'email' => 'nullable|email|max:250',
         ]);
@@ -446,6 +446,31 @@ class ManagementController extends Controller
         }
 
         $product_identity->name = $request->display_name;
+        if ($product_identity->save()) {
+            return response()->json([
+                'identity' => $product_identity,
+                'message' => 'Product Name has been updated'
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'error occured, try again'
+            ], 500);
+        }
+    }
+
+    public function previewProduct(Request $request)
+    {
+        $identity_id = $request->identity_id;
+        $product_identity = ProductIdentity::find($identity_id);
+        if (!$product_identity) {
+            return response()->json([
+                'message' => 'Not Found, try again'
+            ], 404);
+        }
+
+        $product_identity->name = $request->display_name;
+        $product_identity->preview_price = $request->preview_price;
+        $product_identity->preview_cover = $request->preview_cover->storeOnCloudinary()->getSecurePath();
         if ($product_identity->save()) {
             return response()->json([
                 'identity' => $product_identity,

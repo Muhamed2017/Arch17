@@ -30,6 +30,8 @@ class CreateProductIdentitiesTable extends Migration
             $table->string('places_tags')->nullable();
             $table->string('country')->nullable();
             $table->string('category')->nullable();
+            $table->string('preview_cover')->nullable();
+            $table->string('preview_price')->nullable();
             $table->timestamps();
         });
     }
