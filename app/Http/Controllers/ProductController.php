@@ -397,4 +397,19 @@ class ProductController extends Controller
             'message' => 'Something went wrong',
         ], 500);
     }
+
+    public function filterProductSearchPage(Request $request)
+    {
+        $products = Product::all();
+
+        if (!empty($products)) {
+            return response()->json([
+                'products' => $products,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No Products Added! ',
+            ], 200);
+        }
+    }
 }

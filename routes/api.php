@@ -25,6 +25,7 @@ Route::post('follow_store', 'StoreController@follow');
 Route::get('designer/{slug}', 'CompanyController@get_company');
 
 
+
 Route::group(['prefix' => 'user/registration'], function () {
     Route::post('signin', 'LoginController@login')->name('user');
     Route::post('signup', 'RegisterController@register')->name('user');
@@ -93,3 +94,4 @@ Route::get("collections/{store_id}", "ManagementController@getAllCollectionsbySt
 Route::get("store-id/{product_id}", "ManagementController@getStoreIdByProductId");
 Route::post("publish-name/{identity_id}", "ManagementController@editNameForProductPublishing");
 Route::post("preview", "ManagementController@previewProduct");
+Route::get("search", "ProductController@filterProductSearchPage");
