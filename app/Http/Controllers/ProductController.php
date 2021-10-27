@@ -417,11 +417,16 @@ class ProductController extends Controller
     public function filterProductSearchPage(Request $request)
     {
         // $products = Product::all();
+        // QueryBuilderRequest::setArrayValueDelimiter('|');
+
         $products = QueryBuilder::for(ProductIdentity::class)
             ->allowedFilters([
                 AllowedFilter::exact('category'),
-                AllowedFilter::exact('type'),
+                AllowedFilter::exact('is_outdoor'),
+                AllowedFilter::exact('is_for_kids'),
+                // AllowedFilter::exact('type'),
                 AllowedFilter::exact('kind'),
+                'type'
             ])
             ->get();
         if (!empty($products)) {
