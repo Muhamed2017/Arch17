@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class ProductIdentity extends Model
 {
@@ -28,4 +30,14 @@ class ProductIdentity extends Model
     {
         return $this->belongsTo('App\Models\Product');
     }
+    // public function scopeTermSearch(Builder $query, $term): Builder
+    // {
+    //     return $query->where('kind', 'LIKE', "%" . $term . "%")
+    //         // ->orWhere('color', 'LIKE', "%" . $term . "%")
+    //         // ->orWhere('transmission', 'LIKE', "%" . $term . "%")
+    //         // ->orWhere('engine_type', 'LIKE', "%" . $term . "%")
+    //         // ->orWhere('model', 'LIKE', "%" . $term . "%")
+    //         // ->orWhere('primary_damage', 'LIKE', "%" . $term . "%")
+    //         ->orWhere('style', 'LIKE', "%" . $term . "%");
+    // }
 }

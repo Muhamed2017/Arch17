@@ -15,6 +15,8 @@ use App\Models\ProductGallery;
 use App\Models\Store;
 use CloudinaryLabs\CloudinaryLaravel\Model\Media;
 use PhpOption\Option;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 use function GuzzleHttp\Promise\each;
 
@@ -398,10 +400,30 @@ class ProductController extends Controller
         ], 500);
     }
 
-    public function filterProductSearchPage(Request $request)
+    public function getAllProducts()
     {
         $products = Product::all();
+        if (!empty($products)) {
+            return response()->json([
+                'products' => $products,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No Products Added! ',
+            ], 200);
+        }
+    }
 
+    public function filterProductSearchPage(Request $request)
+    {
+        // $products = Product::all();
+        $products = QueryBuilder::for(ProductIdentity::class)
+            ->allowedFilters([
+                AllowedFilter::exact('category'),
+                AllowedFilter::exact('type'),
+                AllowedFilter::exact('kind'),
+            ])
+            ->get();
         if (!empty($products)) {
             return response()->json([
                 'products' => $products,

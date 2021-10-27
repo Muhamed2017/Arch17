@@ -95,3 +95,4 @@ Route::get("store-id/{product_id}", "ManagementController@getStoreIdByProductId"
 Route::post("publish-name/{identity_id}", "ManagementController@editNameForProductPublishing");
 Route::post("preview", "ManagementController@previewProduct");
 Route::get("search", "ProductController@filterProductSearchPage");
+Route::get("products", "ProductController@getAllProducts");
