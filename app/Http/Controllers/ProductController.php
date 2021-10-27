@@ -426,8 +426,8 @@ class ProductController extends Controller
                 AllowedFilter::exact('is_for_kids'),
                 AllowedFilter::exact('kind'),
                 'type', 'seats', 'base', 'shape', 'style'
-            ])->allowedIncludes(['product'])
-
+            ])
+            ->allowedAppends(['product'])
             ->get();
         if (!empty($products)) {
             return response()->json([

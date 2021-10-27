@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-
+use Illuminate\Support\Facades\DB;
 
 class ProductIdentity extends Model
 {
@@ -25,19 +25,17 @@ class ProductIdentity extends Model
         'product_id', 'name', 'kind', 'city', 'style', 'category', 'material', 'places_tags', 'country', 'shape', 'base', 'seats', 'is_outdoor', 'is_for_kids', 'type',
         'product_file_kind', 'preview_cover', 'preview_price'
     ];
-
+    public $appends = ['product'];
     public function product()
     {
         return $this->belongsTo('App\Models\Product');
     }
-    // public function scopeTermSearch(Builder $query, $term): Builder
-    // {
-    //     return $query->where('kind', 'LIKE', "%" . $term . "%")
-    //         // ->orWhere('color', 'LIKE', "%" . $term . "%")
-    //         // ->orWhere('transmission', 'LIKE', "%" . $term . "%")
-    //         // ->orWhere('engine_type', 'LIKE', "%" . $term . "%")
-    //         // ->orWhere('model', 'LIKE', "%" . $term . "%")
-    //         // ->orWhere('primary_damage', 'LIKE', "%" . $term . "%")
-    //         ->orWhere('style', 'LIKE', "%" . $term . "%");
-    // }
+
+    public function getProductAttribute()
+    {
+        $product =  DB::table('products')->where('id', $this->product_id)->first();
+
+        // return Product::where('product_id', $this->product_id);
+        return $product;
+    }
 }
