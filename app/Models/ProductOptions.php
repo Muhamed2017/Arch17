@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 // use App\Support\Services\Medially;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,7 +22,7 @@ class ProductOptions extends Model
     ];
 
     protected $hidden = [
-        'id', 'product_id'
+        // 'product_id'
     ];
 
 

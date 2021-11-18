@@ -424,6 +424,7 @@ class ProductController extends Controller
                 AllowedFilter::exact('category'),
                 AllowedFilter::exact('is_outdoor'),
                 AllowedFilter::exact('is_for_kids'),
+                AllowedFilter::exact('product_file_kind'),
                 AllowedFilter::exact('kind'),
                 'type', 'seats', 'base', 'shape', 'style'
             ])
