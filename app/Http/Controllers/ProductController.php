@@ -17,6 +17,7 @@ use CloudinaryLabs\CloudinaryLaravel\Model\Media;
 use PhpOption\Option;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use Throwable;
 
 use function GuzzleHttp\Promise\each;
 
@@ -440,16 +441,24 @@ class ProductController extends Controller
     public function UpdateProductOptions(Request $request, $product_id)
     {
         $product = Product::find($product_id);
-        $product->options()->updateExistingPivot($request->option_id, [
-            'material_name' => "NEW Material"
-        ]);
-        if ($product->save()) {
+        try {
+            $product->options()->sync($request->option_id, [
+                'material_name' => "NEW Material"
+            ]);
             return response()->json([
                 'message' => "Updated Susscuffully",
                 'product' => $product
             ], 200);
-        } else {
-            return null;
+        } catch (Throwable $err) {
+            return false;
         }
+        // if ($product->save()) {
+        //     return response()->json([
+        //         'message' => "Updated Susscuffully",
+        //         'product' => $product
+        //     ], 200);
+        // } else {
+        //     return null;
+        // }
     }
 }
