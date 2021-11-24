@@ -96,4 +96,4 @@ Route::post("publish-name/{identity_id}", "ManagementController@editNameForProdu
 Route::post("preview", "ManagementController@previewProduct");
 Route::get("search", "ProductController@filterProductSearchPage");
 Route::get("products", "ProductController@getAllProducts");
-Route::get('update-option/{product_id}', "ProductController@UpdateProductOptions");
+Route::post('update-option/{product_id}', "ProductController@UpdateProductOptions");
