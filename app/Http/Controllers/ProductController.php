@@ -32,7 +32,6 @@ class ProductController extends Controller
             'kind'          => 'required|string|max:2000',
         ]);
 
-
         $store = Store::find($store_id);
         if (!$store) {
             return response()->json([
@@ -44,7 +43,6 @@ class ProductController extends Controller
         $product->user_id = 1;
         $product->business_account_id = 1;
         $product->kind = $request->kind;
-
         if ($product->save()) {
             $product->identity()->create();
             return response()->json([
@@ -112,7 +110,7 @@ class ProductController extends Controller
                 return response()->json([
                     'message' => 'product_identity created, ready to add option and price',
                     'identity' => $product_identity,
-
+                    'tab_index' => 1
                 ], 200);
             }
         } else {
@@ -136,12 +134,9 @@ class ProductController extends Controller
             'code'          => 'nullable|string|max:250',
             'cover'         => 'nullable|array',
             'cover.*'       => 'nullable|mimes:jpeg,jpg,png|between:1,10000',
-            // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
-            // 'cover.*'       => 'nullable|image|mimes:jpeg,bmp,jpg,png|between:1,6000|dimensions:min_width=1024,max_height=1024',
 
         ]);
         $product = Product::find($id);
-        // $product_options = new ProductOptions();
         $product_options = ProductOptions::find($option_id);
         $product_options->product_id = $product->id;
         $product_options->material_name = $request->material_name;
