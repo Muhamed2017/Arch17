@@ -445,20 +445,15 @@ class ProductController extends Controller
             $product->options()->sync($request->option_id, [
                 'material_name' => "NEW Material"
             ]);
-            return response()->json([
-                'message' => "Updated Susscuffully",
-                'product' => $product
-            ], 200);
+
+            if ($product->save()) {
+                return response()->json([
+                    'message' => "Updated Susscuffully",
+                    'product' => $product
+                ], 200);
+            }
         } catch (Throwable $err) {
             return false;
         }
-        // if ($product->save()) {
-        //     return response()->json([
-        //         'message' => "Updated Susscuffully",
-        //         'product' => $product
-        //     ], 200);
-        // } else {
-        //     return null;
-        // }
     }
 }
