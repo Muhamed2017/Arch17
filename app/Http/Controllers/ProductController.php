@@ -246,6 +246,7 @@ class ProductController extends Controller
         }
     }
 
+
     public function ProductDescriptionCotent(Request $request, $id)
     {
 
@@ -433,6 +434,22 @@ class ProductController extends Controller
             return response()->json([
                 'message' => 'No Products Added! ',
             ], 200);
+        }
+    }
+
+    public function UpdateProductOptions(Request $request, $product_id)
+    {
+        $product = Product::find($product_id);
+        $product->options()->updateExistingPivot($request->option_id, [
+            'material_name' => "NEW Material"
+        ]);
+        if ($product->save()) {
+            return response()->json([
+                'message' => "Updated Susscuffully",
+                'product' => $product
+            ], 200);
+        } else {
+            return null;
         }
     }
 }
