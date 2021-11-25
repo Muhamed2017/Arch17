@@ -140,22 +140,24 @@ class ProductController extends Controller
 
         ]);
         $product = Product::find($id);
-        $product_options = ProductOptions::find($option_id);
-        $product_options->product_id = $product->id;
-        $product_options->material_name = $request->material_name;
-        $product_options->size = $request->size;
-        $product_options->price = $request->price;
-        $product_options->offer_price =  $request->offer_price;
-        $product_options->quantity =  $request->quantity;
-        $product_options->code =  $request->code;
-
-        $product_options->material_image =  $request->material_image->storeOnCloudinary()->getSecurePath();
-
-        if ($product_options->save()) {
-            return response()->json([
-                'message' => 'option attached to product successfully',
-                'options' => $product_options
-            ], 200);
+        if (nullOrEmptyString($request->material_name)) {
+            return false;
+        } else {
+            $product_options = ProductOptions::find($option_id);
+            $product_options->product_id = $product->id;
+            $product_options->material_name = $request->material_name;
+            $product_options->size = $request->size;
+            $product_options->price = $request->price;
+            $product_options->offer_price =  $request->offer_price;
+            $product_options->quantity =  $request->quantity;
+            $product_options->code =  $request->code;
+            $product_options->material_image =  $request->material_image->storeOnCloudinary()->getSecurePath();
+            if ($product_options->save()) {
+                return response()->json([
+                    'message' => 'option attached to product successfully',
+                    'options' => $product_options
+                ], 200);
+            }
         }
         return response()->json([
             'message' => 'Something went wrong ',
@@ -458,24 +460,6 @@ class ProductController extends Controller
             return response()->json([
                 'message' => 'No Products Added! ',
             ], 200);
-        }
-    }
-
-    public function UpdateProductOptions(Request $request, $product_id)
-    {
-        $product = Product::find($product_id);
-        try {
-            $product->options()->sync($request->option_id, [
-                'material_name' => "NEW Material"
-            ]);
-            if ($product->save()) {
-                return response()->json([
-                    'message' => "Updated Susscuffully",
-                    'product' => $product
-                ], 200);
-            }
-        } catch (Throwable $err) {
-            return false;
         }
     }
 }
