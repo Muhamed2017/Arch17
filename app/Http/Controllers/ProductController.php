@@ -171,6 +171,7 @@ class ProductController extends Controller
                 ],
                 [
                     'product_id' => $request->product_id,
+                    'material_image' => "skemkemekmek",
                     'price' => '100',
                     'offer_price' => '50',
                     'size' => '500L 300W 600H',
