@@ -171,6 +171,7 @@ class ProductController extends Controller
                 ],
                 [
                     'product_id' => $request->product_id,
+                    'material_name' => $request->material_name,
                     'material_image' => "skemkemekmek",
                     'price' => '100',
                     'offer_price' => '50',
