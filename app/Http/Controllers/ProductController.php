@@ -18,6 +18,8 @@ use PhpOption\Option;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Throwable;
+use Illuminate\Support\Facades\DB;
+
 
 use function GuzzleHttp\Promise\each;
 
@@ -146,12 +148,8 @@ class ProductController extends Controller
         $product_options->offer_price =  $request->offer_price;
         $product_options->quantity =  $request->quantity;
         $product_options->code =  $request->code;
-        // $cover_path = [];
-        // foreach ($request->cover as $cover) {
-        //     array_push($cover_path, $cover->storeOnCloudinary()->getSecurePath());
-        // }
+
         $product_options->material_image =  $request->material_image->storeOnCloudinary()->getSecurePath();
-        // $product_options->cover = $cover_path;
 
         if ($product_options->save()) {
             return response()->json([
@@ -164,6 +162,29 @@ class ProductController extends Controller
         ], 500);
     }
 
+    public function UpdateOrCreateOption(Request $request)
+    {
+        try {
+            $option = ProductOptions::updateOrCreate(
+                [
+                    'material_name' => $request->material_name
+                ],
+                [
+                    'product_id' => $request->product_id,
+                    'price' => '100',
+                    'offer_price' => '50',
+                    'size' => '500L 300W 600H',
+                    'cover' => ["smmeenekn", 'lmelmelme']
+                ]
+            );
+            return response()->json([
+                'message' => 'Updated Successfully',
+                'option' => $option
+            ], 200);
+        } catch (Throwable $er) {
+            return $er;
+        }
+    }
 
 
 
@@ -445,7 +466,6 @@ class ProductController extends Controller
             $product->options()->sync($request->option_id, [
                 'material_name' => "NEW Material"
             ]);
-
             if ($product->save()) {
                 return response()->json([
                     'message' => "Updated Susscuffully",
