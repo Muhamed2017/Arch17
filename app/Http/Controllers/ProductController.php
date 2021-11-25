@@ -167,7 +167,7 @@ class ProductController extends Controller
         try {
             $option = ProductOptions::updateOrCreate(
                 [
-                    'material_name' => $request->material_name
+                    'id' => $request->option_id,
                 ],
                 [
                     'product_id' => $request->product_id,
