@@ -76,7 +76,7 @@ class Product extends Model
     }
     public function getOptionsAttribute()
     {
-        return $this->options()->get();
+        return $this->options()->where('cover', '!=', null)->get();
     }
 
     public function getDescriptionAttribute()
