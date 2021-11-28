@@ -462,4 +462,100 @@ class ProductController extends Controller
             ], 200);
         }
     }
+
+
+    public function fakeOptionsData()
+    {
+
+        $options = collect([
+            [
+                'option_id' => 5,
+                'covers' => [
+                    ["src" => "https://bit.ly/3rfV6TZ", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
+                    ["src" => "https://bit.ly/3CY3Q3i", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 650, "height" => 600], "option_id" => 5],
+                    ["src" => "https://bit.ly/3xs7S2I", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
+                    ["src" => "https://bit.ly/3E5g2Aw", "cover_id" => 35, "cropping_data" => ["x" => 150, "y" => 250, "width" => 490, "height" => 500], "option_id" => 5],
+                    ["src" => "https://bit.ly/3lgabky", "cover_id" => 45, "cropping_data" => ["x" => 0, "y" => 80, "width" => 290, "height" => 500], "option_id" => 5],
+                    ["src" => "https://bit.ly/3rb34xA", "cover_id" => 55, "cropping_data" => ["x" => 40, "y" => 40, "width" => 690, "height" => 400], "option_id" => 5],
+                ],
+                "material_name" => "Wood",
+                'material_image' => "https://bit.ly/3leXIh2",
+                "code" => "code0001",
+                "size" => "100W 100L 100H",
+                "price" => "500",
+                "offer_price" => "450",
+                "quantity" => 5
+            ],
+            [
+                'option_id' => 5,
+                'covers' => [
+                    ["src" => "https://bit.ly/3xvj5zk", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
+                    ["src" => "https://bit.ly/3ldjFwI", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 650, "height" => 600], "option_id" => 5],
+                    ["src" => "https://bit.ly/3FWY0kj", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
+                    ["src" => "https://bit.ly/3nZ0WXB", "cover_id" => 35, "cropping_data" => ["x" => 150, "y" => 250, "width" => 490, "height" => 500], "option_id" => 5],
+                ],
+                "material_name" => "Metal",
+                'material_image' => "https://bit.ly/3lbX5EH",
+                "code" => "code0002",
+                "size" => "200W 200L 200H",
+                "price" => "1000",
+                "offer_price" => "1450",
+                "quantity" => 10
+            ],
+            [
+                'option_id' => 5,
+                'covers' => [
+                    ["src" => "https://bit.ly/3lffoJe", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
+                    ["src" => "https://bit.ly/3FUSXks", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 650, "height" => 600], "option_id" => 5],
+                    ["src" => "https://bit.ly/3HXlHLp", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
+                    ["src" => "https://bit.ly/3D0ytF5", "cover_id" => 35, "cropping_data" => ["x" => 150, "y" => 250, "width" => 490, "height" => 500], "option_id" => 5],
+                ],
+                "material_name" => "Fabric",
+                'material_image' => "https://bit.ly/3p8WnJz",
+                "code" => "code0003",
+                "size" => "300W 300L 400H",
+                "price" => "2000",
+                "offer_price" => "2450",
+                "quantity" => 15
+            ],
+            [
+                'option_id' => 5,
+                'covers' => [
+                    ["src" => "https://bit.ly/3cSg037", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
+                    ["src" => "https://bit.ly/2ZANShW", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 650, "height" => 600], "option_id" => 5],
+                    ["src" => "https://bit.ly/317Yrd0", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
+                    ["src" => "https://bit.ly/3IbBJS7", "cover_id" => 35, "cropping_data" => ["x" => 150, "y" => 250, "width" => 490, "height" => 500], "option_id" => 5],
+                ],
+                "material_name" => "Velvet",
+                'material_image' => "https://bit.ly/3p3MM73",
+                "code" => "code0004",
+                "size" => "400W 400L 400H",
+                "price" => "3500",
+                "offer_price" => "3450",
+                "quantity" => 20
+            ],
+            [
+                'option_id' => 5,
+                'covers' => [
+                    ["src" => "https://bit.ly/3cTFP2C", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
+                    ["src" => "https://bit.ly/3xz6yLA", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 650, "height" => 600], "option_id" => 5],
+                    ["src" => "https://bit.ly/3HZdaYa", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
+                    ["src" => "https://bit.ly/3146C9N", "cover_id" => 35, "cropping_data" => ["x" => 150, "y" => 250, "width" => 490, "height" => 500], "option_id" => 5],
+                    ["src" => "https://bit.ly/3cSg037", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
+                    ["src" => "https://bit.ly/3FWY0kj", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
+
+                ],
+                "material_name" => "Cotton",
+                'material_image' => "https://bit.ly/3CV79YN",
+                "code" => "code0005",
+                "size" => "500W 500L 500H",
+                "price" => "4500",
+                "offer_price" => "4450",
+                "quantity" => 25
+            ]
+        ]);
+        return response()->json([
+            "options" => $options,
+        ], 200);
+    }
 }

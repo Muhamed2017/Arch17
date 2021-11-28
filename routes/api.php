@@ -97,3 +97,7 @@ Route::post("preview", "ManagementController@previewProduct");
 Route::get("search", "ProductController@filterProductSearchPage");
 Route::get("products", "ProductController@getAllProducts");
 Route::post('update-option', "ProductController@UpdateOrCreateOption");
+
+
+//test routes
+Route::get("get-options", "ProductController@fakeOptionsData");
