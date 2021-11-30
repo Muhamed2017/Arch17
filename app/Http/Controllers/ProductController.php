@@ -471,12 +471,12 @@ class ProductController extends Controller
             [
                 'option_id' => 5,
                 'covers' => [
-                    ["src" => "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923__480.jpg", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2015/10/20/18/57/furniture-998265__340.jpg", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 650, "height" => 600], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2014/08/11/21/39/wall-416060__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2017/03/19/01/43/living-room-2155376__340.jpg", "cover_id" => 35, "cropping_data" => ["x" => 150, "y" => 250, "width" => 490, "height" => 500], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2017/01/07/17/48/interior-1961070__340.jpg", "cover_id" => 45, "cropping_data" => ["x" => 0, "y" => 80, "width" => 290, "height" => 500], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2014/09/15/21/46/couch-447484__340.jpg", "cover_id" => 55, "cropping_data" => ["x" => 40, "y" => 40, "width" => 690, "height" => 400], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923__480.jpg", "cover_id" => 5, "cropping_data" => ["x" => 0, "y" => 0, "width" => 250, "height" => 250], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2015/10/20/18/57/furniture-998265__340.jpg", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 100, "height" => 100], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2014/08/11/21/39/wall-416060__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 0, "y" => 55, "width" => 220, "height" => 110], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2017/03/19/01/43/living-room-2155376__340.jpg", "cover_id" => 35, "cropping_data" => ["x" => 50, "y" => 10, "width" => 100, "height" => 215], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2017/01/07/17/48/interior-1961070__340.jpg", "cover_id" => 45, "cropping_data" => ["x" => 0, "y" => 80, "width" => 290, "height" => 350], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2014/09/15/21/46/couch-447484__340.jpg", "cover_id" => 55, "cropping_data" => ["x" => 40, "y" => 40, "width" => 280, "height" => 400], "option_id" => 5],
                 ],
                 "material_name" => "Wood",
                 'material_image' => "https://cdn.pixabay.com/photo/2014/07/24/02/14/polka-400704__340.png",
@@ -489,10 +489,10 @@ class ProductController extends Controller
             [
                 'option_id' => 5,
                 'covers' => [
-                    ["src" => "https://cdn.pixabay.com/photo/2016/11/21/12/59/couch-1845270__340.jpg", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2018/01/26/08/15/dining-room-3108037__340.jpg", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 650, "height" => 600], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2020/05/25/17/54/library-5219747__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2016/11/19/15/50/chair-1840011__340.jpg", "cover_id" => 35, "cropping_data" => ["x" => 150, "y" => 250, "width" => 490, "height" => 500], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2016/11/21/12/59/couch-1845270__340.jpg", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 150, "height" => 200], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2018/01/26/08/15/dining-room-3108037__340.jpg", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 200, "height" => 200], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2020/05/25/17/54/library-5219747__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 250, "height" => 300], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2016/11/19/15/50/chair-1840011__340.jpg", "cover_id" => 35, "cropping_data" => ["x" => 0, "y" => 250, "width" => 80, "height" => 220], "option_id" => 5],
                 ],
                 "material_name" => "Metal",
                 'material_image' => "https://cdn.pixabay.com/photo/2012/12/27/19/40/architecture-72808__340.jpg",
@@ -505,10 +505,10 @@ class ProductController extends Controller
             [
                 'option_id' => 5,
                 'covers' => [
-                    ["src" => "https://cdn.pixabay.com/photo/2020/05/29/15/31/lantern-5235537_960_720.jpg", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2020/08/25/18/28/workplace-5517744__340.jpg", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 650, "height" => 600], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2017/08/01/12/43/kitchen-2565105__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2014/07/10/17/17/bedroom-389254__340.jpg", "cover_id" => 35, "cropping_data" => ["x" => 150, "y" => 250, "width" => 490, "height" => 500], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2020/05/29/15/31/lantern-5235537_960_720.jpg", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 150, "height" => 300], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2020/08/25/18/28/workplace-5517744__340.jpg", "cover_id" => 15, "cropping_data" => ["x" => 0, "y" => 35, "width" => 290, "height" => 365], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2017/08/01/12/43/kitchen-2565105__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 0, "width" => 200, "height" => 300], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2014/07/10/17/17/bedroom-389254__340.jpg", "cover_id" => 35, "cropping_data" => ["x" => 0, "y" => 120, "width" => 280, "height" => 350], "option_id" => 5],
                 ],
                 "material_name" => "Fabric",
                 'material_image' => "https://cdn.pixabay.com/photo/2017/12/23/20/45/wall-3035971__340.jpg",
@@ -521,10 +521,10 @@ class ProductController extends Controller
             [
                 'option_id' => 5,
                 'covers' => [
-                    ["src" => "https://cdn.pixabay.com/photo/2012/04/13/21/32/rocking-horse-33719__340.png", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2016/11/22/19/11/brick-wall-1850095__340.jpg", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 650, "height" => 600], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2018/03/08/18/13/chair-3209341__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2015/06/24/16/36/home-820389__340.jpg", "cover_id" => 35, "cropping_data" => ["x" => 150, "y" => 250, "width" => 490, "height" => 500], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2012/04/13/21/32/rocking-horse-33719__340.png", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 192, "height" => 300], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2016/11/22/19/11/brick-wall-1850095__340.jpg", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 300, "height" => 300], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2018/03/08/18/13/chair-3209341__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 280, "height" => 300], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2015/06/24/16/36/home-820389__340.jpg", "cover_id" => 35, "cropping_data" => ["x" => 50, "y" => 0, "width" => 190, "height" => 400], "option_id" => 5],
                 ],
                 "material_name" => "Velvet",
                 'material_image' => "https://cdn.pixabay.com/photo/2016/02/09/00/37/wood-1188082__340.jpg",
@@ -537,12 +537,12 @@ class ProductController extends Controller
             [
                 'option_id' => 5,
                 'covers' => [
-                    ["src" => "https://cdn.pixabay.com/photo/2016/11/19/13/06/bed-1839184__340.jpg", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2016/11/29/01/24/dog-1866530__340.jpg", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 35, "width" => 650, "height" => 600], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2016/09/22/11/55/kitchen-1687121__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2018/06/14/21/15/the-interior-of-the-3475656__340.jpg", "cover_id" => 35, "cropping_data" => ["x" => 150, "y" => 250, "width" => 490, "height" => 500], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2015/12/05/23/16/office-1078869__340.jpg", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 450, "height" => 500], "option_id" => 5],
-                    ["src" => "https://cdn.pixabay.com/photo/2016/01/26/11/09/design-1162241__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 380, "height" => 300], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2016/11/19/13/06/bed-1839184__340.jpg", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 210, "height" => 240], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2016/11/29/01/24/dog-1866530__340.jpg", "cover_id" => 15, "cropping_data" => ["x" => 10, "y" => 15, "width" => 250, "height" => 310], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2016/09/22/11/55/kitchen-1687121__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 190, "y" => 55, "width" => 100, "height" => 300], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2018/06/14/21/15/the-interior-of-the-3475656__340.jpg", "cover_id" => 35, "cropping_data" => ["x" => 150, "y" => 250, "width" => 100, "height" => 200], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2015/12/05/23/16/office-1078869__340.jpg", "cover_id" => 5, "cropping_data" => ["x" => 5, "y" => 25, "width" => 150, "height" => 250], "option_id" => 5],
+                    ["src" => "https://cdn.pixabay.com/photo/2016/01/26/11/09/design-1162241__340.jpg", "cover_id" => 25, "cropping_data" => ["x" => 90, "y" => 55, "width" => 190, "height" => 300], "option_id" => 5],
 
                 ],
                 "material_name" => "Cotton",
