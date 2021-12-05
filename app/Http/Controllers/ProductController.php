@@ -108,9 +108,6 @@ class ProductController extends Controller
         $product_identity->is_for_kids = $request->is_for_kids;
         $product_identity->product_file_kind = $request->product_file_kind;
         if ($product_identity->save()) {
-            $options_prices = new ProductOptions();
-            $options_prices->product_id = $product_identity->product_id;
-            if ($options_prices->save()) {
                 return response()->json([
                     'message' => 'product_identity created, ready to add option and price',
                     'identity' => $product_identity,
