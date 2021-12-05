@@ -108,12 +108,12 @@ class ProductController extends Controller
         $product_identity->is_for_kids = $request->is_for_kids;
         $product_identity->product_file_kind = $request->product_file_kind;
         if ($product_identity->save()) {
-                return response()->json([
-                    'message' => 'product_identity created, ready to add option and price',
-                    'identity' => $product_identity,
-                    'tab_index' => 1
-                ], 200);
-            }
+            return response()->json([
+                'message' => 'product_identity created, ready to add option and price',
+                'identity' => $product_identity,
+                'tab_index' => 1
+            ], 200);
+            // }
         } else {
             return response()->json([
                 'message' => 'Error occured, try agian later'
