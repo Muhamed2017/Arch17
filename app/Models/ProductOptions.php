@@ -25,6 +25,10 @@ class ProductOptions extends Model
         // 'product_id'
     ];
 
+    public function covers()
+    {
+        return $this->hasMany('App\Models\Cover');
+    }
 
     public function product()
     {

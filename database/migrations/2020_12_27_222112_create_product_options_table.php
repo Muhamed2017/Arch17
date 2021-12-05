@@ -11,22 +11,22 @@ class CreateProductOptionsTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('product_options', function (Blueprint $table) {
-            $table->id();
-            $table->integer('product_id')->unsigned();
-            $table->string('material_name')->nullable();
-            $table->string('material_image')->nullable();
-            $table->text('cover')->nullable();
-            $table->string('size')->nullable();
-            $table->string('price')->nullable();
-            $table->string('offer_price')->nullable();
-            $table->string('quantity')->nullable();
-            $table->string('code')->nullable();
-            $table->timestamps();
-        });
-    }
+    // public function up()
+    // {
+    //     Schema::create('product_options', function (Blueprint $table) {
+    //         $table->id();
+    //         // $table->integer('product_id')->unsigned();
+    //         // $table->string('material_name')->nullable();
+    //         // $table->string('material_image')->nullable();
+    //         // $table->text('cover')->nullable();
+    //         // $table->string('size')->nullable();
+    //         // $table->string('price')->nullable();
+    //         // $table->string('offer_price')->nullable();
+    //         // $table->string('quantity')->nullable();
+    //         // $table->string('code')->nullable();
+    //         // $table->timestamps();
+    //     });
+    // }
     /**
      * Reverse the migrations.
      *

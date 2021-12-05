@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Option as ModelsOption;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Support\Services\AddImagesToEntity;
@@ -14,10 +15,10 @@ use App\Models\ProductFiles;
 use App\Models\ProductGallery;
 use App\Models\Store;
 use CloudinaryLabs\CloudinaryLaravel\Model\Media;
-use PhpOption\Option;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Throwable;
+use App\Models\Option;
 use Illuminate\Support\Facades\DB;
 
 
@@ -122,8 +123,6 @@ class ProductController extends Controller
             ], 500);
         }
     }
-
-
     // product options and price - step two
     public function addOptionToProduct(Request $request, $id, $option_id)
     {
@@ -164,21 +163,30 @@ class ProductController extends Controller
         ], 500);
     }
 
-    public function UpdateOrCreateOption(Request $request)
+    public function UpdateOrCreateOption(Request $request, $product_id)
     {
         try {
-            $option = ProductOptions::updateOrCreate(
+            $option = Option::updateOrCreate(
                 [
                     'id' => $request->option_id,
                 ],
                 [
-                    'product_id' => $request->product_id,
+                    'product_id' => $product_id,
                     'material_name' => $request->material_name,
-                    'material_image' => "skemkemekmek",
-                    'price' => '100',
-                    'offer_price' => '50',
+                    'material_image' => "skemkemekmlemlemlemelmelmeleek",
+                    'price' => 1000,
+                    'offer_price' => 850,
+                    'quantity' => 50,
+                    'code' => "ss5e5e",
                     'size' => '500L 300W 600H',
-                    'cover' => ["smmeenekn", 'lmelmelme']
+                    'covers' => [
+                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
+                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
+                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
+                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
+                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
+                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"]
+                    ]
                 ]
             );
             return response()->json([
@@ -189,8 +197,6 @@ class ProductController extends Controller
             return $er;
         }
     }
-
-
 
     public function ProductDescription(Request $request, $id)
     {
@@ -271,7 +277,6 @@ class ProductController extends Controller
             ], 500);
         }
     }
-
 
     public function ProductDescriptionCotent(Request $request, $id)
     {

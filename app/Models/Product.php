@@ -40,10 +40,18 @@ class Product extends Model
         return $this->hasOne('App\Models\ProductIdentity');
     }
 
+    // public function options()
+    // {
+    //     return $this->hasMany('App\Models\ProductOptions');
+    // }
+
+
+    // new option model
     public function options()
     {
-        return $this->hasMany('App\Models\ProductOptions');
+        return $this->hasMany('App\Models\Option');
     }
+
 
     public function description()
     {
@@ -76,7 +84,8 @@ class Product extends Model
     }
     public function getOptionsAttribute()
     {
-        return $this->options()->where('cover', '!=', null)->get();
+        // return $this->options()->where('cover', '!=', null)->get();
+        return $this->options()->get();
     }
 
     public function getDescriptionAttribute()

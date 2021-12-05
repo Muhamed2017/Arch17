@@ -96,8 +96,12 @@ Route::post("publish-name/{identity_id}", "ManagementController@editNameForProdu
 Route::post("preview", "ManagementController@previewProduct");
 Route::get("search", "ProductController@filterProductSearchPage");
 Route::get("products", "ProductController@getAllProducts");
-Route::post('update-option', "ProductController@UpdateOrCreateOption");
+Route::post('update-option/{product_id}', "ProductController@UpdateOrCreateOption");
+//uploadCover
+Route::post('cover-upload', "CoverController@uploadCover");
 
+//attach covers to new option
+Route::post("attchcovernewop", "CoverController@attachCoversToNewOption");
 
 //test routes
 Route::get("get-options", "ProductController@fakeOptionsData");
