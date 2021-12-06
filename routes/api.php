@@ -96,7 +96,7 @@ Route::post("publish-name/{identity_id}", "ManagementController@editNameForProdu
 Route::post("preview", "ManagementController@previewProduct");
 Route::get("search", "ProductController@filterProductSearchPage");
 Route::get("products", "ProductController@getAllProducts");
-Route::post('update-option/{product_id}', "ProductController@UpdateOrCreateOption");
+Route::post('upcrop/{product_id}', "ProductController@UpdateOrCreateOption");
 //uploadCover
 Route::post('cover-upload', "CoverController@uploadCover");
 
