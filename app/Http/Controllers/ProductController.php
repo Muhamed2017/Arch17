@@ -177,7 +177,7 @@ class ProductController extends Controller
                     'price' => $request->price,
                     'offer_price' => $request->offer_price,
                     'quantity' => $request->quantity,
-                    'code' => $request,
+                    'code' => $request->code,
                     'size' => $request->size,
                     'covers' => $request->covers
                     // 'covers' => [
