@@ -162,6 +162,9 @@ class ProductController extends Controller
 
     public function UpdateOrCreateOption(Request $request, $product_id)
     {
+
+        $this->validate($request, []);
+
         try {
             $option = Option::updateOrCreate(
                 [
@@ -170,20 +173,21 @@ class ProductController extends Controller
                 [
                     'product_id' => $product_id,
                     'material_name' => $request->material_name,
-                    'material_image' => "skemkemekmlemlemlemelmelmeleek",
-                    'price' => 1000,
-                    'offer_price' => 850,
-                    'quantity' => 50,
-                    'code' => "ss5e5e",
-                    'size' => '500L 300W 600H',
-                    'covers' => [
-                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
-                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
-                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
-                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
-                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
-                        ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"]
-                    ]
+                    'material_image' => $request->material_image,
+                    'price' => $request->price,
+                    'offer_price' => $request->offer_price,
+                    'quantity' => $request->quantity,
+                    'code' => $request,
+                    'size' => $request->size,
+                    'covers' => $request->covers
+                    // 'covers' => [
+                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
+                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
+                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
+                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
+                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
+                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"]
+                    // ]
                 ]
             );
             return response()->json([
