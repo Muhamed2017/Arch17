@@ -40,7 +40,8 @@ class ProductIdentity extends Model
 
     public function getMaterialsAttribute()
     {
-        $selected_materials = $this->material->map(function ($item) {
+        $collection = collect($this->material);
+        $selected_materials = $collection->map(function ($item) {
             return  ['label' => $item, 'value' => $item];
         });
 
