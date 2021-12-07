@@ -25,7 +25,7 @@ class ProductIdentity extends Model
         'product_id', 'name', 'kind', 'city', 'style', 'category', 'material', 'places_tags', 'country', 'shape', 'base', 'seats', 'is_outdoor', 'is_for_kids', 'type',
         'product_file_kind', 'preview_cover', 'preview_price'
     ];
-    public $appends = ['product'];
+    public $appends = ['product', 'materials'];
     public function product()
     {
         return $this->belongsTo('App\Models\Product');
@@ -35,7 +35,15 @@ class ProductIdentity extends Model
     {
         $product =  DB::table('products')->where('id', $this->product_id)->first();
 
-        // return Product::where('product_id', $this->product_id);
         return $product;
+    }
+
+    public function getMaterialsAttribute()
+    {
+        $selected_materials = $this->material->map(function ($item) {
+            return  ['label' => $item, 'value' => $item];
+        });
+
+        return $selected_materials->all();
     }
 }

@@ -163,8 +163,7 @@ class ProductController extends Controller
     public function UpdateOrCreateOption(Request $request, $product_id)
     {
 
-        $this->validate($request, []);
-
+        $covers = json_decode($request->covers, true);
         try {
             $option = Option::updateOrCreate(
                 [
@@ -179,7 +178,7 @@ class ProductController extends Controller
                     'quantity' => $request->quantity,
                     'code' => $request->code,
                     'size' => $request->size,
-                    'covers' => $request->covers
+                    'covers' => $covers
                     // 'covers' => [
                     //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
                     //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
