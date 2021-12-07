@@ -65,6 +65,12 @@ class ProductController extends Controller
     public function AddProductIdentity(Request $request, $id)
     {
         // $user = auth('user')->user();
+        $materials = json_decode($request->covers, true);
+        $seats = json_decode($request->covers, true);
+        $bases = json_decode($request->covers, true);
+        $shapes = json_decode($request->covers, true);
+        $types = json_decode($request->covers, true);
+        $styles = json_decode($request->covers, true);
 
         $this->validate($request, [
             // step one
@@ -96,14 +102,21 @@ class ProductController extends Controller
         $product_identity->name = $request->name;
         $product_identity->kind = $request->kind;
         $product_identity->places_tags = $request->places_tags;
-        $product_identity->style = $request->style;
         $product_identity->category = $request->category;
         $product_identity->country = $request->country;
-        $product_identity->type = $request->type;
-        $product_identity->base = $request->base;
-        $product_identity->shape = $request->shape;
-        $product_identity->seats = $request->seats;
-        $product_identity->material = $request->material;
+        // $product_identity->style = $request->style;
+        // $product_identity->type = $request->type;
+        // $product_identity->base = $request->base;
+        // $product_identity->shape = $request->shape;
+        // $product_identity->seats = $request->seats;
+        // $product_identity->material = $request->material;
+
+        $product_identity->style = $styles;
+        $product_identity->type = $types;
+        $product_identity->base = $bases;
+        $product_identity->shape = $shapes;
+        $product_identity->seats = $seats;
+        $product_identity->material = $materials;
         $product_identity->is_outdoor = $request->is_outdoor;
         $product_identity->is_for_kids = $request->is_for_kids;
         $product_identity->product_file_kind = $request->product_file_kind;
@@ -179,14 +192,6 @@ class ProductController extends Controller
                     'code' => $request->code,
                     'size' => $request->size,
                     'covers' => $covers
-                    // 'covers' => [
-                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
-                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
-                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
-                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
-                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"],
-                    //     ['src' => "smmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeeneknsmmeenekn", 'cropping_data' => 'lmelmelme', "www" => "sss"]
-                    // ]
                 ]
             );
             return response()->json([
