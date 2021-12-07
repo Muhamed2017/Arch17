@@ -65,12 +65,12 @@ class ProductController extends Controller
     public function AddProductIdentity(Request $request, $id)
     {
         // $user = auth('user')->user();
-        $materials = json_decode($request->materials, true);
+        $materials = json_decode($request->material, true);
         $seats = json_decode($request->seats, true);
         $bases = json_decode($request->bases, true);
-        $shapes = json_decode($request->shapes, true);
-        $types = json_decode($request->types, true);
-        $styles = json_decode($request->styles, true);
+        $shapes = json_decode($request->shape, true);
+        $types = json_decode($request->type, true);
+        $styles = json_decode($request->style, true);
 
         $this->validate($request, [
             // step one
