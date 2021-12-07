@@ -25,7 +25,7 @@ class ProductIdentity extends Model
         'product_id', 'name', 'kind', 'city', 'style', 'category', 'material', 'places_tags', 'country', 'shape', 'base', 'seats', 'is_outdoor', 'is_for_kids', 'type',
         'product_file_kind', 'preview_cover', 'preview_price'
     ];
-    public $appends = ['product', 'materials', 'types', 'seatss', 'styles'];
+    public $appends = ['product', 'materials', 'types', 'seatss', 'styles', 'shapess'];
     public function product()
     {
         return $this->belongsTo('App\Models\Product');
@@ -68,6 +68,15 @@ class ProductIdentity extends Model
     public function getSeatssAttribute()
     {
         $collection = collect($this->seats);
+        $selected = $collection->map(function ($item) {
+            return  ['label' => $item, 'value' => $item];
+        });
+        return $selected->all();
+    }
+
+    public function getShapessAttribute()
+    {
+        $collection = collect($this->shape);
         $selected = $collection->map(function ($item) {
             return  ['label' => $item, 'value' => $item];
         });
