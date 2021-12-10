@@ -18,13 +18,11 @@ class Option extends Model
         'covers' => 'array'
     ];
 
-
     protected $appends = ['material', 'size'];
     public function product()
     {
         return $this->belongsTo('App\Models\Product');
     }
-
     public function getSizeAtttribute()
     {
         $size = [
