@@ -191,7 +191,7 @@ class ProductController extends Controller
                     'code' => $request->code,
                     'size_w' => $request->size_w,
                     'size_l' => $request->size_l,
-                    'size_h' => $request->size_j,
+                    'size_h' => $request->size_h,
                     'covers' => $covers
                 ]
             );
