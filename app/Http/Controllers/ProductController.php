@@ -175,7 +175,6 @@ class ProductController extends Controller
 
     public function UpdateOrCreateOption(Request $request, $product_id)
     {
-
         $covers = json_decode($request->covers, true);
         try {
             $option = Option::updateOrCreate(
@@ -190,7 +189,9 @@ class ProductController extends Controller
                     'offer_price' => $request->offer_price,
                     'quantity' => $request->quantity,
                     'code' => $request->code,
-                    'size' => $request->size,
+                    'size_w' => $request->size_w,
+                    'size_l' => $request->size_l,
+                    'size_h' => $request->size_j,
                     'covers' => $covers
                 ]
             );
@@ -258,15 +259,9 @@ class ProductController extends Controller
             $product_desc->product_id = $product->id;
         }
         if ($request->has('mat_desc_content')) {
-            // $product->description()->update([
-            //     'mat_desc_content' => $request->mat_desc_content
-            // ]);
             $product_desc->mat_desc_content = $request->mat_desc_content;
         }
         if ($request->has('size_content')) {
-            // $product->description()->update([
-            //     'size_content' => $request->size_content
-            // ]);
             $product_desc->size_content = $request->size_content;
         }
 
@@ -278,7 +273,6 @@ class ProductController extends Controller
         } else {
             return response()->json([
                 'message' => 'error happend',
-                // 'product_desc' => $product,
             ], 500);
         }
     }
@@ -448,8 +442,6 @@ class ProductController extends Controller
 
     public function filterProductSearchPage(Request $request)
     {
-        // $products = Product::all();
-        // QueryBuilderRequest::setArrayValueDelimiter('|');
 
         $products = QueryBuilder::for(ProductIdentity::class)
             ->allowedFilters([

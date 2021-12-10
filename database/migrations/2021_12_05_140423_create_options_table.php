@@ -22,12 +22,13 @@ class CreateOptionsTable extends Migration
             $table->bigInteger("offer_price")->nullable();
             $table->string("material_name")->nullable();
             $table->string("material_image")->nullable();
-            $table->string("size")->nullable();
+            $table->integer("size_l")->nullable();
+            $table->integer("size_w")->nullable();
+            $table->integer("size_h")->nullable();
             $table->integer("quantity")->nullable();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
