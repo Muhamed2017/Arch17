@@ -25,7 +25,6 @@ class ProductDescription extends Model
     ];
 
 
-
     public function images()
     {
         return $this->morphMany('App\Models\Image', 'imageable');
