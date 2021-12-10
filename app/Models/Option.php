@@ -23,7 +23,8 @@ class Option extends Model
     {
         return $this->belongsTo('App\Models\Product');
     }
-    public function getSizeAtttribute()
+
+    public function getSizeAttribute()
     {
         $size = [
             'w' => $this->size_l,
@@ -32,7 +33,7 @@ class Option extends Model
         ];
         return $size;
     }
-    public function getMaterialAtttribute()
+    public function getMaterialAttribute()
     {
         $material = [
             'name' => $this->material_name,
