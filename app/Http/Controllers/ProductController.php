@@ -286,28 +286,49 @@ class ProductController extends Controller
             'size_content'   => 'nullable|string',
         ]);
 
-        $product = Product::find($id);
-        if (!$product) {
-            return response()->json([
-                'message' => "product not found or deleted"
-            ], 404);
-        }
-        $product_desc = ProductDescription::findOrFail($product->id);
-        $product_desc->product_id = $product->id;
-        $product_desc->overview_content = $request->overview_content;
-        $product_desc->mat_desc_content = $request->mat_desc_content;
-        $product_desc->size_content = $request->size_content;
 
-        if ($product_desc->save()) {
+
+        // $product = Product::find($id);
+        // if (!$product) {
+        //     return response()->json([
+        //         'message' => "product not found or deleted"
+        //     ], 404);
+        // }
+        // $product_desc = ProductDescription::findOrFail($product->id);
+        // $product_desc->product_id = $product->id;
+        // $product_desc->overview_content = $request->overview_content;
+        // $product_desc->mat_desc_content = $request->mat_desc_content;
+        // $product_desc->size_content = $request->size_content;
+
+        // if ($product_desc->save()) {
+        // return response()->json([
+        // 'message' => 'product description Overview added successfully',
+        // 'product_desc' => $product_desc,
+        // ], 201);
+        // }
+        // if ($product_desc->save()) {
+        // return response()->json([
+        // 'message' => 'Error Happenned',
+        // ], 500);
+        // }
+        try {
+            $description = ProductDescription::updateOrCreate(
+                [
+                    'product_id' => $id,
+                ],
+                [
+                    'product_id' => $id,
+                    'overview_content' => $request->overview_content,
+                    'mat_desc_content' => $request->mat_desc_content,
+                    'size_content' => $request->size_content
+                ]
+            );
             return response()->json([
-                'message' => 'product description Overview added successfully',
-                'product_desc' => $product_desc,
-            ], 201);
-        }
-        if ($product_desc->save()) {
-            return response()->json([
-                'message' => 'Error Happenned',
-            ], 500);
+                'message' => 'Updated Descr Successfully',
+                'product_desc' => $description
+            ], 200);
+        } catch (Throwable $er) {
+            return $er;
         }
     }
 
