@@ -50,7 +50,6 @@ class Store extends Model
     {
         return $this->morphMany(Project::class, 'authorable');
     }
-
     // protected $appens='logo';
     public function followers()
     {

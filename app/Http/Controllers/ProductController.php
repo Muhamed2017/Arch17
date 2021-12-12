@@ -52,6 +52,7 @@ class ProductController extends Controller
             return response()->json([
                 'message' => 'product_identity created, ready to add option and price',
                 'product' => $product,
+                'store' => $store
 
             ], 200);
         } else {
@@ -77,19 +78,7 @@ class ProductController extends Controller
             'name'          => 'required|string|max:250',
             'kind'          => 'required|string|max:2000',
             'category'      => 'required|string|max:2000',
-            // 'type'          => 'nullable|array',
-            // 'type.*'          => 'nullable|string|max:2000',
-            // 'style'         => 'nullable|array',
-            // 'style.*'         => 'nullable|string|max:2000',
             'kind'          => 'required|string|max:250',
-            // 'material'      => 'nullable|array',
-            // 'material.*'      => 'nullable|string|max:250',
-            // 'base'      =>     'nullable|array',
-            // 'base.*'      =>     'nullable|string|max:250',
-            // 'seats'      =>     'nullable|array',
-            // 'seats.*'      =>     'nullable|string|max:250',
-            // 'shape'      =>     'nullable|array',
-            // 'shape.*'      =>     'nullable|string|max:250',
             'country'       => 'required|string|max:250',
             'places_tags'   => 'required|array',
             'places_tags.*' => 'string|max:250',
@@ -104,13 +93,6 @@ class ProductController extends Controller
         $product_identity->places_tags = $request->places_tags;
         $product_identity->category = $request->category;
         $product_identity->country = $request->country;
-        // $product_identity->style = $request->style;
-        // $product_identity->type = $request->type;
-        // $product_identity->base = $request->base;
-        // $product_identity->shape = $request->shape;
-        // $product_identity->seats = $request->seats;
-        // $product_identity->material = $request->material;
-
         $product_identity->style = $styles;
         $product_identity->type = $types;
         $product_identity->base = $bases;
@@ -286,31 +268,6 @@ class ProductController extends Controller
             'size_content'   => 'nullable|string',
         ]);
 
-
-
-        // $product = Product::find($id);
-        // if (!$product) {
-        //     return response()->json([
-        //         'message' => "product not found or deleted"
-        //     ], 404);
-        // }
-        // $product_desc = ProductDescription::findOrFail($product->id);
-        // $product_desc->product_id = $product->id;
-        // $product_desc->overview_content = $request->overview_content;
-        // $product_desc->mat_desc_content = $request->mat_desc_content;
-        // $product_desc->size_content = $request->size_content;
-
-        // if ($product_desc->save()) {
-        // return response()->json([
-        // 'message' => 'product description Overview added successfully',
-        // 'product_desc' => $product_desc,
-        // ], 201);
-        // }
-        // if ($product_desc->save()) {
-        // return response()->json([
-        // 'message' => 'Error Happenned',
-        // ], 500);
-        // }
         try {
             $description = ProductDescription::updateOrCreate(
                 [
