@@ -97,6 +97,7 @@ Route::post("preview", "ManagementController@previewProduct");
 Route::get("search", "ProductController@filterProductSearchPage");
 Route::get("products", "ProductController@getAllProducts");
 Route::post('upcrop/{product_id}', "ProductController@UpdateOrCreateOption");
+Route::post('addfile/{product_id}', "ProductController@UpdateOrCteateFile");
 //uploadCover
 Route::post('cover-upload', "CoverController@uploadCover");
 

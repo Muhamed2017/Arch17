@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use App\Models\Option as ModelsOption;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -186,6 +187,29 @@ class ProductController extends Controller
         }
     }
 
+    public function UpdateOrCteateFile(Request $request, $product_id)
+    {
+        try {
+            $file = File::updateOrCreate(
+                [
+                    'id' => $request->file_id,
+                ],
+                [
+                    'product_id' => $product_id,
+                    'file_name' => $request->file_name,
+                    'file_type' => $request->file_type,
+                    'software' => $request->software,
+                    'links' => $request->links,
+                ]
+            );
+            return response()->json([
+                'message' => 'File Added Successfully',
+                'file' => $file
+            ], 200);
+        } catch (Throwable $er) {
+            return $er;
+        }
+    }
     public function ProductDescription(Request $request, $id)
     {
         $this->validate($request, [

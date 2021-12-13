@@ -58,9 +58,14 @@ class Product extends Model
         return $this->hasOne('App\Models\ProductDescription');
     }
 
+    // public function files()
+    // {
+    //     return $this->hasOne('App\Models\ProductFiles');
+    // }
+
     public function files()
     {
-        return $this->hasOne('App\Models\ProductFiles');
+        return $this->hasMany('App\Models\File');
     }
 
     public function gallery()
