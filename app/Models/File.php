@@ -12,7 +12,7 @@ class File extends Model
 
     protected $fillable = ['product_id', 'file_name', 'file_type', 'software', 'links'];
 
-    protected $casts = ['link' => "array"];
+    protected $casts = ['links' => "array"];
 
 
     public function product()
