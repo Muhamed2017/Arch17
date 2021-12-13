@@ -10,14 +10,10 @@ class File extends Model
     use HasFactory;
 
 
-    protected $fillable = ['product_id', 'file_name', 'file_type', 'software', 'links'];
-
-    protected $casts = ['links' => "array"];
-
+    protected $fillable = ['product_id', 'file_name', 'file_type', 'software', 'ggldrive', "onedrive", "dropbox", "baidu"];
 
     public function product()
     {
-
         return $this->belongsTo("App\Models\Product");
     }
 }

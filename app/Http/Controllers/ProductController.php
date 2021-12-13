@@ -199,7 +199,10 @@ class ProductController extends Controller
                     'file_name' => $request->file_name,
                     'file_type' => $request->file_type,
                     'software' => $request->software,
-                    'links' => $request->links,
+                    'ggldrive' => $request->ggldrive,
+                    'onedrive' => $request->onedrive,
+                    'dropbox' => $request->dropbox,
+                    'baidu' => $request->baidu,
                 ]
             );
             return response()->json([
