@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
+use Illuminate\Support\Facades\DB;
 
 
 class Product extends Model
@@ -104,7 +105,10 @@ class Product extends Model
 
     public function getStoresAttribute()
     {
-        return $this->store();
+        // return $this->store();
+        $store =  DB::table('stores')->where('id', $this->store_id)->first();
+
+        return $store;
     }
 
     public function collections()
