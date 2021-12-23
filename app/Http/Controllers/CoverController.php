@@ -73,13 +73,18 @@ class CoverController extends Controller
                 'kind' => $product->identity[0]->kind,
                 'image' => $product->options[0]->covers[0]['src']
             ];
+            view()->share('data', $data);
+
+            $pdf = PDF::loadView('PDF.product', $data);
+            // return $pdf->download('pdf_file.pdf');
+            return $pdf->stream();
         }
 
-        view()->share('data', $data);
+        // view()->share('data', $data);
 
-        $pdf = PDF::loadView('PDF.product', $data);
-        // return $pdf->download('pdf_file.pdf');
-        return $pdf->stream();
+        // $pdf = PDF::loadView('PDF.product', $data);
+        // // return $pdf->download('pdf_file.pdf');
+        // return $pdf->stream();
         // return $data;
     }
 }
