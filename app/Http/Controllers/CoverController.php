@@ -66,17 +66,20 @@ class CoverController extends Controller
 
         $product = Product::find($id);
 
+        if ($product) {
+            $data = [
+                'id' => $product->id,
+                'name' => $product->identity[0]->name,
+                'kind' => $product->identity[0]->kind,
+                'image' => $product->options[0]->covers[0]->src
+            ];
+        }
 
-        $data = [
-            'brand' => "Grado",
-            'name' => "Some Product ",
-            "id" => "12"
-        ];
-        // view()->share('data', $data);
+        view()->share('data', $data);
 
-        // $pdf = PDF::loadView('pdf.product', $data);
+        $pdf = PDF::loadView('pdf.product', $data);
         // return $pdf->download('pdf_file.pdf');
-        // return $pdf->stream();
-        return $product;
+        return $pdf->stream();
+        // return $product;
     }
 }
