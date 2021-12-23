@@ -104,7 +104,7 @@ class Product extends Model
 
     public function getStoreAttribute()
     {
-        return $this->sotre()->get();
+        return $this->store()->get();
     }
 
     public function collections()
