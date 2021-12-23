@@ -170,6 +170,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
         Kreait\Laravel\Firebase\ServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+
 
         // 'JD\Cloudder\CloudderServiceProvider',
         Cviebrock\EloquentSluggable\ServiceProvider::class,
@@ -236,7 +238,9 @@ return [
         // 'Cloudder' => 'JD\Cloudder\Facades\Cloudder',
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class
+        'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
 
     ],
 

@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Cover;
 use App\Models\Product;
+use App\Models\ProductIdentity;
 use App\Models\ProductOptions;
 use Illuminate\Http\Request;
 use Throwable;
+use PDF;
 
 class CoverController extends Controller
 {
+
     public function uploadCover(Request $request)
     {
         $this->validate($request, [
@@ -56,4 +59,33 @@ class CoverController extends Controller
         }
     }
     // public function createNewOption
+    public function showEmployees()
+    {
+        // $data = Employee::all();
+        $data = [
+            'brand' => "Grado",
+            'name' => "Some Product ",
+            "id" => "12"
+        ];
+        return view('pdf.product', compact('data'));
+    }
+
+    public function testPDF($id)
+    {
+
+        $product = Product::find($id);
+
+
+        $data = [
+            'brand' => "Grado",
+            'name' => "Some Product ",
+            "id" => "12"
+        ];
+        view()->share('data', $data);
+
+        $pdf = PDF::loadView('pdf.product', $data);
+        // return $pdf->download('pdf_file.pdf');
+        // return $pdf->stream();
+        return $product;
+    }
 }

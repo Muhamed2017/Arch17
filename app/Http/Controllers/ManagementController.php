@@ -24,6 +24,7 @@ class ManagementController extends Controller
         $this->auth = $auth;
     }
 
+
     public function verifyEmailCode(Request $request)
     {
         $uuid = $request->uid;
