@@ -98,7 +98,7 @@ img{
        Brand <span class="chinese">制作商</span>
     </td>
     <td class="tg-0lax data" rowspan="2">
-        Grado
+        {{$data['brand']}}
     </td>
     <td class="tg-0lax" rowspan="2">
        Source Link <span class="chinese">源码链接</span>
