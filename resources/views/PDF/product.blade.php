@@ -122,7 +122,8 @@ img{
         <div class="content">
             <div class="left">
                 <div class="main-img">
-                    <img src="https://res.cloudinary.com/azharuniversity/image/upload/v1639859531/ewhbtrqgav8xxoobzbyo.jpg" alt="">
+                    {{-- <img src="https://res.cloudinary.com/azharuniversity/image/upload/v1639859531/ewhbtrqgav8xxoobzbyo.jpg" alt=""> --}}
+                    <img src={{$data['image']}} alt="">
                 </div>
             </div>
             <div class="right">
