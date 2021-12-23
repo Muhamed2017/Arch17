@@ -59,16 +59,7 @@ class CoverController extends Controller
         }
     }
     // public function createNewOption
-    public function showEmployees()
-    {
-        // $data = Employee::all();
-        $data = [
-            'brand' => "Grado",
-            'name' => "Some Product ",
-            "id" => "12"
-        ];
-        return view('pdf.product', compact('data'));
-    }
+
 
     public function testPDF($id)
     {
@@ -81,9 +72,9 @@ class CoverController extends Controller
             'name' => "Some Product ",
             "id" => "12"
         ];
-        view()->share('data', $data);
+        // view()->share('data', $data);
 
-        $pdf = PDF::loadView('pdf.product', $data);
+        // $pdf = PDF::loadView('pdf.product', $data);
         // return $pdf->download('pdf_file.pdf');
         // return $pdf->stream();
         return $product;
