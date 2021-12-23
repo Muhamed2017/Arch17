@@ -91,7 +91,8 @@ img{
        Type <span class="chinese">类型</span>
     </td>
     <td class="tg-0lax data" rowspan="2">
-        Sofa
+        {{-- Sofa --}}
+        {{$data['kind']}}
     </td>
     <td class="tg-0lax" rowspan="2">
        Brand <span class="chinese">制作商</span>
@@ -103,7 +104,8 @@ img{
        Source Link <span class="chinese">源码链接</span>
     </td>
     <td class="tg-0lax data" rowspan="2">
-        www.arch17test.live/product/155
+        {{-- www.arch17test.live/product/155 --}}
+        {{$data['link']}}
     </td>
   </tr>
   <tr>

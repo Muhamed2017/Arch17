@@ -71,13 +71,15 @@ class CoverController extends Controller
                 'id' => $product->id,
                 'name' => $product->identity[0]->name,
                 'kind' => $product->identity[0]->kind,
-                'image' => $product->options[0]->covers[0]['src']
+                'image' => $product->options[0]->covers[0]['src'],
+                'link' => 'www.arch17test.live/product/' . $id
             ];
             view()->share('data', $data);
 
             $pdf = PDF::loadView('PDF.product', $data);
-            return $pdf->download('pdf_file.pdf');
+            // return $pdf->download('pdf_file.pdf');
             // return $pdf->stream();
+            return $product;
         }
 
         // view()->share('data', $data);
