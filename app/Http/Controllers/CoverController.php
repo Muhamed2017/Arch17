@@ -79,7 +79,7 @@ class CoverController extends Controller
 
         $pdf = PDF::loadView('PDF.product', $data);
         // return $pdf->download('pdf_file.pdf');
-        // return $pdf->stream();
-        return $data;
+        return $pdf->stream();
+        // return $data;
     }
 }
