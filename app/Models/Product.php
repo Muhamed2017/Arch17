@@ -28,7 +28,7 @@ class Product extends Model
         'updated_at'
     ];
 
-    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'store'];
+    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'stores'];
 
     public function images()
     {
@@ -102,9 +102,9 @@ class Product extends Model
         return $this->gallery()->get();
     }
 
-    public function getStoreAttribute()
+    public function getStoresAttribute()
     {
-        return $this;
+        return $this->store();
     }
 
     public function collections()
