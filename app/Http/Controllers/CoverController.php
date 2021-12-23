@@ -77,7 +77,7 @@ class CoverController extends Controller
 
         view()->share('data', $data);
 
-        $pdf = PDF::loadView('pdf.product', $data);
+        $pdf = PDF::loadView('PDF.product', $data);
         // return $pdf->download('pdf_file.pdf');
         return $pdf->stream();
         // return $product;
