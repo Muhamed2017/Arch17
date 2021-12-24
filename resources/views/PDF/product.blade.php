@@ -26,7 +26,6 @@ img{
 .left{
     width:49%;
     display: inline-block;
-    margin-top: 80px;
 }
 .content{
     display: block;
@@ -50,7 +49,11 @@ img{
     font-size: 1.3rem;
 }
 .main-img{
-    max-width: 100%;
+    width:400px;
+    height:400px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 .text-sec{
     margin-bottom:80px;
@@ -133,8 +136,9 @@ background-size: contain;
     </div>
         <div class="content">
             <div class="left">
-                <div class="main-img">
-                    <img src={{$data['image']}} alt="">
+                <div class="main-img" style="background-image: url({{$data['image']}})">
+                    {{-- <img src={{$data['image']}} alt=""> --}}
+
                 </div>
                 <div class="thumbs">
                     @foreach ($data['covers'] as $cover)
