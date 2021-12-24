@@ -24,7 +24,7 @@ img{
     width:100%;
 }
 .left{
-    width:40%;
+    width:45%;
     display: inline-block;
     background: blue;
 }
@@ -52,7 +52,7 @@ img{
     font-size: 1.3rem;
 }
 .main-img{
-    width:450px;
+    width:100%;
     height:450px;
     background-repeat: no-repeat;
     background-position: center;
