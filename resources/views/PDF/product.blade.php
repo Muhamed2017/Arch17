@@ -151,7 +151,7 @@ background-size: contain;
             </div>
             <div class="right">
                <div class="text-sec">
-                    <h2>Descriotion</h2>
+                    <h2>Description <span class="chinese">描述</span></h2>
                     <p>The elegant Luna came from the Dada, Alex continued to use the elements of the high heels on the
                         sofa. While supporting the entire seat and ensuring the comfort of the Luna, the close combination of
                         back and armrest cushion makes an integral line simple and elegant. The angle between the seat and
@@ -161,7 +161,7 @@ background-size: contain;
                     </p>
                </div>
                <div class="text-sec">
-                   <h2>Dimenstion</h2>
+                   <h2>Dimensions <span class="chinese">方面</span></h2>
             </div>
         </div>
         <hr style="position:absolute; bottom:10px; left:0; right:0; width:100%">
