@@ -18,7 +18,6 @@
 }
 .container table{
     width: 100%;
-    display: block;
 }
 img{
     display: block;
@@ -28,6 +27,7 @@ img{
     width:45%;
     display: inline-block;
     background: blue;
+    vertical-align: top;
 }
 .content{
     display: block;
