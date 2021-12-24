@@ -35,7 +35,7 @@ img{
 .right{
     display:inline-block;
     vertical-align:sub;
-    width:48%;
+    width:45%;
     padding-left:17px;
     text-align: left;
     background: red;
