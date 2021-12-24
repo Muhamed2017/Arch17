@@ -13,7 +13,10 @@ div{
     box-sizing: border-box !important;
 }
 body{
+}
+.wrapper{
     position: relative;
+
 }
 .container{
     width: 100%;
@@ -83,6 +86,7 @@ background-size: contain;
         </style>
     </head>
     <body>
+        <div class="wrapper">
         <div style="text-align: right; color:rgba(65, 65, 65, 0.582)">
             <p>Source <span class="chinese">来源</span> www.arch17.com</p>
         </div>
@@ -161,5 +165,6 @@ background-size: contain;
             </div>
         </div>
         <hr style="position:absolute; bottom:10px">
+        </div>
     </body>
 </html>
