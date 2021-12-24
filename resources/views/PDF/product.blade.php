@@ -164,7 +164,7 @@ background-size: contain;
                    <h2>Dimenstion</h2>
             </div>
         </div>
-        <hr style="position:absolute; bottom:10px">
+        <hr style="position:absolute; bottom:10px; left:0; right:0; width:100%">
         </div>
     </body>
 </html>
