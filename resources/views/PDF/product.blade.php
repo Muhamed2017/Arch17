@@ -12,6 +12,9 @@
 div{
     box-sizing: border-box !important;
 }
+body{
+    position: relative;
+}
 .container{
     width: 100%;
 }
@@ -157,6 +160,6 @@ background-size: contain;
                    <h2>Dimenstion</h2>
             </div>
         </div>
-        <hr style="position: relative; bottom:10px">
+        <hr style="position:absolute; bottom:10px">
     </body>
 </html>
