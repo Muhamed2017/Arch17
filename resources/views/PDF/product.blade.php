@@ -17,6 +17,7 @@
 }
 .container table{
     width: 100%;
+    display: block;
 }
 img{
     display: block;
