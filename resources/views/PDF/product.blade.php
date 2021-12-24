@@ -165,6 +165,11 @@ background-size: contain;
             </div>
         </div>
         <hr style="position:absolute; bottom:10px; left:0; right:0; width:100%">
+        <div style="position:absolute; bottom:20px; left:0; right:0; width:100%">
+            <p>Go More Info: Email: <span class="chinese">邮箱: </span> Phone Sales@arch17.co   <span class="chinese">电话 :</span>0086 185 7599 9560</p>
+
+
+        </div>
         </div>
     </body>
 </html>
