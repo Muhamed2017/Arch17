@@ -14,7 +14,6 @@ div{
 }
 .container{
     width: 100%;
-    background: yellow;
 }
 .container table{
     width: 100%;
@@ -26,20 +25,17 @@ img{
 .left{
     width:48%;
     display: inline-block;
-    background: blue;
     vertical-align: top;
 }
 .content{
     display: block;
     width: 100%;
-    background: green;
 }
 .right{
     display:inline-block;
     width:50%;
     padding-left:15px;
     text-align: left;
-    background: red;
     vertical-align: top;
 
 
@@ -58,9 +54,6 @@ img{
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-}
-.text-sec{
-    /* margin-bottom:80px; */
 }
 .thumbs div{
 display: inline-block;
