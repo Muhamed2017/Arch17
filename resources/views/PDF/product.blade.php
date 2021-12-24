@@ -31,6 +31,7 @@ img{
     display: block;
     width: 100%;
     background: green;
+    margin-top: 10px;
 }
 .right{
     display:inline-block;
