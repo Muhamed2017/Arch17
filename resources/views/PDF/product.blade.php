@@ -24,7 +24,7 @@ img{
     width:100%;
 }
 .left{
-    width:45%;
+    width:40%;
     display: inline-block;
 }
 .content{
