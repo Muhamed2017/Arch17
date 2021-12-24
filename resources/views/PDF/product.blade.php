@@ -55,6 +55,10 @@ img{
 .text-sec{
     margin-bottom:80px;
 }
+.thumbs img{
+width:100px;
+height: 100px;
+}
 
 
 .tg  {border-collapse:collapse;border-spacing:0;}
@@ -104,7 +108,6 @@ img{
        Source Link <span class="chinese">源码链接</span>
     </td>
     <td class="tg-0lax data" rowspan="2">
-        {{-- www.arch17test.live/product/155 --}}
         {{$data['link']}}
     </td>
   </tr>
@@ -124,8 +127,13 @@ img{
         <div class="content">
             <div class="left">
                 <div class="main-img">
-                    {{-- <img src="https://res.cloudinary.com/azharuniversity/image/upload/v1639859531/ewhbtrqgav8xxoobzbyo.jpg" alt=""> --}}
                     <img src={{$data['image']}} alt="">
+                </div>
+                <div class="thumbs">
+                    @foreach ($data['covers'] as $cover)
+    {{-- <img>This is user {{ $user->id }}</> --}}
+    <img src={{$cover->src}}/>
+@endforeach
                 </div>
             </div>
             <div class="right">

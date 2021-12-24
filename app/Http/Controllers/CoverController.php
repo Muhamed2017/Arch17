@@ -70,6 +70,7 @@ class CoverController extends Controller
                 'name' => $product->identity[0]->name,
                 'kind' => $product->identity[0]->kind,
                 'image' => $product->options[0]->covers[0]['src'],
+                'covers' => $product->options[0]->covers,
                 'link' => 'www.arch17test.live/product/' . $id,
                 'brand' => $product->stores->name
             ];
