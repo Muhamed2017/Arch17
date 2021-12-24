@@ -25,7 +25,7 @@ img{
 }
 .left{
     width:45%;
-    display: inline-block;
+    display: inline;
     background: blue;
 }
 .content{
@@ -34,8 +34,7 @@ img{
     background: green;
 }
 .right{
-    display:inline-block;
-    /* vertical-align:sub; */
+    display:inline;
     width:45%;
     padding-left:17px;
     text-align: left;
