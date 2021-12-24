@@ -54,7 +54,7 @@ img{
 }
 .main-img{
     width:100%;
-    height:300px;
+    height:350px;
     background-repeat: no-repeat;
     background-position: top 10px;
     background-size: contain;
@@ -68,8 +68,8 @@ display: inline-block;
 margin-top: 10px;
 }
 .thumb{
-width:80px;
-height: 80px;
+width:70px;
+height: 70px;
 background-repeat: no-repeat;
 background-position: center;
 background-size: contain;
