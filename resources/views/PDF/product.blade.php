@@ -41,7 +41,7 @@ img{
 
 }
 .right p{
-    font-size: 1.1rem;
+    font-size: .9rem;
     color:rgba(0, 0, 0, 0.644);
 }
 .right h2{
