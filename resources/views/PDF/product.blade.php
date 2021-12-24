@@ -24,17 +24,15 @@ img{
     width:100%;
 }
 .left{
-    width:50%;
+    width:48%;
     display: inline-block;
     background: blue;
     vertical-align: top;
 }
 .content{
     display: block;
-    /* width: 100%; */
+    width: 100%;
     background: green;
-    /* box-sizing: border-box; */
-    /* margin-t */
 }
 .right{
     display:inline-block;
