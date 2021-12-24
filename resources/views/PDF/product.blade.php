@@ -9,7 +9,7 @@
     font-family: 'ZCOOL XiaoWei', serif !important;
     font-weight: normal !important;
 }
-*{
+div{
     box-sizing: border-box !important;
 }
 .container{
