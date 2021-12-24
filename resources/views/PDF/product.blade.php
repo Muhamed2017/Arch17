@@ -33,6 +33,7 @@ img{
     display: block;
     width: 100%;
     background: green;
+    box-sizing: border-box;
     /* margin-t */
 }
 .right{
