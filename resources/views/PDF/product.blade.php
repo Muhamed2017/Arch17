@@ -157,6 +157,6 @@ background-size: contain;
                    <h2>Dimenstion</h2>
             </div>
         </div>
-        <hr>
+        <hr style="position: absolute; bottom:0">
     </body>
 </html>
