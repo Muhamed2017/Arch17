@@ -37,7 +37,7 @@ img{
     display:inline-block;
     vertical-align:sub;
     width:45%;
-    /* padding-left:17px; */
+    padding-left:17px;
     text-align: left;
     background: red;
 
@@ -66,8 +66,8 @@ display: inline-block;
 margin-top: 10px;
 }
 .thumb{
-width:100px;
-height: 100px;
+width:50px;
+height: 50px;
 background-repeat: no-repeat;
 background-position: center;
 background-size: contain;
