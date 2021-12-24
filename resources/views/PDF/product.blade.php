@@ -37,7 +37,7 @@ img{
 .right{
     display:inline-block;
     width:50%;
-    /* padding-left:17px; */
+    padding-left:15px;
     text-align: left;
     background: red;
     vertical-align: top;
