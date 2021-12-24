@@ -37,7 +37,8 @@ img{
     width:48%;
     padding-left:17px;
     text-align: left;
-    max-width: 50vw;
+    /* max-width: 50vw; */
+
 
 }
 .right p{
