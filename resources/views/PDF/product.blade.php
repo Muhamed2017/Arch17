@@ -132,7 +132,7 @@ height: 100px;
                 <div class="thumbs">
                     @foreach ($data['covers'] as $cover)
     {{-- <img>This is user {{ $user->id }}</> --}}
-    <img src={{$cover->src}}/>
+    <img src={{$cover['src']}}/>
 @endforeach
                 </div>
             </div>
