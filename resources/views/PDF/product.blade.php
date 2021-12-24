@@ -24,7 +24,7 @@ img{
     width:100%;
 }
 .left{
-    width:45%;
+    width:50%;
     display: inline-block;
     background: blue;
     vertical-align: top;
@@ -37,12 +37,11 @@ img{
 }
 .right{
     display:inline-block;
-    width:45%;
+    width:50%;
     padding-left:17px;
     text-align: left;
     background: red;
     vertical-align: top;
-
 
 
 }
