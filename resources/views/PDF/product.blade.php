@@ -54,7 +54,8 @@ img{
 }
 .main-img{
     width:100%;
-    height:350px;
+    height:0px
+    padding-top:100%;
     background-repeat: no-repeat;
     background-position: top 10px;
     background-size: contain;
