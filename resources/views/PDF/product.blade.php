@@ -57,7 +57,7 @@ img{
 }
 .thumbs div{
 display: inline-block;
-margin:10px 3px;
+margin-top: 10px;
 }
 .thumb{
 width:100px;
