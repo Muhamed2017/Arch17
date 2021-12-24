@@ -58,6 +58,7 @@ img{
     background-repeat: no-repeat;
     background-position: top 10px;
     background-size: contain;
+    background-color: #000;
 }
 .text-sec{
     /* margin-bottom:80px; */
