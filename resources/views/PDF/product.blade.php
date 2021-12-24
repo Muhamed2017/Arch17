@@ -26,7 +26,7 @@ img{
 .left{
     width:49%;
     display: inline-block;
-
+    margin-top: 100px;
 }
 .content{
     display: block;
@@ -57,7 +57,7 @@ img{
 }
 .thumbs div{
 display: inline-block;
-margin:2px;
+margin:10px;
 }
 .thumb{
 width:100px;
