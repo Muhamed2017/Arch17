@@ -31,9 +31,9 @@ img{
 }
 .content{
     display: block;
-    width: 100%;
+    /* width: 100%; */
     background: green;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     /* margin-t */
 }
 .right{
