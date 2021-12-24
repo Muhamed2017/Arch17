@@ -63,9 +63,7 @@ class CoverController extends Controller
 
     public function testPDF($id)
     {
-
         $product = Product::find($id);
-
         if ($product) {
             $data = [
                 'id' => $product->id,
@@ -76,9 +74,8 @@ class CoverController extends Controller
                 'brand' => $product->stores->name
             ];
             view()->share('data', $data);
-
             $pdf = PDF::loadView('PDF.product', $data);
-            return $pdf->download('pdf_file.pdf');
+            return $pdf->download('Arch17_product_' . $id . 'pdf');
             // return $pdf->stream();
             // return $product;
         }
