@@ -54,10 +54,10 @@ img{
 }
 .main-img{
     width:100%;
-    height:0px
-    padding-top:100%;
+    height:450px
     background-repeat: no-repeat;
-    background-position: top 10px;
+    /* background-position: top 10px; */
+    background-position:center;
     background-size: contain;
     background-color: #000;
 }
