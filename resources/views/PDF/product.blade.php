@@ -26,6 +26,7 @@ img{
 .left{
     width:40%;
     display: inline-block;
+    background: blue;
 }
 .content{
     display: block;
@@ -37,6 +38,7 @@ img{
     width:48%;
     padding-left:17px;
     text-align: left;
+    background: red;
     /* max-width: 50vw; */
 
 
