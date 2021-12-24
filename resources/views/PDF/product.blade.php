@@ -55,6 +55,10 @@ img{
 .text-sec{
     margin-bottom:80px;
 }
+.thumbs div{
+display: inline-block;
+margin:2px;
+}
 .thumb{
 width:100px;
 height: 100px;
