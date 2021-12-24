@@ -19,10 +19,7 @@
     width: 100%;
     display: block;
 }
-img{
-    display: block;
-    width:100%;
-}
+
 .left{
     width:45%;
     display: inline-block;
