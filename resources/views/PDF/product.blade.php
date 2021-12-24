@@ -55,9 +55,12 @@ img{
 .text-sec{
     margin-bottom:80px;
 }
-.thumbs img{
+.thumb{
 width:100px;
 height: 100px;
+background-repeat: no-repeat;
+background-position: center;
+background-size: contain;
 }
 
 
@@ -131,9 +134,10 @@ height: 100px;
                 </div>
                 <div class="thumbs">
                     @foreach ($data['covers'] as $cover)
-    {{-- <img>This is user {{ $user->id }}</> --}}
-    <img src={{$cover['src']}} alt="">
-@endforeach
+                        {{-- <img src={{$cover['src']}} alt=""> --}}
+                        <div class="thumb" style="background-image: url({{$cover['src']}})">
+                        </div>
+                    @endforeach
                 </div>
             </div>
             <div class="right">
