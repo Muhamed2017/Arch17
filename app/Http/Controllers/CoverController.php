@@ -74,7 +74,7 @@ class CoverController extends Controller
                 'brand' => $product->stores->name
             ];
             view()->share('data', $data);
-            $pdf = PDF::loadView('PDF.product', $data)->setPaper('a3', 'landscape');
+            $pdf = PDF::loadView('PDF.product', $data)->setPaper('a4', 'landscape');
             return $pdf->download('Arch17_product_' . $id . '.pdf');
             // return $pdf->stream();
             // return $product;
