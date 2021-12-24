@@ -31,15 +31,15 @@ img{
 .content{
     display: block;
     width: 100%;
+    background: green;
 }
 .right{
     display:inline-block;
     vertical-align:sub;
     width:45%;
-    padding-left:17px;
+    /* padding-left:17px; */
     text-align: left;
     background: red;
-    /* max-width: 50vw; */
 
 
 }
@@ -55,7 +55,7 @@ img{
     width:100%;
     height:450px;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: top 10px;
     background-size: contain;
 }
 .text-sec{
