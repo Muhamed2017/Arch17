@@ -76,7 +76,7 @@ class CoverController extends Controller
             ];
             view()->share('data', $data);
             $pdf = PDF::loadView('PDF.product', $data)->setPaper('a4', 'landscape')->setWarnings(false);
-            return $pdf->download('Arch17_product_' . $id . '.pdf');
+            return $pdf->download('Arch17_' . $product->identity[0]->name . '.pdf');
             // return $pdf->stream();
             // return $product;
         }
