@@ -582,6 +582,7 @@ class ProductController extends Controller
             'brand_name'          => 'required|string',
         ]);
         try {
+            // Mail::to('Sales@arch17.co')->send(new requestProductMail(
             Mail::to('mgm564441@gmail.com')->send(new requestProductMail(
                 $id,
                 $request->product_name,
