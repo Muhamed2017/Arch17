@@ -9,6 +9,11 @@ use App\Models\ProductOptions;
 use Illuminate\Http\Request;
 use Throwable;
 use PDF;
+use PhpOffice\PhpPresentation\PhpPresentation;
+use PhpOffice\PhpPresentation\IOFactory;
+use PhpOffice\PhpPresentation\Style\Color;
+use PhpOffice\PhpPresentation\Style\Alignment;
+
 
 class CoverController extends Controller
 {
@@ -77,15 +82,52 @@ class CoverController extends Controller
             view()->share('data', $data);
             $pdf = PDF::loadView('PDF.product', $data)->setPaper('a4', 'landscape')->setWarnings(false);
             return $pdf->download('Arch17_' . $product->identity[0]->name . '.pdf');
-            // return $pdf->stream();
-            // return $product;
         }
-
-        // view()->share('data', $data);
-
-        // $pdf = PDF::loadView('PDF.product', $data);
-        // // return $pdf->download('pdf_file.pdf');
-        // return $pdf->stream();
-        // return $data;
     }
+
+
+
+    // public function powerPoint()
+    // {
+    //     $objPHPPowerPoint = new PhpPresentation();
+    //     // $objPHPPowerPoint->setCreator('Sketch Presentation')
+    //     //     ->setLastModifiedBy('Sketch Team')
+    //     //     ->setTitle('Sketch Presentation')
+    //     //     ->setSubject('Sketch Presentation')
+    //     //     ->setDescription('Sketch Presentation')
+    //     //     ->setKeywords('office 2007 openxml libreoffice odt php')
+    //     //     ->setCategory('Sample Category');
+    //     $objPHPPowerPoint->removeSlideByIndex(0);
+    //     // $this->slide1($objPHPPowerPoint);
+    //     $this->slide2($objPHPPowerPoint);
+    //     $oWriterPPTX = IOFactory::createWriter($objPHPPowerPoint, 'PowerPoint2007');
+    //     return $oWriterPPTX->save(__DIR__ . "/sample.pptx");
+    // }
+
+
+
+    // public function slide2(&$objPHPPowerPoint)
+    // {
+    //     // Create slide
+    //     $currentSlide = $objPHPPowerPoint->createSlide();
+    //     // Create a shape (drawing)
+    //     // $shape = $currentSlide->createDrawingShape();
+    //     // $shape->setName('image')
+    //     //     ->setDescription('image')
+    //     //     ->setPath(public_path() . '/phppowerpoint_logo.gif')
+    //     //     ->setHeight(300)
+    //     //     ->setOffsetX(10)
+    //     //     ->setOffsetY(10);
+    //     // Create a shape (text)
+    //     $shape = $currentSlide->createRichTextShape()
+    //         ->setHeight(300)
+    //         ->setWidth(600)
+    //         ->setOffsetX(170)
+    //         ->setOffsetY(180);
+    //     $shape->getActiveParagraph()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    //     $textRun = $shape->createTextRun('Lorem Ipsum is simply dummy text of the printing and typesetting industry.');
+    //     $textRun->getFont()->setBold(true)
+    //         ->setSize(16)
+    //         ->setColor(new Color('FFE06B20'));
+    // }
 }

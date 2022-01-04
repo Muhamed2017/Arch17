@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\requestProductMail;
 use App\Models\File;
 use App\Models\Option as ModelsOption;
 use Illuminate\Http\Request;
@@ -21,6 +22,9 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Throwable;
 use App\Models\Option;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\sendMail;
+
 
 
 use function GuzzleHttp\Promise\each;
@@ -564,5 +568,40 @@ class ProductController extends Controller
         return response()->json([
             "options" => $options,
         ], 200);
+    }
+
+    public function requestProduct(Request $request, $id)
+    {
+        $this->validate($request, [
+            'email'          => 'required|email',
+            'phone'          => 'required|string|max:255',
+            'type'          => 'required|string|max:255',
+            'message'          => 'required|string',
+            'product_name'          => 'required|string',
+            'product_image'          => 'required|string',
+            'brand_name'          => 'required|string',
+        ]);
+        try {
+            Mail::to('mgm564441@gmail.com')->send(new requestProductMail(
+                $id,
+                $request->product_name,
+                $request->brand_name,
+                $request->type,
+                $request->email,
+                $request->phone,
+                $request->message,
+                $request->product_image
+            ));
+            return response()->json([
+                'status' => 1,
+                'message' => "Recieved Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'status' => 0,
+                'error' => $err,
+                'message' => "Error Occur !"
+            ], 500);
+        }
     }
 }
