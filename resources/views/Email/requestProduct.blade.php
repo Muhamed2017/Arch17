@@ -1,5 +1,5 @@
 @component('mail::message')
-# Request {{$type}} Mail
+# {{$type}} Mail
 
 ## {{$message}}
 ## <img src={{$product_image}} class="img-responsive">
