@@ -14,5 +14,6 @@ Goto Product Page
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+{{-- {{ config('app.name') }} --}}
+Arch17 Team
 @endcomponent
