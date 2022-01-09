@@ -24,8 +24,8 @@ use App\Models\Option;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendMail;
-
-
+use App\Models\Folder;
+use App\Models\UserCollection;
 
 use function GuzzleHttp\Promise\each;
 
@@ -603,6 +603,96 @@ class ProductController extends Controller
                 'error' => $err,
                 'message' => "Error Occur !"
             ], 500);
+        }
+    }
+
+    public function makeNewCollection(Request $request)
+    {
+
+        $this->validate($request, [
+            'user_id'          => 'required|string',
+            'name'          => 'required|string',
+        ]);
+
+        $folder = new Folder();
+        $folder->user_id = $request->user_id;
+        $folder->name = $request->name;
+
+        if ($folder->save()) {
+            return response()->json([
+                'success' => true,
+                'message' => "Collection Created Successfully"
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Error Occurs, Try Again"
+            ], 500);
+        }
+    }
+
+
+    public function saveToFolder(Request $request)
+    {
+        $this->validate($request, [
+            'product_id'          => 'required|string',
+            'folder_id'          => 'required|string',
+        ]);
+
+        $product = Product::find($request->product_id);
+        $folder = Folder::find($request->folder_id);
+        try {
+            $product->folders()->attach($folder);
+            return response()->json([
+                'success' => true,
+                'message' => "Saved to collection Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'message' => "Error Occurs",
+                'error' => $err
+            ], 500);
+        }
+    }
+
+    public function removerFromFolder(Request $request)
+    {
+        $this->validate($request, [
+            'product_id'          => 'required|string',
+            'folder_id'          => 'required|string',
+        ]);
+
+        $product = Product::find($request->product_id);
+        $folder = Folder::find($request->folder_id);
+        try {
+            $product->folders()->detach($folder);
+            return response()->json([
+                'success' => true,
+                'message' => "Removed from collection Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'message' => "Error Occurs",
+                'error' => $err
+            ], 500);
+        }
+    }
+
+    public function listAllFolders()
+    {
+
+        $folders = Folder::with('products')->get();
+
+        if (!empty($folders)) {
+            return response()->json([
+                'products' => $folders,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No Products Added! ',
+            ], 200);
         }
     }
 }

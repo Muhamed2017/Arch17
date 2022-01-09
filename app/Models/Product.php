@@ -115,6 +115,10 @@ class Product extends Model
     {
         $this->belongsToMany("App\Models\Collection");
     }
+    public function folders()
+    {
+        return $this->belongsToMany(Folder::class);
+    }
 
     public static function boot()
     {

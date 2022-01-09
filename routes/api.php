@@ -112,3 +112,7 @@ Route::get("powerpoint", "CoverController@powerPoint");
 
 
 Route::post("request/{id}", "ProductController@requestProduct");
+Route::post("collection", "ProductController@makeNewCollection");
+Route::post("save", "ProductController@saveToFolder");
+Route::post("unsave", "ProductController@removerFromFolder");
+Route::get("allcollections", "ProductController@listAllFolders");
