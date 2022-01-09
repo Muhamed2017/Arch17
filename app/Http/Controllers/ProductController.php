@@ -621,6 +621,7 @@ class ProductController extends Controller
         if ($folder->save()) {
             return response()->json([
                 'success' => true,
+                'folder' => $folder,
                 'message' => "Collection Created Successfully"
             ], 200);
         } else {
