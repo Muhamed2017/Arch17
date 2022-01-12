@@ -10,7 +10,6 @@ class Folder extends Model
     use HasFactory;
 
     protected $fillable = ['user_id', 'name'];
-    // protected $appends = ['childrens'];
 
     public function products()
     {

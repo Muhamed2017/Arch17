@@ -90,7 +90,6 @@ class Product extends Model
     }
     public function getOptionsAttribute()
     {
-        // return $this->options()->where('cover', '!=', null)->get();
         return $this->options()->get();
     }
 
@@ -105,24 +104,22 @@ class Product extends Model
 
     public function getStoresAttribute()
     {
-        // return $this->store();
         $store =  DB::table('stores')->where('id', $this->store_id)->first();
-
         return $store;
     }
 
     public function collections()
     {
-        $this->belongsToMany("App\Models\Collection");
+        $this->belongsToMany(Collection::class);
     }
     public function folders()
     {
         return $this->belongsToMany(Folder::class);
     }
 
+
     public static function boot()
     {
-        //        schema::defaultStringLength(191);
         parent::boot();
         static::deleting(function ($product) {
             if (count($product->images) > 0) {

@@ -24,6 +24,7 @@ use App\Models\Option;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendMail;
+use App\Models\Collection;
 use App\Models\Folder;
 use App\Models\UserCollection;
 
@@ -217,6 +218,8 @@ class ProductController extends Controller
             return $er;
         }
     }
+
+
     public function ProductDescription(Request $request, $id)
     {
         $this->validate($request, [
@@ -606,6 +609,7 @@ class ProductController extends Controller
         }
     }
 
+    // user collection (Folder) create api..
     public function makeNewCollection(Request $request)
     {
 
@@ -695,5 +699,101 @@ class ProductController extends Controller
                 'message' => 'No Products Added! ',
             ], 200);
         }
+    }
+
+
+    public function newBrandColelction(Request $request)
+    {
+        $this->validate($request, [
+            'store_id'          => 'required|string',
+            'product_id'          => 'required|string',
+            'collection_name'          => 'required|string',
+        ]);
+
+        $product = Product::find($request->product_id);
+        $collection = new Collection();
+        $collection->store_id = $request->store_id;
+        $collection->collection_name = $request->collection_name;
+
+        if ($collection->save()) {
+            try {
+                $collection->products()->attach($product);
+                return response()->json([
+                    'success' => true,
+                    'message' => "Product Placed to collection Successfully"
+                ], 200);
+            } catch (Throwable $err) {
+                return response()->json([
+                    'success' => false,
+                    'error' => "Error" . $err . " Occured"
+                ], 500);
+            }
+        }
+        return response()->json([
+            'success' => false,
+            'message' => "Error Occurs, Try Again"
+        ], 500);
+    }
+
+
+    public function attachProductToBrandCollection(Request $request)
+    {
+        $this->validate($request, [
+            'product_id'          => 'required|string',
+            'collection_id'      => "required|string"
+        ]);
+
+        $product = Product::find($request->product_id);
+        $collection = Collection::find($request->collection_id);
+
+        if ($collection && $product) {
+            try {
+                $collection->products()->attach($product);
+                return response()->json([
+                    'success' => true,
+                    'message' => "Product Placed to collection Successfully"
+                ], 200);
+            } catch (Throwable $err) {
+                return response()->json([
+                    'success' => false,
+                    'error' => "Error" . $err . " Occured"
+                ], 500);
+            }
+        }
+        return response()->json([
+            'success' => false,
+            'message' => "Product or Collection Not found or deleted"
+        ], 404);
+    }
+
+    public function deAttachProductToBrandCollection(Request $request)
+    {
+        $this->validate($request, [
+            'product_id'          => 'required|string',
+            'collection_id'      => "required|string"
+        ]);
+
+
+        $product = Product::find($request->product_id);
+        $collection = Collection::find($request->collection_id);
+
+        if ($collection && $product) {
+            try {
+                $collection->products()->detach($product);
+                return response()->json([
+                    'success' => true,
+                    'message' => "Product Removed from collection Successfully"
+                ], 200);
+            } catch (Throwable $err) {
+                return response()->json([
+                    'success' => false,
+                    'error' => "Error" . $err . " Occured"
+                ], 500);
+            }
+        }
+        return response()->json([
+            'success' => false,
+            'message' => "Product or Collection Not found or deleted"
+        ], 404);
     }
 }

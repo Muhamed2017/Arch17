@@ -88,7 +88,7 @@ Route::post("brand", "ManagementController@createBrand");
 Route::post("brand/edit", "ManagementController@editBrandById");
 Route::post("brand/update/{id}", "ManagementController@updateBrand");
 Route::get("brand/{id}", "ManagementController@getBrandById");
-Route::post("collect", "ManagementController@addProductToNewColelction");
+// Route::post("collect", "ManagementController@addProductToNewColelction");
 Route::post("add-to-collection", "ManagementController@addProductToExistingCollection");
 Route::get("collections/{store_id}", "ManagementController@getAllCollectionsbyStoreId");
 Route::get("store-id/{product_id}", "ManagementController@getStoreIdByProductId");
@@ -112,7 +112,17 @@ Route::get("powerpoint", "CoverController@powerPoint");
 
 
 Route::post("request/{id}", "ProductController@requestProduct");
+
+// create user collection api (folder)..
 Route::post("collection", "ProductController@makeNewCollection");
 Route::post("save", "ProductController@saveToFolder");
 Route::post("unsave", "ProductController@removerFromFolder");
 Route::get("allcollections", "ProductController@listAllFolders");
+
+
+//create store collection (collection) Api
+Route::post("brandcollection", "ProductController@newBrandColelction");
+Route::post("brandcollect", "ProductController@attachProductToBrandCollection");
+Route::post("branduncollect", "ProductController@deAttachProductToBrandCollection");
+// Route::get("collection/{id}", "ProductController@getCollectionById");
+// Route::get("allcollections", "ProductController@listAllFolders");
