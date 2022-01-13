@@ -29,7 +29,7 @@ class Product extends Model
         'updated_at'
     ];
 
-    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'stores'];
+    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'store'];
 
     public function images()
     {
@@ -71,7 +71,7 @@ class Product extends Model
 
     public function store()
     {
-        return $this->belonsTo(Store::class);
+        return $this->belongsTo(Store::class);
     }
 
     public function getIdentityAttribute()
@@ -97,10 +97,10 @@ class Product extends Model
         return $this->gallery()->get();
     }
 
-    public function getStoresAttribute()
+    public function getStoreAttribute()
     {
-        $store =  DB::table('stores')->where('id', $this->store_id)->first();
-        return  $store;
+        // $store =  DB::table('stores')->where('id', $this->store_id)->first();
+        return  $this->store;
     }
 
     public function collections()
