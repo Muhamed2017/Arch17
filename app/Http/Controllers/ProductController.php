@@ -380,6 +380,7 @@ class ProductController extends Controller
     {
 
         $product = Product::find($id);
+        $store = $product->store;
         if (!$product) {
             return response()->json([
                 'message' => "product not found or deleted"
@@ -387,7 +388,8 @@ class ProductController extends Controller
         }
 
         return response()->json([
-            'product' => $product
+            'product' => $product,
+            'store' => $store
         ], 200);
     }
     public function testImageUpload(Request $request, $id)
