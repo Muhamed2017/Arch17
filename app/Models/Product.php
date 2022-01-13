@@ -29,7 +29,7 @@ class Product extends Model
         'updated_at'
     ];
 
-    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'stores', 'collections'];
+    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'stores'];
 
     public function images()
     {
