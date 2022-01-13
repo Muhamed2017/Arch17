@@ -72,7 +72,7 @@ class Product extends Model
 
     public function collections()
     {
-        $this->belongsToMany(Collection::class);
+        $this->belongsTo(Collection::class);
     }
 
     public function getIdentityAttribute()
