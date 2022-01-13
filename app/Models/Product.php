@@ -76,7 +76,7 @@ class Product extends Model
 
     public function store()
     {
-        return $this->belonsTo('App\Models\Store');
+        return $this->belonsTo(Store::class);
     }
 
     public function getIdentityAttribute()
@@ -105,8 +105,7 @@ class Product extends Model
     public function getStoreAttribute()
     {
         // $store =  DB::table('stores')->where('id', $this->store_id)->first();
-        $store = $this->store()->get();
-        return $store;
+        return  $this->store;
     }
 
     public function collections()
