@@ -58,7 +58,9 @@ class ProductController extends Controller
             return response()->json([
                 'message' => 'product_identity created, ready to add option and price',
                 'product' => $product,
-                'store' => $store
+                'store' => $store,
+                'brand' => $product->store
+
 
             ], 200);
         } else {
