@@ -104,7 +104,8 @@ class Product extends Model
 
     public function getStoresAttribute()
     {
-        $store =  DB::table('stores')->where('id', $this->store_id)->first();
+        // $store =  DB::table('stores')->where('id', $this->store_id)->first();
+        $store = $this->store()->get();
         return $store;
     }
 
