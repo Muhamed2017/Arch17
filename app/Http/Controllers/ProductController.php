@@ -380,7 +380,7 @@ class ProductController extends Controller
     {
 
         $product = Product::find($id);
-        $store = $product->store();
+        $store = $product->store()->get();
         if (!$product) {
             return response()->json([
                 'message' => "product not found or deleted"
