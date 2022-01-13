@@ -29,7 +29,7 @@ class Product extends Model
         'updated_at'
     ];
 
-    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'stores'];
+    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'store'];
 
     public function images()
     {
@@ -102,7 +102,7 @@ class Product extends Model
         return $this->gallery()->get();
     }
 
-    public function getStoresAttribute()
+    public function getStoreAttribute()
     {
         // $store =  DB::table('stores')->where('id', $this->store_id)->first();
         $store = $this->store()->get();
