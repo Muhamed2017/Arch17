@@ -383,7 +383,7 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         $brand = $product->store;
-        $collections = $product->collections()->get();
+        $collections = $product->collections();
         if (!$product) {
             return response()->json([
                 'message' => "product not found or deleted"

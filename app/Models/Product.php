@@ -29,7 +29,7 @@ class Product extends Model
         'updated_at'
     ];
 
-    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'stores'];
+    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'stores', 'collections'];
 
     public function images()
     {
@@ -69,11 +69,21 @@ class Product extends Model
         return $this->belongsTo(Store::class);
     }
 
+
+    public function collections()
+    {
+        $this->belongsToMany(Collection::class);
+    }
+
     public function getIdentityAttribute()
     {
         return $this->identity()->get();
     }
 
+    // public function getCollectionsAttribute()
+    // {
+    //     return $this->collections();
+    // }
     public function getFilesAttribute()
     {
         return $this->files()->get();
@@ -98,10 +108,7 @@ class Product extends Model
         return  $store;
     }
 
-    public function collections()
-    {
-        $this->belongsToMany(Collection::class);
-    }
+
 
 
     public function folders()
