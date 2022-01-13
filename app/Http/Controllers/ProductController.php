@@ -383,6 +383,7 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         $brand = $product->store;
+        $collections = $product->colelctions()->get();
         if (!$product) {
             return response()->json([
                 'message' => "product not found or deleted"
@@ -391,7 +392,8 @@ class ProductController extends Controller
 
         return response()->json([
             'product' => $product,
-            'brand' => $brand
+            'brand' => $brand,
+            'collections' => $collections
         ], 200);
     }
     public function testImageUpload(Request $request, $id)
@@ -639,7 +641,6 @@ class ProductController extends Controller
             ], 500);
         }
     }
-
 
     public function saveToFolder(Request $request)
     {

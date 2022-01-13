@@ -102,6 +102,8 @@ class Product extends Model
     {
         $this->belongsToMany(Collection::class);
     }
+
+
     public function folders()
     {
         return $this->belongsToMany(Folder::class);
