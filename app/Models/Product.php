@@ -42,7 +42,6 @@ class Product extends Model
     }
 
 
-    // new option model
     public function options()
     {
         return $this->hasMany('App\Models\Option');
@@ -54,10 +53,6 @@ class Product extends Model
         return $this->hasOne('App\Models\ProductDescription');
     }
 
-    // public function files()
-    // {
-    //     return $this->hasOne('App\Models\ProductFiles');
-    // }
 
     public function files()
     {
