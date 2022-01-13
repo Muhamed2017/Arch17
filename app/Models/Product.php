@@ -29,7 +29,7 @@ class Product extends Model
         'updated_at'
     ];
 
-    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'store'];
+    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'stores'];
 
     public function images()
     {
@@ -40,11 +40,6 @@ class Product extends Model
     {
         return $this->hasOne('App\Models\ProductIdentity');
     }
-
-    // public function options()
-    // {
-    //     return $this->hasMany('App\Models\ProductOptions');
-    // }
 
 
     // new option model
@@ -102,7 +97,7 @@ class Product extends Model
         return $this->gallery()->get();
     }
 
-    public function getStoreAttribute()
+    public function getStoresAttribute()
     {
         // $store =  DB::table('stores')->where('id', $this->store_id)->first();
         return  $this->store;
