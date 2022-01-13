@@ -99,8 +99,8 @@ class Product extends Model
 
     public function getStoreAttribute()
     {
-        // $store =  DB::table('stores')->where('id', $this->store_id)->first();
-        return  $this->store();
+        $store =  DB::table('stores')->where('id', $this->store_id)->first();
+        return  $store;
     }
 
     public function collections()
