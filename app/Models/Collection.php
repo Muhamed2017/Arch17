@@ -36,7 +36,7 @@ class Collection extends Model
         foreach ($prs as $pr) {
             array_push($pics, $pr->identity[0]->preview_cover);
             array_push($names, $pr->identity[0]->name);
-            array_push($prices, $pr->identity[0]->price);
+            array_push($prices, $pr->identity[0]->preview_price);
             array_push($ids, $pr->identity[0]->product_id);
         }
         return [
