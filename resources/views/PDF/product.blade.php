@@ -6,7 +6,7 @@
         <style>
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
 .chinese{
-    font-family: 'ZCOOL XiaoWei', serif !important;
+    /* font-family: 'ZCOOL XiaoWei', serif !important; */
     font-weight: normal !important;
 }
 div{
