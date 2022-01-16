@@ -63,6 +63,9 @@ img{
     background-size: contain;
     background-position: center;
 }
+.thumbs{
+    margin:auto;
+}
 .thumbs div{
 display: inline-block;
 margin-top: 10px;
