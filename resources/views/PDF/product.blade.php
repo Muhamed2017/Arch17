@@ -6,11 +6,11 @@
         <style>
 
 /* @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
 .chinese{
     /* font-family: 'ZCOOL XiaoWei', serif !important; */
-    font-family: 'Noto Sans TC', sans-serif !important;
+    /* font-family: 'Noto Sans TC', sans-serif !important; */
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
     font-weight: normal !important;
 }
 div{
