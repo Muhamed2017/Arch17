@@ -30,7 +30,7 @@ img{
     width:100%;
 }
 .left{
-    margin-top: 25px;
+    margin-top: 22px;
     width:48%;
     display: inline-block;
     vertical-align: top;
@@ -58,13 +58,14 @@ img{
 }
 .main-img{
     width:100%;
-    height:400px;
+    height:395px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
 }
 .thumbs{
     margin:auto;
+    width: 100%;
 }
 .thumbs div{
 display: inline-block;
