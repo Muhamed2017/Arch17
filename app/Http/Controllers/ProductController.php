@@ -801,4 +801,12 @@ class ProductController extends Controller
             'message' => "Product or Collection Not found or deleted"
         ], 404);
     }
+
+
+    public function getCollectionById($id)
+    {
+
+        $collection = Collection::find($id);
+        return $collection;
+    }
 }
