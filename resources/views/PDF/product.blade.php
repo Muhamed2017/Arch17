@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>Arch17|APIs</title>
         <style>
-@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap'); */
 .chinese{
     /* font-family: 'ZCOOL XiaoWei', serif !important; */
     font-weight: normal !important;
