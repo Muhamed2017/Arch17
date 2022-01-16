@@ -3,11 +3,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>Arch17|APIs</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
         <style>
+
 /* @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap');
+
 .chinese{
     /* font-family: 'ZCOOL XiaoWei', serif !important; */
     font-family: 'Noto Sans TC', sans-serif !important;
