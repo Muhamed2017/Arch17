@@ -5,11 +5,8 @@
         <title>Arch17|APIs</title>
         <style>
 
-/* @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
 .chinese{
-    /* font-family: 'ZCOOL XiaoWei', serif !important; */
-    /* font-family: 'Noto Sans TC', sans-serif !important; */
     font-family: 'ZCOOL QingKe HuangYou', cursive;
     font-weight: normal !important;
 }
@@ -33,6 +30,7 @@ img{
     width:100%;
 }
 .left{
+    margin-top: 25px;
     width:48%;
     display: inline-block;
     vertical-align: top;
