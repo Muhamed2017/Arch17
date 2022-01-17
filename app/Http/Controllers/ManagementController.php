@@ -408,7 +408,7 @@ class ManagementController extends Controller
                 'message' => 'Brand Not Found or deleted'
             ], 404);
         }
-        if ($request->hasFile('logo')) {
+        if ($request->has('logo')) {
             $brand->logo = $request->logo->storeOnCloudinary()->getSecurePath();
         }
         if ($request->hasFile('cover')) {
@@ -478,6 +478,7 @@ class ManagementController extends Controller
 
         $product_identity->name = $request->display_name;
         $product_identity->preview_price = $request->preview_price;
+
         if ($request->hasFile('preview_cover')) {
             $product_identity->preview_cover = $request->preview_cover->storeOnCloudinary()->getSecurePath();
         }
