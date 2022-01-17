@@ -400,7 +400,7 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'img'   => 'nullable|array',
-            'img.*' => "required|mimes:jpeg,jpg,png|between:1,5000"
+            'img.*' => "required|mimes:jpeg,jpg,png|between:1,10000"
 
         ]);
         $product = Product::find($id);

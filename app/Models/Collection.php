@@ -50,7 +50,6 @@ class Collection extends Model
     public function getProductsAttribute()
     {
         return [
-            // 'products' => $this->products()->get(['product_id']),
             'count' => $this->products()->count(),
             'products_info' => $this->getPicsAttributes()
         ];

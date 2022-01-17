@@ -393,9 +393,12 @@ class ManagementController extends Controller
             'city' => 'nullable|string|max:250',
             'phone' => 'nullable|string|max:250',
             'email' => 'nullable|email|max:250',
-            'logo' => 'nullable|string|max:250',
-            'cover' => 'nullable|string|max:250',
+            'logo' => "nullable|mimes:jpeg,jpg,png|between:1,5000",
+            'cover' => "nullable|mimes:jpeg,jpg,png|between:1,5000",
+
             'official_website' => 'nullable|string|max:250',
+
+
         ]);
 
         $brand = Store::find($id);
@@ -461,6 +464,10 @@ class ManagementController extends Controller
 
     public function previewProduct(Request $request)
     {
+        $this->validate($request, [
+            'preview_cover' => "nullable|mimes:jpeg,jpg,png|between:1,10000"
+
+        ]);
         $identity_id = $request->identity_id;
         $product_identity = ProductIdentity::find($identity_id);
         if (!$product_identity) {
@@ -471,7 +478,9 @@ class ManagementController extends Controller
 
         $product_identity->name = $request->display_name;
         $product_identity->preview_price = $request->preview_price;
-        $product_identity->preview_cover = $request->preview_cover->storeOnCloudinary()->getSecurePath();
+        if ($request->hasFile('preview_cover')) {
+            $product_identity->preview_cover = $request->preview_cover->storeOnCloudinary()->getSecurePath();
+        }
         if ($product_identity->save()) {
             return response()->json([
                 'identity' => $product_identity,
