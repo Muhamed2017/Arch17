@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3e4c010ce6fac9146e2981361083c73",
+    "content-hash": "6143555c65ea90bb714ff584d9e67fef",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1668,16 +1668,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "dev-master",
+            "version": "2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "1d22091590183fc48b3811ada0800b9b4e365dfd"
+                "reference": "744ebba495319501b873a4e48787759c72e3fb8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/1d22091590183fc48b3811ada0800b9b4e365dfd",
-                "reference": "1d22091590183fc48b3811ada0800b9b4e365dfd",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/744ebba495319501b873a4e48787759c72e3fb8c",
+                "reference": "744ebba495319501b873a4e48787759c72e3fb8c",
                 "shasum": ""
             },
             "require": {
@@ -1744,7 +1744,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-26T14:16:35+00:00"
+            "time": "2021-12-16T16:49:26+00:00"
         },
         {
             "name": "kreait/clock",
@@ -9932,9 +9932,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "intervention/image": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

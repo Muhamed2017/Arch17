@@ -18,7 +18,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "intervention/image": "dev-master",
+        "intervention/image": "^2.7",
         "kreait/laravel-firebase": "^3.0",
         "laravel/framework": "^8.12",
         "laravel/socialite": "^5.1",

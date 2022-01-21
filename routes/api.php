@@ -107,7 +107,7 @@ Route::post("attchcovernewop", "CoverController@attachCoversToNewOption");
 //test routes
 Route::get("get-options", "ProductController@fakeOptionsData");
 
-Route::get("test-pdf/{id}", "CoverController@testPDF");
+Route::get("test-pdf/{id}", "ManagementController@testPDF");
 Route::get("powerpoint", "CoverController@powerPoint");
 
 

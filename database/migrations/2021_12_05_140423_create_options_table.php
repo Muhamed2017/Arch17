@@ -25,7 +25,7 @@ class CreateOptionsTable extends Migration
             $table->integer("size_l")->nullable();
             $table->integer("size_w")->nullable();
             $table->integer("size_h")->nullable();
-            $table->integer("quantity")->nullable();
+            $table->string("quantity")->nullable();
             $table->timestamps();
         });
     }

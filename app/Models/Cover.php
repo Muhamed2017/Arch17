@@ -12,11 +12,11 @@ class Cover extends Model
     protected $table = 'covers';
 
     protected $fillable = [
-        'src', 'cropping_data', 'option_id',
+        'crop_data', 'option_id', 'original', 'cropped', 'width', 'height', 'thumb', 'size'
     ];
 
     public function option()
     {
-        return $this->belongsTo('App\Models\ProductOptions');
+        return $this->belongsTo(Option::class);
     }
 }

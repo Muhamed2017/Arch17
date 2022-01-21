@@ -175,6 +175,8 @@ return [
 
         // 'JD\Cloudder\CloudderServiceProvider',
         Cviebrock\EloquentSluggable\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -240,6 +242,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class
+
 
 
     ],

@@ -14,6 +14,8 @@ use App\Models\Product;
 use App\Models\ProductIdentity;
 use App\Models\Store;
 use App\Models\UserVerifications;
+// use Barryvdh\DomPDF\PDF;
+use PDF;
 
 class ManagementController extends Controller
 {
@@ -395,10 +397,7 @@ class ManagementController extends Controller
             'email' => 'nullable|email|max:250',
             'logo' => "nullable|mimes:jpeg,jpg,png|between:1,5000",
             'cover' => "nullable|mimes:jpeg,jpg,png|between:1,5000",
-
             'official_website' => 'nullable|string|max:250',
-
-
         ]);
 
         $brand = Store::find($id);
@@ -408,24 +407,27 @@ class ManagementController extends Controller
                 'message' => 'Brand Not Found or deleted'
             ], 404);
         }
-        if ($request->has('logo')) {
-            $brand->logo = $request->logo->storeOnCloudinary()->getSecurePath();
-        }
+
         if ($request->hasFile('cover')) {
             $brand->cover = $request->cover->storeOnCloudinary()->getSecurePath();
         }
         if ($request->has('product_types')) {
             $brand->product_types = $request->product_types;
         }
+
+
         $brand->name = $request->name;
         $brand->email = $request->email;
         $brand->phone = $request->phone;
         $brand->country = $request->country;
         $brand->city = $request->city;
         $brand->about = $request->about;
-
         $brand->type = $request->type;
         $brand->official_website = $request->official_website;
+        if ($request->hasFile('logo')) {
+            $brand->logo = $request->logo->storeOnCloudinary()->getSecurePath();
+        }
+
         if ($brand->save()) {
             return response()->json([
                 'brand' => $brand,
@@ -491,6 +493,27 @@ class ManagementController extends Controller
             return response()->json([
                 'message' => 'error occured, try again'
             ], 500);
+        }
+    }
+
+
+
+    public function testPDF($id)
+    {
+        $product = Product::find($id);
+        if ($product) {
+            $data = [
+                'id' => $product->id,
+                'name' => $product->identity[0]->name,
+                'kind' => $product->identity[0]->kind,
+                'image' => $product->options[0]->covers[0]['src'],
+                'covers' => $product->options[0]->covers,
+                'link' => 'www.arch17test.live/product/' . $id,
+                'brand' => $product->stores->name
+            ];
+            view()->share('data', $data);
+            $pdf = PDF::loadView('PDF.product', $data)->setPaper('a4', 'landscape')->setWarnings(false);
+            return $pdf->download('Arch17_' . $product->identity[0]->name . '.pdf');
         }
     }
 }
