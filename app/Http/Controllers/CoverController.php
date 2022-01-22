@@ -38,7 +38,7 @@ class CoverController extends Controller
         $cover->option_id = $request->option_id;
         $cover->original = $request->cover->storeOnCloudinary()->getSecurePath();
         $cover->src = $request->cover->storeOnCloudinary()->getSecurePath();
-        $cover->cropped = $request->cropped->storeOnCloudinary()->getSecurePath();
+        // $cover->cropped = $request->cropped->storeOnCloudinary()->getSecurePath();
         $cover->width = 1500;
         $cover->height = 1000;
         $cover->crop_data = $request->crop_data;

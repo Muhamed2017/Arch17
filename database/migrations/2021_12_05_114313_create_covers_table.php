@@ -16,7 +16,7 @@ class CreateCoversTable extends Migration
         Schema::create('covers', function (Blueprint $table) {
             $table->id();
             $table->bigInteger("option_id")->unsigned()->nullable();
-            $table->string('original');
+            $table->string('original')->nullable();
             $table->string('src');
             $table->string('cropped')->nullable();
             $table->double('width')->nullable();
