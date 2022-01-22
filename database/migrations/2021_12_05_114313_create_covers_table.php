@@ -17,6 +17,7 @@ class CreateCoversTable extends Migration
             $table->id();
             $table->bigInteger("option_id")->unsigned()->nullable();
             $table->string('original');
+            $table->string('src');
             $table->string('cropped')->nullable();
             $table->double('width')->nullable();
             $table->double('height')->nullable();

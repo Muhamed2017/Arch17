@@ -15,11 +15,9 @@ use PhpOffice\PhpPresentation\Style\Color;
 use PhpOffice\PhpPresentation\Style\Alignment;
 use Image;
 use Cloudinary;
-use Faker\Core\Number;
-// use Cloudinary\Cloudinary as CloudinaryCloudinary;
+use Cloudinary\Cloudinary as CloudinaryCloudinary;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\File;
-
 
 class CoverController extends Controller
 {
@@ -31,27 +29,16 @@ class CoverController extends Controller
             'size' => 'nullable|numeric',
             'height' => 'nullable|numeric',
             'width' => 'nullable|numeric',
-            'crop_data_x' => 'numeric|nullable',
-            'crop_data_y' => 'numeric|nullable',
-            'crop_data_w' => 'numeric|nullable',
-            'crop_data_h' => 'numeric|nullable',
+            'crop_data' => 'nullable',
         ]);
 
         // $image = (string) Image::make($request->cover)->crop(100, 100, 100, 100)->encode();
 
         $cover = new Cover();
-        // $cover->option_id = $request->option_id;
+        $cover->option_id = $request->option_id;
         $cover->original = $request->cover->storeOnCloudinary()->getSecurePath();
-        $cover->cropped = cloudinary()->upload($request->file('cover')->getRealPath(), [
-            'folder' => 'covers',
-            'transformation' => [
-                'height' => $request->crop_data_h,
-                'x' => $request->crop_data_x,
-                'y' => $request->crop_data_y,
-                'width' => $request->crop_data_w,
-                'crop' => 'crop'
-            ]
-        ])->getSecurePath();
+        $cover->src = $request->cover->storeOnCloudinary()->getSecurePath();
+        $cover->cropped = $request->cropped->storeOnCloudinary()->getSecurePath();
         $cover->width = 1500;
         $cover->height = 1000;
         $cover->crop_data = $request->crop_data;

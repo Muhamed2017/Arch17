@@ -12,7 +12,7 @@ class Cover extends Model
     protected $table = 'covers';
 
     protected $fillable = [
-        'crop_data', 'option_id', 'original', 'cropped', 'width', 'height', 'thumb', 'size'
+        'crop_data', 'option_id', 'original', 'cropped', 'width', 'height', 'thumb', 'size', 'src'
     ];
 
     public function option()
