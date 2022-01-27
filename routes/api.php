@@ -117,7 +117,7 @@ Route::post("request/{id}", "ProductController@requestProduct");
 Route::post("collection", "ProductController@makeNewCollection");
 Route::post("save", "ProductController@saveToFolder");
 Route::post("unsave", "ProductController@removerFromFolder");
-Route::get("allcollections", "ProductController@listAllFolders");
+Route::get("allcollections/{id}", "ProductController@listAllFolders");
 
 
 //create store collection (collection) Api
@@ -125,4 +125,5 @@ Route::post("brandcollection", "ProductController@newBrandColelction");
 Route::post("brandcollect", "ProductController@attachProductToBrandCollection");
 Route::post("branduncollect", "ProductController@deAttachProductToBrandCollection");
 Route::get("collection/{id}", "ProductController@getCollectionById");
+Route::get("collections/{id}", "ProductController@getCollectionById");
 // Route::get("allcollections", "ProductController@listAllFolders");

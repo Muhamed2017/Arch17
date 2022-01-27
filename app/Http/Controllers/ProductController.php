@@ -690,10 +690,16 @@ class ProductController extends Controller
         }
     }
 
-    public function listAllFolders()
+    public function listAllFolders($id)
     {
 
-        $folders = Folder::with('products')->get();
+
+        // if (nullOrEmptyString($id)) {
+        //     return response()->json([
+        //         'message' => 'unknown user'
+        //     ], 200);
+        // }
+        $folders = Folder::with('products')->where('user_id', $id)->get();
 
         if (!empty($folders)) {
             return response()->json([
@@ -808,5 +814,19 @@ class ProductController extends Controller
 
         $collection = Collection::find($id);
         return $collection;
+    }
+
+    public function getUserCollections($id)
+    {
+        $collections = Collection::all()->where('user_id', $id);
+
+        if (nullOrEmptyString($id)) {
+            return response()->json([
+                'message' => 'unknown user'
+            ], 200);
+        }
+        return response()->json([
+            'collections' => $collections
+        ], 200);
     }
 }
