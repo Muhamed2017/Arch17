@@ -52,7 +52,7 @@ class StoreController extends Controller
 
 
         $store = Store::find($request->store_id);
-        $store->cover = $request->cover->storeOnCloudinary()->getSecurePath();
+        $store->cover = $request->brand_cover->storeOnCloudinary()->getSecurePath();
 
         if ($store->save()) {
             return response()->json([
