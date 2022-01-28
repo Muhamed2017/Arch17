@@ -46,13 +46,12 @@ class StoreController extends Controller
     {
 
         $this->validate($request, [
-            'brand_cover' => 'nullable|string|max:250',
+            'brand_cover' => "nullable|mimes:jpeg,jpg,png|between:1,5000",
             'store_id' => 'nullable|string|max:250',
         ]);
 
 
         $store = Store::find($request->store_id);
-
         $store->cover = $request->cover->storeOnCloudinary()->getSecurePath();
 
         if ($store->save()) {
