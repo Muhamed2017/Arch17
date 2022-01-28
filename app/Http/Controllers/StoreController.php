@@ -40,4 +40,26 @@ class StoreController extends Controller
             );
         }
     }
+
+
+    public function brandcover(Request $request)
+    {
+
+        $this->validate($request, [
+            'brand_cover' => 'nullable|string|max:250',
+            'store_id' => 'nullable|string|max:250',
+        ]);
+
+
+        $store = Store::find($request->store_id);
+
+        $store->cover = $request->cover->storeOnCloudinary()->getSecurePath();
+
+        if ($store->save()) {
+            return response()->json([
+                'brand' => $store,
+                'message' => 'Brand Cover has been updated'
+            ], 200);
+        }
+    }
 }
