@@ -13,9 +13,11 @@ use App\Models\CollectionProduct;
 use App\Models\Product;
 use App\Models\ProductIdentity;
 use App\Models\Store;
+use App\Models\Subscriber;
 use App\Models\UserVerifications;
 // use Barryvdh\DomPDF\PDF;
 use PDF;
+use Throwable;
 
 class ManagementController extends Controller
 {
@@ -496,8 +498,6 @@ class ManagementController extends Controller
         }
     }
 
-
-
     public function testPDF($id)
     {
         $product = Product::find($id);
@@ -514,6 +514,35 @@ class ManagementController extends Controller
             view()->share('data', $data);
             $pdf = PDF::loadView('PDF.product', $data)->setPaper('a4', 'landscape')->setWarnings(false);
             return $pdf->download('Arch17_' . $product->identity[0]->name . '.pdf');
+        }
+    }
+
+
+
+
+    // subscribe by email in homepage..
+    public function subscribe(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|max:255|unique:subscribers,email',
+            'proccessing_personal_data_approval' => 'nullable|string'
+        ]);
+
+        try {
+            $subscriber = new Subscriber();
+            $subscriber->email = $request->email;
+            $subscriber->proccessing_personal_data_approval = $request->proccessing_personal_data_approval;
+            $subscriber->save();
+            return response()->json([
+                'success' => true,
+                'message' => "Subscribed Successfully",
+                'subscriber' => $subscriber
+            ], 201);
+        } catch (Throwable $err) {
+            return response()->json([
+                'message' => "Error Occered",
+                'error' => $err
+            ], 500);
         }
     }
 }

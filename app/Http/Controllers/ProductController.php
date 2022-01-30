@@ -458,6 +458,23 @@ class ProductController extends Controller
         }
     }
 
+    public function getHomeProducts()
+    {
+        $products = Product::with('identity')->take(6)->get();
+
+        if (!empty($products)) {
+            return response()->json([
+                'products' => $products,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No Products Added! ',
+            ], 200);
+        }
+    }
+
+
+
     public function filterProductSearchPage(Request $request)
     {
 

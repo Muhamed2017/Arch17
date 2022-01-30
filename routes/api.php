@@ -82,6 +82,7 @@ Route::post('user/update-photo', 'ManagementController@updateProfilePic');
 Route::post('user', 'ManagementController@verifyEmailCode');
 Route::post('validate-code', 'ManagementController@validatingCode');
 Route::post("update-phone", "ManagementController@updatePhoneNumber");
+Route::post("subscribe", "ManagementController@subscribe");
 
 // brand endpoints..
 Route::post("brand", "ManagementController@createBrand");
@@ -97,6 +98,8 @@ Route::post("publish-name/{identity_id}", "ManagementController@editNameForProdu
 Route::post("preview", "ManagementController@previewProduct");
 Route::get("search", "ProductController@filterProductSearchPage");
 Route::get("products", "ProductController@getAllProducts");
+Route::get("home/products", "ProductController@getHomeProducts");
+// getHomeProducts
 Route::post('upcrop/{product_id}', "ProductController@UpdateOrCreateOption");
 Route::post('addfile/{product_id}', "ProductController@UpdateOrCteateFile");
 //uploadCover
