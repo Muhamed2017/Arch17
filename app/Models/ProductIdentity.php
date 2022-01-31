@@ -25,8 +25,11 @@ class ProductIdentity extends Model
         'product_id', 'name', 'kind', 'city', 'style', 'category', 'material', 'places_tags', 'country', 'shape', 'base', 'seats', 'is_outdoor', 'is_for_kids', 'type',
         'product_file_kind', 'preview_cover', 'preview_price'
     ];
-    // public $appends = ['product', 'materials', 'types', 'seatss', 'styles', 'shapess'];
-    public $appends = ['product'];
+    public $appends = [
+        'product',
+        'store_name',
+        'file'
+    ];
     public function product()
     {
         return $this->belongsTo('App\Models\Product');
@@ -34,53 +37,22 @@ class ProductIdentity extends Model
 
     public function getProductAttribute()
     {
-        $product =  DB::table('products')->where('id', $this->product_id)->first();
-
+        $product =  DB::table('products')->where('id', $this->product_id)->first('store_id');
         return $product;
     }
 
-    // public function getMaterialsAttribute()
-    // {
-    //     $collection = collect($this->material);
-    //     $selected_materials = $collection->map(function ($item) {
-    //         return  ['label' => $item, 'value' => $item];
-    //     });
-    //     return $selected_materials->all();
-    // }
-
-    // public function getTypesAttribute()
-    // {
-    //     $collection = collect($this->type);
-    //     $selected_types = $collection->map(function ($item) {
-    //         return  ['label' => $item, 'value' => $item];
-    //     });
-    //     return $selected_types->all();
-    // }
-
-    // public function getStylesAttribute()
-    // {
-    //     $collection = collect($this->style);
-    //     $selected = $collection->map(function ($item) {
-    //         return  ['label' => $item, 'value' => $item];
-    //     });
-    //     return $selected->all();
-    // }
-
-    // public function getSeatssAttribute()
-    // {
-    //     $collection = collect($this->seats);
-    //     $selected = $collection->map(function ($item) {
-    //         return  ['label' => $item, 'value' => $item];
-    //     });
-    //     return $selected->all();
-    // }
-
-    // public function getShapessAttribute()
-    // {
-    //     $collection = collect($this->shape);
-    //     $selected = $collection->map(function ($item) {
-    //         return  ['label' => $item, 'value' => $item];
-    //     });
-    //     return $selected->all();
-    // }
+    public function getStoreNameAttribute()
+    {
+        $store =  DB::table('stores')->where('id', $this->product->store_id)->first();
+        return collect([
+            'store_name' => $store->name,
+            'store_id' => $store->id,
+            'store_type' => $store->type
+        ]);
+    }
+    public function getFileAttribute()
+    {
+        $file =  DB::table('files')->where('product_id', $this->product_id)->get('file_type');
+        return $file;
+    }
 }

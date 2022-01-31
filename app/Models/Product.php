@@ -80,10 +80,6 @@ class Product extends Model
         return $this->identity()->get();
     }
 
-    // public function getCollectionsAttribute()
-    // {
-    //     return $this->collections();
-    // }
     public function getFilesAttribute()
     {
         return $this->files()->get();

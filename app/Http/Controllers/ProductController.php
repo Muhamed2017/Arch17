@@ -460,7 +460,13 @@ class ProductController extends Controller
 
     public function getHomeProducts()
     {
-        $products = Product::with('identity')->take(6)->get();
+        // $products = Product::with('')->take(2)->get();
+        // $products = Product::all()->take(10);
+        // $products->combine(['' => 'Grado']);
+
+        $products = ProductIdentity::all()->take(8);
+
+        $products->forget('product');
 
         if (!empty($products)) {
             return response()->json([
@@ -477,7 +483,6 @@ class ProductController extends Controller
 
     public function filterProductSearchPage(Request $request)
     {
-
         $products = QueryBuilder::for(ProductIdentity::class)
             ->allowedFilters([
                 AllowedFilter::exact('category'),
