@@ -117,6 +117,8 @@ Route::get("powerpoint", "CoverController@powerPoint");
 
 Route::post("request/{id}", "ProductController@requestProduct");
 
+
+
 // create user collection api (folder)..
 Route::post("collection", "ProductController@makeNewCollection");
 Route::post("save", "ProductController@saveToFolder");
