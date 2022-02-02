@@ -122,6 +122,10 @@ Route::post("collection", "ProductController@makeNewCollection");
 Route::post("save", "ProductController@saveToFolder");
 Route::post("unsave", "ProductController@removerFromFolder");
 Route::get("allcollections/{id}", "ProductController@listAllFolders");
+Route::get("collections", "ProductController@allFolders");
+Route::get("folders/{user_id}/{product_id}", "ProductController@listAllFoldersByProduct");
+
+// listAllFoldersByProduct
 
 
 //create store collection (collection) Api

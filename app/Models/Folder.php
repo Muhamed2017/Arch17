@@ -11,8 +11,18 @@ class Folder extends Model
 
     protected $fillable = ['user_id', 'name'];
 
+    protected $appends = ['saved'];
+
+
     public function products()
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function getSavedAttribute()
+    {
+        // return $this->products;
+        // return  products();
+        return 50;
     }
 }

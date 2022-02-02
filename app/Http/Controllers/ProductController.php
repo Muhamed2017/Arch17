@@ -490,7 +490,7 @@ class ProductController extends Controller
                 AllowedFilter::exact('is_for_kids'),
                 AllowedFilter::exact('product_file_kind'),
                 AllowedFilter::exact('kind'),
-                'type', 'seats', 'base', 'shape', 'style'
+                'type', 'seats', 'base', 'shape', 'style', 'material'
             ])
             ->allowedAppends(['product'])
             ->get();
@@ -712,20 +712,50 @@ class ProductController extends Controller
         }
     }
 
+    public function allFolders()
+    {
+        $folders = Folder::all();
+
+        if (!empty($folders)) {
+            return response()->json([
+                'products' => $folders,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No Products Added! ',
+            ], 200);
+        }
+    }
+
+
     public function listAllFolders($id)
     {
 
 
-        // if (nullOrEmptyString($id)) {
-        //     return response()->json([
-        //         'message' => 'unknown user'
-        //     ], 200);
-        // }
         $folders = Folder::with('products')->where('user_id', $id)->get();
 
         if (!empty($folders)) {
             return response()->json([
                 'products' => $folders,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No Products Added! ',
+            ], 200);
+        }
+    }
+
+    public function listAllFoldersByProduct($user_id, $product_id)
+    {
+
+        // $product = Product::find($product_id);
+
+        // $saved = $product->folders->where('user_id', $user_id);
+
+        $folders = Folder::with('products')->where('user_id', $user_id)->get();
+        if (!empty($folders)) {
+            return response()->json([
+                'folders' => $folders,
             ], 200);
         } else {
             return response()->json([
