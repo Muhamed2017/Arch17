@@ -748,13 +748,16 @@ class ProductController extends Controller
 
         foreach ($folders as $folder) {
             if ($folder->products->contains($product)) {
-                array_push($_saved_in, $folder);
+                // array_push($_saved_in, $folder);
+                array_push($_saved_in, ['name' => $folder->name, 'id' => $folder->id, 'saved' => true]);
             } else {
-                array_push($_unsaved, $folder);
+                // array_push($_unsaved, $folder);
+                array_push($_unsaved, ['name' => $folder->name, 'id' => $folder->id, 'saved' => false]);
             }
         }
         if (!empty($folders)) {
             return response()->json([
+                // $folders => $_unsaved . c
                 'saved_in' => $_saved_in,
                 'unsaved_in' => $_unsaved
             ], 200);
