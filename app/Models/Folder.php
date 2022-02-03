@@ -21,8 +21,6 @@ class Folder extends Model
 
     public function getSavedAttribute()
     {
-        // return $this->products;
-        // return  products();
         return false;
     }
 }

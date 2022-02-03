@@ -460,14 +460,9 @@ class ProductController extends Controller
 
     public function getHomeProducts()
     {
-        // $products = Product::with('')->take(2)->get();
-        // $products = Product::all()->take(10);
-        // $products->combine(['' => 'Grado']);
 
-        $products = ProductIdentity::all()->take(8);
-
+        $products = ProductIdentity::latest()->where('preview_cover', '!=', null)->take(8)->get();
         $products->forget('product');
-
         if (!empty($products)) {
             return response()->json([
                 'products' => $products,
@@ -478,8 +473,6 @@ class ProductController extends Controller
             ], 200);
         }
     }
-
-
 
     public function filterProductSearchPage(Request $request)
     {
@@ -748,18 +741,26 @@ class ProductController extends Controller
     public function listAllFoldersByProduct($user_id, $product_id)
     {
 
-        // $product = Product::find($product_id);
+        $_saved_in = [];
+        $_unsaved = [];
+        $folders = Folder::all()->where('user_id', $user_id);
+        $product = Product::find($product_id);
 
-        // $saved = $product->folders->where('user_id', $user_id);
-
-        $folders = Folder::with('products')->where('user_id', $user_id)->get();
+        foreach ($folders as $folder) {
+            if ($folder->products->contains($product)) {
+                array_push($_saved_in, $folder);
+            } else {
+                array_push($_unsaved, $folder);
+            }
+        }
         if (!empty($folders)) {
             return response()->json([
-                'folders' => $folders,
+                'saved_in' => $_saved_in,
+                'unsaved_in' => $_unsaved
             ], 200);
         } else {
             return response()->json([
-                'message' => 'No Products Added! ',
+                'message' => 'No Folders Added! ',
             ], 200);
         }
     }
