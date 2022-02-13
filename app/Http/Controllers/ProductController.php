@@ -769,6 +769,8 @@ class ProductController extends Controller
     }
 
 
+
+
     public function newBrandColelction(Request $request)
     {
         $this->validate($request, [
@@ -883,6 +885,17 @@ class ProductController extends Controller
         }
         return response()->json([
             'collections' => $collections
+        ], 200);
+    }
+
+    public function searchBar()
+    {
+        $products = ProductIdentity::all();
+        $brands = Store::all();
+
+        return response()->json([
+            'products' => $products,
+            'brands' => $brands
         ], 200);
     }
 }
