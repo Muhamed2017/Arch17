@@ -28,6 +28,11 @@ class CreateProductIdentitiesTable extends Migration
             $table->string('is_outdoor')->default('no');
             $table->string('style')->nullable();
             $table->string('places_tags')->nullable();
+            $table->string('colorTempratures')->nullable();
+            $table->string('bulbTypes')->nullable();
+            $table->string('applied_on')->nullable();
+            $table->string('installations')->nullable();
+            $table->string('lighting_types')->nullable();
             $table->string('country')->nullable();
             $table->string('category')->nullable();
             $table->string('preview_cover')->nullable();

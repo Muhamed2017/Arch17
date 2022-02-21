@@ -80,6 +80,11 @@ class ProductController extends Controller
         $shapes = json_decode($request->shape, true);
         $types = json_decode($request->type, true);
         $styles = json_decode($request->style, true);
+        $lighting_types = json_decode($request->lighting_types, true);
+        $installations = json_decode($request->installations, true);
+        $colorTempratures = json_decode($request->colorTempratures, true);
+        $bulbTypes = json_decode($request->bulbTypes, true);
+        $applied_on = json_decode($request->applied_on, true);
 
         $this->validate($request, [
             // step one
@@ -93,6 +98,7 @@ class ProductController extends Controller
             'is_outdoor'    => 'nullable|string|max:250',
             'is_for_kids'    => 'nullable|string|max:250',
             'product_file_kind' => 'nullable|string|max:250',
+
         ]);
         $product = Product::find($id);
         $product_identity = ProductIdentity::findOrFail($product->id);
@@ -105,6 +111,13 @@ class ProductController extends Controller
         $product_identity->type = $types;
         $product_identity->base = $bases;
         $product_identity->shape = $shapes;
+
+        $product_identity->lighting_types = $lighting_types;
+        $product_identity->installations = $installations;
+        $product_identity->colorTempratures = $colorTempratures;
+        $product_identity->bulbTypes = $bulbTypes;
+        $product_identity->applied_on = $applied_on;
+
         $product_identity->seats = $seats;
         $product_identity->material = $materials;
         $product_identity->is_outdoor = $request->is_outdoor;

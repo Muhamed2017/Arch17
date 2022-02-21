@@ -19,11 +19,17 @@ class ProductIdentity extends Model
         'base' => 'array',
         'seats' => 'array',
         'type' => 'array',
+        'lighing_types' => 'array',
+        'bulbTypes' => 'array',
+        'applied_on' => 'array',
+        'installations' => 'array',
+        'colorTempratures' => 'array',
+        // 'applied_on' => 'array',
     ];
 
     protected $fillable = [
         'product_id', 'name', 'kind', 'city', 'style', 'category', 'material', 'places_tags', 'country', 'shape', 'base', 'seats', 'is_outdoor', 'is_for_kids', 'type',
-        'product_file_kind', 'preview_cover', 'preview_price'
+        'product_file_kind', 'preview_cover', 'preview_price', 'lighing_types', 'applied_on',  'bulbTypes', 'installations', 'colorTempratures'
     ];
     public $appends = [
         'product',
