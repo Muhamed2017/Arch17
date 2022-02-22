@@ -495,14 +495,9 @@ class ProductController extends Controller
                 AllowedFilter::exact('is_outdoor'),
                 AllowedFilter::exact('is_for_kids'),
                 AllowedFilter::exact('product_file_kind'),
-                // AllowedFilter::exact('lighting_types'),
-                // AllowedFilter::exact('installations'),
-                // AllowedFilter::exact('bulbTypes'),
-                // AllowedFilter::exact('applied_on'),
-                // AllowedFilter::exact('colorTempratures'),
-                // 'lighting_types', 'installations', 'bulbTypes', 'applied_on', 'colorTempratures'
                 AllowedFilter::exact('kind'),
-                'type', 'seats', 'base', 'shape', 'style', 'material', 'lighting_types',
+                'type', 'seats', 'base', 'shape', 'style', 'material', 'lighting_types','installations',
+                'bulbTypes', 'colorTempraturs', 'applied_on',
             ])
             ->allowedAppends(['product'])
             ->get();
