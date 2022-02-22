@@ -502,7 +502,7 @@ class ProductController extends Controller
                 // AllowedFilter::exact('colorTempratures'),
                 // 'lighting_types', 'installations', 'bulbTypes', 'applied_on', 'colorTempratures'
                 AllowedFilter::exact('kind'),
-                'type', 'seats', 'base', 'shape', 'style', 'material',
+                'type', 'seats', 'base', 'shape', 'style', 'material', 'lighting_types',
             ])
             ->allowedAppends(['product'])
             ->get();
