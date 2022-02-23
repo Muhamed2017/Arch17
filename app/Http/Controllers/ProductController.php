@@ -209,6 +209,7 @@ class ProductController extends Controller
 
     public function UpdateOrCteateFile(Request $request, $product_id)
     {
+        $identity = ProductIdentity::find($product_id);
         try {
             $file = File::updateOrCreate(
                 [
@@ -225,6 +226,8 @@ class ProductController extends Controller
                     'baidu' => $request->baidu,
                 ]
             );
+            $identity->product_file_kind = "yes";
+            $identity->save();
             return response()->json([
                 'message' => 'File Added Successfully',
                 'file' => $file
@@ -496,7 +499,7 @@ class ProductController extends Controller
                 AllowedFilter::exact('is_for_kids'),
                 AllowedFilter::exact('product_file_kind'),
                 AllowedFilter::exact('kind'),
-                'type', 'seats', 'base', 'shape', 'style', 'material', 'lighting_types','installations',
+                'type', 'seats', 'base', 'shape', 'style', 'material', 'lighting_types', 'installations',
                 'bulbTypes', 'colorTempraturs', 'applied_on',
             ])
             ->allowedAppends(['product'])
