@@ -915,4 +915,151 @@ class ProductController extends Controller
             'brands' => $brands
         ], 200);
     }
+
+
+    public function testDeleteRelated()
+    {
+        $products = Product::all();
+        $identities = ProductIdentity::all();
+        $options = Option::all();
+        $files    = File::all();
+        $desc = ProductDescription::all();
+        $galleries = ProductGallery::all();
+
+
+        return response()->json([
+            'products' => $products,
+            'identities' => $identities,
+            'options' => $options,
+            'files' => $files,
+            'desc' => $desc,
+            'galleries' => $galleries,
+        ], 200);
+    }
+
+
+    // delete apis
+    //---------------------------------------------
+
+    //delete product option by option id
+    public function deleteOption($id)
+    {
+        $option = Option::find($id);
+
+        if (!$option) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Option Not fount or already deleted '
+            ], 404);
+        }
+        try {
+            $option->delete();
+            return response()->json([
+                'success' => true,
+                'message' => "Option deleted Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'error' => $err
+            ], 500);
+        }
+    }
+
+    // delete product file by file id
+    public function deleteFile($id)
+    {
+        $file = File::find($id);
+        if (!$file) {
+            return response()->json([
+                'success' => false,
+                'message' => 'File Not fount or already deleted '
+            ], 404);
+        }
+        try {
+            $file->delete();
+            return response()->json([
+                'success' => true,
+                'message' => "File deleted Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'error' => $err
+            ], 500);
+        }
+    }
+
+
+    public function deleteGallery($id)
+    {
+        $gallery = ProductGallery::find($id);
+        if (!$gallery) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gallery Not fount or already deleted '
+            ], 404);
+        }
+        try {
+            $gallery->delete();
+            return response()->json([
+                'success' => true,
+                'message' => "Gallery deleted Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'error' => $err
+            ], 500);
+        }
+    }
+
+    //delete product (with all it's related models .. identity, options, description, galleries, files)
+    public function deleteProduct($id)
+    {
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product Not fount or already deleted '
+            ], 404);
+        }
+        try {
+            $product->delete();
+            return response()->json([
+                'success' => true,
+                'message' => "Product deleted Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'error' => $err
+            ], 500);
+        }
+    }
+
+
+    //delete brand by it's Id
+    public function deleteBrand($id)
+    {
+        $brand = Store::find($id);
+        if (!$brand) {
+            return response()->json([
+                'success' => false,
+                'message' => 'brand Not fount or already deleted '
+            ], 404);
+        }
+        try {
+            $brand->delete();
+            return response()->json([
+                'success' => true,
+                'message' => "brand deleted Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'error' => $err
+            ], 500);
+        }
+    }
 }

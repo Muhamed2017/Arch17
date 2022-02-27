@@ -13,13 +13,6 @@ class Product extends Model
     use HasFactory;
     use MediaAlly;
 
-
-    // public function collections()
-    // {
-    //     return $this->morphToMany(Collection::class, 'collectionable');
-    // }
-
-
     protected $fillable = [
         'store_id', 'user_id',  'business_account_id', 'kind'
     ];
@@ -50,28 +43,33 @@ class Product extends Model
 
     public function description()
     {
+
         return $this->hasOne('App\Models\ProductDescription');
     }
 
 
     public function files()
     {
+
         return $this->hasMany('App\Models\File');
     }
 
     public function gallery()
     {
+
         return $this->hasOne('App\Models\ProductGallery');
     }
 
     public function store()
     {
+
         return $this->belongsTo(Store::class);
     }
 
 
     public function collections()
     {
+
         return $this->belongsToMany(Collection::class);
     }
 
@@ -104,24 +102,20 @@ class Product extends Model
         return  $store;
     }
 
-
-
-
     public function folders()
     {
         return $this->belongsToMany(Folder::class);
     }
 
-
     public static function boot()
     {
         parent::boot();
         static::deleting(function ($product) {
-            if (count($product->images) > 0) {
-                foreach ($product->images as $image) {
-                    $image->delete();
-                }
-            }
+            $product->identity()->delete();
+            $product->gallery()->delete();
+            $product->description()->delete();
+            $product->files()->delete();
+            $product->options()->delete();
         });
     }
 }

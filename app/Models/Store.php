@@ -55,4 +55,13 @@ class Store extends Model
     {
         return $this->morphMany(Follower::class, 'followerable');
     }
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($store) {
+
+            $store->products()->delete();
+            $store->collections()->delete();
+        });
+    }
 }
