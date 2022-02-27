@@ -144,9 +144,10 @@ Route::post("testdelete", "ProductController@testDeleteRelated");
 // Route::post("product/delete/{id}", "ProductController@deleteProduct");
 
 Route::group(['prefix' => 'product/delete'], function () {
-
     Route::post("/{id}", "ProductController@deleteProduct");
     Route::post("option/{id}", "ProductController@deleteOption");
     Route::post("file/{id}", "ProductController@deleteFile");
-    Route::post("gallery/{id}", "ProductController@deleteProduct");
+    Route::post("gallery/{id}", "ProductController@deleteGallery");
 });
+
+//{{url}}product/delete/option/35
