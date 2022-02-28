@@ -19,10 +19,10 @@ class CreateFilesTable extends Migration
             $table->string('file_name');
             $table->string('file_type');
             $table->string('software');
-            $table->string('onedrive');
-            $table->string('ggldrive');
-            $table->string('dropbox');
-            $table->string('baidu');
+            $table->string('onedrive')->nullable();
+            $table->string('ggldrive')->nullable();
+            $table->string('dropbox')->nullable();
+            $table->string('baidu')->nullable();
 
             $table->timestamps();
         });
