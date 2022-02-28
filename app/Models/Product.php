@@ -62,11 +62,11 @@ class Product extends Model
         return $this->hasOne('App\Models\ProductGallery');
     }
 
-    // public function store()
-    // {
+    public function store()
+    {
 
-    //     return $this->belongsTo(Store::class);
-    // }
+        return $this->belongsTo(Store::class);
+    }
 
     public function getSimilarAttribute()
     {
