@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\DB;
 
 
@@ -22,7 +24,7 @@ class Product extends Model
         'updated_at'
     ];
 
-    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'stores'];
+    public $appends = ['identity', 'options', 'description', 'files', 'gallery', 'stores', 'similar'];
 
     public function images()
     {
@@ -60,10 +62,19 @@ class Product extends Model
         return $this->hasOne('App\Models\ProductGallery');
     }
 
-    public function store()
+    // public function store()
+    // {
+
+    //     return $this->belongsTo(Store::class);
+    // }
+
+    public function getSimilarAttribute()
     {
 
-        return $this->belongsTo(Store::class);
+        $products = ProductIdentity::all()->where('type', $this->identity[0]->type)
+            ->where('store_name.store_id', $this->stores->id)
+            ->take(4);
+        return $products;
     }
 
 
@@ -106,6 +117,8 @@ class Product extends Model
     {
         return $this->belongsToMany(Folder::class);
     }
+
+
 
     public static function boot()
     {
