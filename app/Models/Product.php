@@ -73,6 +73,7 @@ class Product extends Model
 
         $products = ProductIdentity::all()->where('type', $this->identity[0]->type)
             ->where('store_name.store_id', $this->stores->id)
+            ->where('id', "!=", $this->identity[0]->id)
             ->take(4);
         return $products;
     }
