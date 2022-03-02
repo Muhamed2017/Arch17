@@ -90,7 +90,7 @@ Route::post("brand/edit", "ManagementController@editBrandById");
 Route::post("brand/update/{id}", "StoreController@updateBrand");
 Route::get("brand/{id}", "ManagementController@getBrandById");
 Route::post("brandcover", "StoreController@brandCover");
-Route::post("brandlogo", "StoreController@brandLogo");
+Route::post("brandlogo/{id}", "StoreController@brandLogo");
 
 // Route::post("collect", "ManagementController@addProductToNewColelction");
 Route::post("add-to-collection", "ManagementController@addProductToExistingCollection");
