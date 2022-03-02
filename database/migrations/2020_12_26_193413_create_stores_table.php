@@ -18,10 +18,11 @@ class CreateStoresTable extends Migration
             $table->string('name')->nullable();
             $table->string('user_id');
             $table->string('country')->nullable();
+            $table->string('email')->nullable();
             $table->string('city')->nullable();
             $table->string('phone')->nullable();
+            $table->string('phone_code')->nullable();
             $table->text('about')->nullable();
-            $table->string('email')->unique();
             $table->string('official_website')->nullable();
             $table->text('product_types')->nullable();
             $table->string('type')->nullable();

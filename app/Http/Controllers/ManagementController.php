@@ -222,6 +222,7 @@ class ManagementController extends Controller
             'type' => 'required|string|max:250',
             'product_types.*' => 'required|string|max:250',
             'country' => 'required|string|max:250',
+            'phone_code' => 'required|string|max:250',
             'phone' => 'required|string|max:250',
             'email' => 'required|email|max:250',
         ]);
@@ -263,79 +264,6 @@ class ManagementController extends Controller
         ], 200);
     }
 
-    public function updateBrand(Request $request, $id)
-    {
-        $store = Store::find($id);
-        if (!$store) {
-            return response()->json([
-                'message' => 'Brand Not Found!',
-            ], 404);
-        }
-
-        $this->validate($request, [
-            'name' => 'nullable|string|max:250',
-            'product_types' => 'nullable|array',
-            'type' => 'nullable|string|max:250',
-            'product_types.*' => 'nullable|string|max:250',
-            'country' => 'nullable|string|max:250',
-            'city' => 'nullable|string|max:250',
-            'phone' => 'nullable|string|max:250',
-            'official_website' => 'nullable|string|max:250',
-            'email' => 'nullable|email|max:250',
-        ]);
-        $store->name = $request->name;
-        if ($request->has('email')) {
-            $store->email = $request->email;
-        }
-        if ($request->has('about')) {
-            $store->about = $request->about;
-        }
-        if ($request->has('type')) {
-            $store->type = $request->type;
-        }
-        if ($request->has('name')) {
-            $store->name = $request->name;
-        }
-        if ($request->has('product_types')) {
-            $store->product_types = $request->product_types;
-        }
-        if ($request->has('country')) {
-            $store->country = $request->country;
-        }
-        if ($request->has('city')) {
-            $store->city = $request->city;
-        }
-        if ($request->has('official_website')) {
-            $store->official_website = $request->official_website;
-        }
-        if ($request->has('phone')) {
-            $store->phone = $request->phone;
-        }
-
-        // $store->email = $request->email;
-        // $store->type = $request->type;
-        // $store->about = $request->about;
-        // $store->product_types = $request->product_types;
-        // $store->country = $request->country;
-        // $store->city = $request->city;
-        // $store->phone = $request->phone;
-        // $store->name = $request->name;
-        // $store->official_website = $request->official_website;
-        if ($request->hasFile('logo')) {
-            $store->logo = $request->logo->storeOnCloudinary()->getSecurePath();
-        }
-
-        if ($store->save()) {
-            return response()->json([
-                'message' => 'Brand has been Updated successfully',
-                'store' => $store,
-                'owner' => [
-                    'name' => 'Muhamed Magdy',
-                    'uid' => "GgZSlJOVS5hQsXH3ml9wrGOc5Zy1"
-                ]
-            ], 200);
-        }
-    }
 
     public function createCollection($collection_id, $product_id)
     {

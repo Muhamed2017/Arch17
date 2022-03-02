@@ -87,9 +87,11 @@ Route::post("subscribe", "ManagementController@subscribe");
 // brand endpoints..
 Route::post("brand", "ManagementController@createBrand");
 Route::post("brand/edit", "ManagementController@editBrandById");
-Route::post("brand/update/{id}", "ManagementController@updateBrand");
+Route::post("brand/update/{id}", "StoreController@updateBrand");
 Route::get("brand/{id}", "ManagementController@getBrandById");
-Route::post("brandcover", "StoreController@brandcover");
+Route::post("brandcover", "StoreController@brandCover");
+Route::post("brandlogo", "StoreController@brandLogo");
+
 // Route::post("collect", "ManagementController@addProductToNewColelction");
 Route::post("add-to-collection", "ManagementController@addProductToExistingCollection");
 Route::get("collections/{store_id}", "ManagementController@getAllCollectionsbyStoreId");
