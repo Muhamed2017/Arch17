@@ -235,6 +235,7 @@ class ManagementController extends Controller
             $store->product_types = $request->product_types;
             $store->country = $request->country;
             $store->phone = $request->phone;
+            $store->phone_code = $request->phone_code;
         }
         if ($store->save()) {
             return response()->json([
