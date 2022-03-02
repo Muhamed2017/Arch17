@@ -22,7 +22,7 @@ class CreateStoresTable extends Migration
             $table->string('city')->nullable()->default("");
             $table->string('phone')->nullable();
             $table->string('phone_code')->nullable();
-            $table->text('about')->nullable()->default("");
+            $table->text('about')->nullable();
             $table->string('official_website')->nullable()->default("");
             $table->text('product_types')->nullable();
             $table->string('type')->nullable();
