@@ -91,6 +91,9 @@ Route::post("brand/update/{id}", "StoreController@updateBrand");
 Route::get("brand/{id}", "ManagementController@getBrandById");
 Route::post("brandcover", "StoreController@brandCover");
 Route::post("brandlogo/{id}", "StoreController@brandLogo");
+Route::post("brand/follow/{id}", "StoreController@followStore");
+Route::post("brand/unfollow/{id}", "StoreController@unFollowStore");
+
 
 // Route::post("collect", "ManagementController@addProductToNewColelction");
 Route::post("add-to-collection", "ManagementController@addProductToExistingCollection");

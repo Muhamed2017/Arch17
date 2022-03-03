@@ -13,7 +13,6 @@ class Folder extends Model
 
     protected $appends = ['saved'];
 
-
     public function products()
     {
         return $this->belongsToMany(Product::class);

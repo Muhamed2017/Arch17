@@ -25,7 +25,7 @@ class Store extends Model
     protected $casts = [
         'product_types' => 'array'
     ];
-    public $appends = ['products', 'collections'];
+    public $appends = ['products', 'collections', 'followers'];
 
     public function collections()
     {
@@ -50,10 +50,21 @@ class Store extends Model
     {
         return $this->morphMany(Project::class, 'authorable');
     }
-    // protected $appens='logo';
+
+
     public function followers()
     {
-        return $this->morphMany(Follower::class, 'followerable');
+        return $this->belongsToMany(Follower::class);
+    }
+
+    public function getFollowersAttribute()
+    {
+        $user_ids = [];
+        $followers = $this->followers()->get();
+        foreach ($followers as $follower) {
+            array_push($user_ids, $follower->follower_id);
+        }
+        return $user_ids;
     }
     public static function boot()
     {

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Follower;
 use App\Models\Store;
 use App\Models\Collection;
+use Throwable;
 
 class StoreController extends Controller
 {
@@ -163,6 +164,66 @@ class StoreController extends Controller
                 'products' => $products,
 
             ], 200);
+        }
+    }
+
+    public function followStore(Request $request, $id)
+    {
+        $this->validate($request, [
+            'user_id' => 'required|string|max:250',
+        ]);
+
+
+        // $follower= null;
+        $follower = Follower::all()->where('follower_id', $request->user_id)->first();
+        $store = Store::find($id);
+        if (!$follower) {
+            $follower = new Follower();
+            $follower->follower_id = $request->user_id;
+            $follower->save();
+        } else {
+        }
+        try {
+            $store->followers()->syncWithoutDetaching($follower);
+            return response()->json([
+                'staus' => true,
+                'message' => $store,
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'staus' => false,
+                'error' => $err,
+            ], 500);
+        }
+    }
+    public function unFollowStore(Request $request, $id)
+    {
+        $this->validate($request, [
+            'user_id' => 'required|string|max:250',
+        ]);
+
+
+        $follower = Follower::all()->where('follower_id', $request->user_id)->first();
+        $store = Store::find($id);
+
+        if (!$follower) {
+            return response()->json([
+                'staus' => false,
+                'message' => "User Not Found",
+            ], 404);
+        } else {
+        }
+        try {
+            $store->followers()->detach($follower);
+            return response()->json([
+                'staus' => true,
+                'message' => $store,
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'staus' => false,
+                'error' => $err,
+            ], 500);
         }
     }
 }

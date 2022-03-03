@@ -762,13 +762,10 @@ class ProductController extends Controller
         $_unsaved = [];
         $folders = Folder::all()->where('user_id', $user_id);
         $product = Product::find($product_id);
-
         foreach ($folders as $folder) {
             if ($folder->products->contains($product)) {
-                // array_push($_saved_in, $folder);
                 array_push($_saved_in, ['name' => $folder->name, 'id' => $folder->id, 'saved' => true]);
             } else {
-                // array_push($_unsaved, $folder);
                 array_push($_unsaved, ['name' => $folder->name, 'id' => $folder->id, 'saved' => false]);
             }
         }
@@ -787,7 +784,7 @@ class ProductController extends Controller
 
 
 
-
+    /// Brand Collection apis
     public function newBrandColelction(Request $request)
     {
         $this->validate($request, [
@@ -936,6 +933,9 @@ class ProductController extends Controller
             'galleries' => $galleries,
         ], 200);
     }
+
+
+
 
 
     // delete apis

@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Follower extends Model
 {
     use HasFactory;
-    protected $fillable= ['user_id'];
-    public function followerable()
+    protected $fillable = ['follower_id'];
+
+    public function stores()
+
     {
-        return $this->morphTo();
+        $this->belongsToMany(Store::class);
     }
 }
