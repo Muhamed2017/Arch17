@@ -155,11 +155,14 @@ class StoreController extends Controller
             return response()->json([
                 'message' => 'Brand Not Found!',
             ], 404);
-        }
-        return response()->json([
-            'staus' => false,
-            'collection' => $collection,
+        } else {
+            $products = $collection->products()->latest()->take(10)->get();
+            return response()->json([
+                'staus' => false,
+                'collection' => $collection,
+                'products' => $products,
 
-        ], 200);
+            ], 200);
+        }
     }
 }
