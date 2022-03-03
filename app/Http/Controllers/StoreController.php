@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Follower;
 use App\Models\Store;
+use App\Models\Collection;
 
 class StoreController extends Controller
 {
@@ -145,5 +146,20 @@ class StoreController extends Controller
                 ]
             ], 200);
         }
+    }
+    public function getBrandCollectionbyId($id)
+    {
+
+        $collection = Collection::find($id);
+        if (!$collection) {
+            return response()->json([
+                'message' => 'Brand Not Found!',
+            ], 404);
+        }
+        return response()->json([
+            'staus' => false,
+            'collection' => $collection,
+
+        ], 200);
     }
 }

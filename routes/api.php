@@ -137,6 +137,7 @@ Route::post("brandcollection", "ProductController@newBrandColelction");
 Route::post("brandcollect", "ProductController@attachProductToBrandCollection");
 Route::post("branduncollect", "ProductController@deAttachProductToBrandCollection");
 Route::get("collection/{id}", "ProductController@getCollectionById");
+Route::get("col/{id}", "StoreController@getBrandCollectionbyId");
 Route::get("collections/{id}", "ProductController@getCollectionById");
 // Route::get("allcollections", "ProductController@listAllFolders");
 
