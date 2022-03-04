@@ -66,6 +66,10 @@ class Store extends Model
         }
         return $user_ids;
     }
+    public function types()
+    {
+        return $this->hasMany(Type::class);
+    }
     public static function boot()
     {
         parent::boot();

@@ -24,7 +24,6 @@ class ProductIdentity extends Model
         'applied_on' => 'array',
         'installations' => 'array',
         'colorTempratures' => 'array',
-        // 'applied_on' => 'array',
     ];
 
     protected $fillable = [

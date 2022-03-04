@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\sendMail;
 use App\Models\Collection;
 use App\Models\Folder;
+use App\Models\Type;
 use App\Models\UserCollection;
 
 use function GuzzleHttp\Promise\each;
@@ -100,6 +101,7 @@ class ProductController extends Controller
             'product_file_kind' => 'nullable|string|max:250',
 
         ]);
+
         $product = Product::find($id);
         $product_identity = ProductIdentity::findOrFail($product->id);
         $product_identity->name = $request->name;
@@ -123,6 +125,8 @@ class ProductController extends Controller
         $product_identity->is_outdoor = $request->is_outdoor;
         $product_identity->is_for_kids = $request->is_for_kids;
         $product_identity->product_file_kind = $request->product_file_kind;
+
+        // $type = Type::all()->where('store_id', );
         if ($product_identity->save()) {
             return response()->json([
                 'message' => 'product_identity created, ready to add option and price',
@@ -136,6 +140,7 @@ class ProductController extends Controller
             ], 500);
         }
     }
+
     // product options and price - step two
     public function addOptionToProduct(Request $request, $id, $option_id)
     {

@@ -14,9 +14,8 @@ use App\Models\Product;
 use App\Models\ProductIdentity;
 use App\Models\Store;
 use App\Models\Subscriber;
+use App\Models\Type;
 use App\Models\UserVerifications;
-// use Barryvdh\DomPDF\PDF;
-use PDF;
 use Throwable;
 
 class ManagementController extends Controller
@@ -258,10 +257,7 @@ class ManagementController extends Controller
         }
         return response()->json([
             'store' => $store,
-            'owner' => [
-                'name' => 'Muhamed Magdy',
-                'uid' => "GgZSlJOVS5hQsXH3ml9wrGOc5Zy1"
-            ]
+            'types' => $store->types,
         ], 200);
     }
 
@@ -426,12 +422,13 @@ class ManagementController extends Controller
         }
     }
 
+
     public function previewProduct(Request $request)
     {
         $this->validate($request, [
             'preview_cover' => "nullable|mimes:jpeg,jpg,png|between:1,10000"
-
         ]);
+
         $identity_id = $request->identity_id;
         $product_identity = ProductIdentity::find($identity_id);
         if (!$product_identity) {
@@ -446,11 +443,30 @@ class ManagementController extends Controller
         if ($request->hasFile('preview_cover')) {
             $product_identity->preview_cover = $request->preview_cover->storeOnCloudinary()->getSecurePath();
         }
+
         if ($product_identity->save()) {
-            return response()->json([
-                'identity' => $product_identity,
-                'message' => 'Product Name has been updated'
-            ], 200);
+            try {
+                $type = Type::updateOrCreate(
+                    [
+                        'store_id' => $product_identity->product->store_id,
+                        'name' => $product_identity->kind,
+                    ],
+                    [
+                        'name' => $product_identity->kind,
+                        'preview' => $product_identity->preview_cover
+                    ]
+                );
+                return response()->json([
+                    'identity' => $product_identity,
+                    'type' => $type,
+                    'message' => 'Product Name has been updated',
+                ], 200);
+            } catch (Throwable $err) {
+                return response()->json([
+                    'status' => false,
+                    'error' => $err
+                ], 200);
+            }
         } else {
             return response()->json([
                 'message' => 'error occured, try again'
@@ -458,24 +474,7 @@ class ManagementController extends Controller
         }
     }
 
-    public function testPDF($id)
-    {
-        $product = Product::find($id);
-        if ($product) {
-            $data = [
-                'id' => $product->id,
-                'name' => $product->identity[0]->name,
-                'kind' => $product->identity[0]->kind,
-                'image' => $product->options[0]->covers[0]['src'],
-                'covers' => $product->options[0]->covers,
-                'link' => 'www.arch17test.live/product/' . $id,
-                'brand' => $product->stores->name
-            ];
-            view()->share('data', $data);
-            $pdf = PDF::loadView('PDF.product', $data)->setPaper('a4', 'landscape')->setWarnings(false);
-            return $pdf->download('Arch17_' . $product->identity[0]->name . '.pdf');
-        }
-    }
+
 
 
 
