@@ -97,7 +97,7 @@ class StoreController extends Controller
             'name' => 'nullable|string|max:250',
             'product_types' => 'nullable|array',
             'type' => 'nullable|string|max:250',
-            'product_types.*' => 'nullable|string|max:250',
+            // 'product_types.*' => 'nullable|string|max:250',
             'country' => 'nullable|string|max:250',
             'city' => 'nullable|string|max:250',
             'phone' => 'nullable|string|max:250',
@@ -118,9 +118,7 @@ class StoreController extends Controller
         if ($request->has('name')) {
             $store->name = $request->name;
         }
-        if ($request->has('product_types')) {
-            $store->product_types = $request->product_types;
-        }
+
         if ($request->has('country')) {
             $store->country = $request->country;
         }
@@ -148,6 +146,7 @@ class StoreController extends Controller
             ], 200);
         }
     }
+
     public function getBrandCollectionbyId($id)
     {
 

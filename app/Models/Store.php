@@ -14,7 +14,7 @@ class Store extends Model
     protected $table = 'stores';
 
     protected $fillable = [
-        'user_id', 'name', 'country', 'city', 'about', 'logo', 'cover', 'phone', 'email', 'official_website', 'product_types', 'type', 'phone_code'
+        'user_id', 'name', 'country', 'city', 'about', 'logo', 'cover', 'phone', 'email', 'official_website', 'type', 'phone_code'
     ];
 
     protected $dates = [
@@ -50,7 +50,6 @@ class Store extends Model
     {
         return $this->morphMany(Project::class, 'authorable');
     }
-
 
     public function followers()
     {
