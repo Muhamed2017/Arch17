@@ -213,53 +213,7 @@ class ManagementController extends Controller
 
     // brand apis
 
-    public function createBrand(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required|string|max:250',
-            'product_types' => 'required|array',
-            'type' => 'required|string|max:250',
-            'product_types.*' => 'required|string|max:250',
-            'country' => 'required|string|max:250',
-            'phone_code' => 'required|string|max:250',
-            'phone' => 'required|string|max:250',
-            'email' => 'required|email|max:250',
-        ]);
-        if ($request->has('uid')) {
-            $store = new Store();
-            $store->user_id = $request->uid;
-            $store->name = $request->name;
-            $store->email = $request->email;
-            $store->type = $request->type;
-            $store->product_types = $request->product_types;
-            $store->country = $request->country;
-            $store->phone = $request->phone;
-            $store->phone_code = $request->phone_code;
-        }
-        if ($store->save()) {
-            return response()->json([
-                'message' => 'Store has been created successfully',
-                'store' => $store
-            ], 201);
-        }
-        return response()->json([
-            'message' => 'something went wrong, try again',
-        ], 500);
-    }
 
-    public function getBrandById($id)
-    {
-        $store = Store::find($id);
-        if (!$store) {
-            return response()->json([
-                'message' => 'Brand Not Found!',
-            ], 404);
-        }
-        return response()->json([
-            'store' => $store,
-            'types' => $store->types,
-        ], 200);
-    }
 
 
     public function createCollection($collection_id, $product_id)
