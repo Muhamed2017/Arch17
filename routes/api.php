@@ -92,6 +92,7 @@ Route::post("brandcover", "StoreController@brandCover");
 Route::post("brandlogo/{id}", "StoreController@brandLogo");
 Route::post("brand/follow/{id}", "StoreController@followStore");
 Route::post("brand/unfollow/{id}", "StoreController@unFollowStore");
+Route::get("brandproductsfilter/{store_id}", "StoreController@storeProductFilter");
 Route::post("brand/edit", "ManagementController@editBrandById");
 
 

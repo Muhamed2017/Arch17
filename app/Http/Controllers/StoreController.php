@@ -7,7 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Follower;
 use App\Models\Store;
 use App\Models\Collection;
+use App\Models\Product;
+use App\Models\ProductIdentity;
 use Throwable;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
+
+use function PHPUnit\Framework\isEmpty;
 
 class StoreController extends Controller
 {
@@ -217,7 +223,10 @@ class StoreController extends Controller
                 'message' => 'Brand Not Found!',
             ], 404);
         } else {
-            $products = $collection->products()->latest()->take(10)->get();
+            // $products = $collection->products()->latest()->take(10)->get();
+            $products = $collection->products()->latest()->take(12)->get();
+
+
             return response()->json([
                 'staus' => false,
                 'collection' => $collection,
@@ -285,5 +294,27 @@ class StoreController extends Controller
                 'error' => $err,
             ], 500);
         }
+    }
+    public function storeProductFilter($store_id)
+    {
+
+        $products = QueryBuilder::for(ProductIdentity::class)
+            ->allowedFilters([
+                AllowedFilter::exact('category'),
+                AllowedFilter::exact('kind'),
+                'type',
+            ])
+
+            ->get();
+        if (empty($products)) {
+            return response()->json([
+                'status' => false,
+                'message' => "No Found Products"
+            ], 200);
+        }
+        return response()->json([
+            'status' => true,
+            'products' => $products,
+        ], 200);
     }
 }

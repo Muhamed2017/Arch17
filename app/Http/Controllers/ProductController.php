@@ -106,6 +106,8 @@ class ProductController extends Controller
         $product_identity = ProductIdentity::findOrFail($product->id);
         $product_identity->name = $request->name;
         $product_identity->kind = $request->kind;
+        $product_identity->kind = $request->kind;
+        $product_identity->store_id = $product->store_id;
         $product_identity->places_tags = $request->places_tags;
         $product_identity->category = $request->category;
         $product_identity->country = $request->country;
@@ -113,6 +115,7 @@ class ProductController extends Controller
         $product_identity->type = $types;
         $product_identity->base = $bases;
         $product_identity->shape = $shapes;
+
 
         $product_identity->lighting_types = $lighting_types;
         $product_identity->installations = $installations;

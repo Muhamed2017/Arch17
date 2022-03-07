@@ -16,6 +16,7 @@ class CreateProductIdentitiesTable extends Migration
         Schema::create('product_identities', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('product_id')->unsigned();
+            $table->bigInteger('store_id')->unsigned();
             $table->string('name')->nullable();
             $table->string('kind')->nullable();
             $table->string('shape')->nullable();

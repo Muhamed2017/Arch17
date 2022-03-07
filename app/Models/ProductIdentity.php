@@ -28,7 +28,8 @@ class ProductIdentity extends Model
 
     protected $fillable = [
         'product_id', 'name', 'kind', 'city', 'style', 'category', 'material', 'places_tags', 'country', 'shape', 'base', 'seats', 'is_outdoor', 'is_for_kids', 'type',
-        'product_file_kind', 'preview_cover', 'preview_price', 'lighting_types', 'applied_on',  'bulbTypes', 'installations', 'colorTempratures'
+        'product_file_kind', 'preview_cover', 'preview_price', 'lighting_types', 'applied_on',  'bulbTypes', 'installations', 'colorTempratures',
+        'store_id'
     ];
     public $appends = [
         'product',
