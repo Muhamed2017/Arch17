@@ -295,23 +295,35 @@ class StoreController extends Controller
             ], 500);
         }
     }
+
+
+    // store page product section  filter api
     public function storeProductFilter($store_id)
     {
-
         $products = QueryBuilder::for(ProductIdentity::class)
             ->allowedFilters([
                 AllowedFilter::exact('category'),
                 AllowedFilter::exact('kind'),
                 'type',
-            ])
+            ])->where("store_id", $store_id)
+            ->paginate(16);
 
-            ->get();
-        if (empty($products)) {
-            return response()->json([
-                'status' => false,
-                'message' => "No Found Products"
-            ], 200);
-        }
+        return response()->json([
+            'status' => true,
+            'products' => $products,
+        ], 200);
+    }
+
+    // store type page filter
+    public function storeProductByTypeFilter($store_id)
+    {
+        $products = QueryBuilder::for(ProductIdentity::class)
+            ->allowedFilters([
+                AllowedFilter::exact('kind'),
+                'type',
+            ])->where("store_id", $store_id)
+            ->paginate(16);
+
         return response()->json([
             'status' => true,
             'products' => $products,

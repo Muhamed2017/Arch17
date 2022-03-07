@@ -93,8 +93,9 @@ Route::post("brandlogo/{id}", "StoreController@brandLogo");
 Route::post("brand/follow/{id}", "StoreController@followStore");
 Route::post("brand/unfollow/{id}", "StoreController@unFollowStore");
 Route::get("brandproductsfilter/{store_id}", "StoreController@storeProductFilter");
-Route::post("brand/edit", "ManagementController@editBrandById");
+Route::get("brandtypefilter/{store_id}", "StoreController@storeProductByTypeFilter");
 
+Route::post("brand/edit", "ManagementController@editBrandById");
 
 // Route::post("collect", "ManagementController@addProductToNewColelction");
 Route::post("add-to-collection", "ManagementController@addProductToExistingCollection");
