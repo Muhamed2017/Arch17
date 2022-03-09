@@ -632,7 +632,7 @@ class ProductController extends Controller
         ]);
         try {
             // Mail::to('mgm564441@gmail.com')->send(new requestProductMail(
-            Mail::to('mgm564441@gmail.com')->send(new requestProductMail(
+            Mail::to('sales@arch17.co')->send(new requestProductMail(
                 $id,
                 $request->product_name,
                 $request->brand_name,
