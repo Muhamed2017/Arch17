@@ -225,12 +225,13 @@ class StoreController extends Controller
         } else {
             // $products = $collection->products()->latest()->take(10)->get();
             $products = $collection->products()->latest()->take(12)->get();
-
+            $store = $collection->store;
 
             return response()->json([
                 'staus' => false,
                 'collection' => $collection,
                 'products' => $products,
+                'store' => $store,
 
             ], 200);
         }
