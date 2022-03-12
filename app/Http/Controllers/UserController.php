@@ -178,7 +178,7 @@ class UserController extends Controller
         $followrs = Follower::all()->where('follower_id', $user_uid)->first();
         $stores = [];
         if ($followrs) {
-            $stores = $followrs->stores();
+            $stores = $followrs->stores;
         }
 
         return response()->json([
