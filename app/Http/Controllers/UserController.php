@@ -175,7 +175,7 @@ class UserController extends Controller
     public function getUserFolders($user_uid)
     {
         $collections = Folder::all()->where('user_id', $user_uid);
-        $followrs = Follower::find($user_uid);
+        $followrs = Follower::all()->where('follower_id', $user_uid)->first();
         $stores = $followrs->stores();
 
         return response()->json([
