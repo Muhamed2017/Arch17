@@ -16,8 +16,8 @@ class Follower extends Model
         $this->belongsToMany(Store::class);
     }
 
-    public function getStoresAttribute()
-    {
-        return $this->stores();
-    }
+    // public function getStoresAttribute()
+    // {
+    //     return $this->stores();
+    // }
 }
