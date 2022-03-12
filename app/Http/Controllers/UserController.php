@@ -173,7 +173,7 @@ class UserController extends Controller
     // get all user collections (Folders) in user page
     public function getUserFolders($user_uid)
     {
-        $collections = Folder::all()->where('user_id', $user_uid)->paginate(24);
+        $collections = Folder::all()->where('user_id', $user_uid);
 
         return response()->json([
             'message' => 'Collection',
