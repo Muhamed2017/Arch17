@@ -179,20 +179,11 @@ class UserController extends Controller
         // $followrs = Follower::all()->where('follower_id', $user_uid)->first();
         // $followrs = FollowerStore::all()->where('follower_id', $user_uid)->first();
         $follower = Follower::find($user_uid);
-        if ($follower) {
-            return response()->json([
-                'status' => true,
-                'collections' =>  $collections,
-                'follwer' => $follower
-            ], 200);
-        }
 
-        // return response()->json([
-        //     'status' => true,
-        //     'collections' =>  $collections,
-        //     'stores' => $stores,
-        //     'stores2' => $stores2,
-        //     'found' => $found
-        // ], 200);
+        return response()->json([
+            'status' => true,
+            'collections' =>  $collections,
+            'follower' => $follower
+        ], 200);
     }
 }
