@@ -13,7 +13,7 @@ class Follower extends Model
     public function stores()
 
     {
-        $this->belongsTo(Store::class);
+        $this->belongsToMany(Store::class);
     }
 
     public function getStoresAttribute()
