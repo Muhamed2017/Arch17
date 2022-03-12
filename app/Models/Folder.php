@@ -11,7 +11,7 @@ class Folder extends Model
 
     protected $fillable = ['user_id', 'name'];
 
-    protected $appends = ['saved', 'pics'];
+    protected $appends = ['saved'];
 
     public function products()
     {
