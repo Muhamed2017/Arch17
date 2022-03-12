@@ -176,12 +176,15 @@ class UserController extends Controller
     {
         $collections = Folder::all()->where('user_id', $user_uid);
         $followrs = Follower::all()->where('follower_id', $user_uid)->first();
-        // $stores = $followrs->stores;
+        $stores = [];
+        if ($followrs) {
+            $stores = $followrs->stores();
+        }
 
         return response()->json([
             'status' => true,
             'collections' =>  $collections,
-            'stores' => $followrs
+            'stores' => $stores
         ], 200);
     }
 }
