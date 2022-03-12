@@ -178,7 +178,7 @@ class UserController extends Controller
         $collections = Folder::all()->where('user_id', $user_uid);
         // $followrs = Follower::all()->where('follower_id', $user_uid)->first();
         // $followrs = FollowerStore::all()->where('follower_id', $user_uid)->first();
-        $follower = Follower::find($user_uid);
+        $follower = Follower::all();
 
         return response()->json([
             'status' => true,
