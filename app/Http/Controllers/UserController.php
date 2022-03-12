@@ -181,7 +181,7 @@ class UserController extends Controller
         $found = false;
         $stores = [];
         if ($followrs) {
-            $stores = $followrs->stores()->get();
+            $stores = $followrs;
             $stores2 = $followrs->stores;
             $found = true;
         }
