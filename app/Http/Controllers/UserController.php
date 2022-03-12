@@ -6,6 +6,7 @@ use App\Models\BusinessAccount;
 use App\Models\Product;
 use App\Models\Collection;
 use App\Models\Folder;
+use App\Models\Follower;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Store;
@@ -174,10 +175,13 @@ class UserController extends Controller
     public function getUserFolders($user_uid)
     {
         $collections = Folder::all()->where('user_id', $user_uid);
+        $followrs = Follower::find($user_uid);
+        $stores = $followrs->store();
 
         return response()->json([
-            'message' => 'Collection',
-            'collections' =>  $collections
+            'status' => true,
+            'collections' =>  $collections,
+            'stores' => $stores
         ], 200);
     }
 }

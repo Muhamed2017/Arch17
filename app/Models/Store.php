@@ -56,6 +56,7 @@ class Store extends Model
         return $this->belongsToMany(Follower::class);
     }
 
+
     public function getFollowersAttribute()
     {
         $user_ids = [];
@@ -65,6 +66,7 @@ class Store extends Model
         }
         return $user_ids;
     }
+
     public function types()
     {
         return $this->hasMany(Type::class);
