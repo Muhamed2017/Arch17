@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BusinessAccount;
 use App\Models\Product;
 use App\Models\Collection;
+use App\Models\Folder;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Store;
@@ -162,6 +163,18 @@ class UserController extends Controller
                 array_push($collections, $collection);
             }
         }
+        return response()->json([
+            'message' => 'Collection',
+            'collections' =>  $collections
+        ], 200);
+    }
+
+
+    // get all user collections (Folders) in user page
+    public function getUserFolders($user_uid)
+    {
+        $collections = Folder::all()->where('user_id', $user_uid)->paginate(24);
+
         return response()->json([
             'message' => 'Collection',
             'collections' =>  $collections

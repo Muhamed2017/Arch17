@@ -43,9 +43,11 @@ Route::group(['middleware' => 'auth_user', 'prefix' => 'account'], function () {
     Route::post('remove-product-from-collection', 'UserController@remove_product_from_collection');
     Route::post('get-user-product-collection', 'UserController@geUserProductCollections');
     Route::post('add-product', 'ProductController@AddProduct');
-    // Route::post('add-Project', 'ProjectController@AddProject');
 });
-// Route::post('add-project', 'ProjectController@AddProject');
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('folders/{user_uid}', 'UserController@getUserFolders');
+});
 
 Route::group(['middleware' => 'auth_user', 'prefix' => 'account/addproject'], function () {
     Route::post('info', 'ProjectController@addProjectInfo');
