@@ -12,7 +12,6 @@ class Follower extends Model
 
 
 
-
     public function stores()
 
     {
