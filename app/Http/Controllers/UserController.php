@@ -176,13 +176,13 @@ class UserController extends Controller
     {
         $collections = Folder::all()->where('user_id', $user_uid);
         // $followrs = Follower::all()->where('follower_id', $user_uid)->first();
-        $followrs = Follower::with('stores')->where('follower_id', $user_uid)->first();
+        $followrs = Follower::all()->where('follower_id', $user_uid)->first();
 
         $found = false;
         $stores = [];
         if ($followrs) {
             $stores = $followrs->stores()->get();
-            $stores2 = $followrs;
+            $stores2 = $followrs->stores;
             $found = true;
         }
 

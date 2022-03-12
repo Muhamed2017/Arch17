@@ -10,14 +10,12 @@ class Follower extends Model
     use HasFactory;
     protected $fillable = ['follower_id'];
 
+
+
+
     public function stores()
 
     {
         $this->belongsToMany(Store::class);
     }
-
-    // public function getStoresAttribute()
-    // {
-    //     return $this->stores();
-    // }
 }
