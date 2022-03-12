@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Collection;
 use App\Models\Folder;
 use App\Models\Follower;
+use App\Models\FollowerStore;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Store;
@@ -176,7 +177,7 @@ class UserController extends Controller
     {
         $collections = Folder::all()->where('user_id', $user_uid);
         // $followrs = Follower::all()->where('follower_id', $user_uid)->first();
-        $followrs = Follower::all()->where('follower_id', $user_uid)->first();
+        $followrs = FollowerStore::all()->where('follower_id', $user_uid)->first();
 
         $found = false;
         $stores = [];
