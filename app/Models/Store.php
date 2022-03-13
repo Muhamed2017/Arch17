@@ -25,7 +25,7 @@ class Store extends Model
     protected $casts = [
         'product_types' => 'array'
     ];
-    public $appends = ['products', 'collections', 'followers'];
+    public $appends = ['products', 'collections', 'followers', 'box'];
 
     public function collections()
     {
@@ -70,6 +70,29 @@ class Store extends Model
     public function types()
     {
         return $this->hasMany(Type::class);
+    }
+
+    public function getBoxAttribute()
+    {
+        $pics = [];
+        $ids = [];
+        $names = [];
+        $prices = [];
+        $prs = $this->products()->latest()->take(3)->get();
+
+        return $this->stores()->products();
+        foreach ($prs as $pr) {
+            array_push($pics, $pr->identity[0]->preview_cover);
+            array_push($names, $pr->identity[0]->name);
+            array_push($prices, $pr->identity[0]->preview_price);
+            array_push($ids, $pr->identity[0]->product_id);
+        }
+        return [
+            'ids' => $ids,
+            'pics' => $pics,
+            'prices' => $prices,
+            'names' => $names,
+        ];
     }
     public static function boot()
     {

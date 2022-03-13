@@ -181,7 +181,7 @@ class UserController extends Controller
         return response()->json([
             'status' => true,
             'collections' =>  $collections,
-            'follower' => $follower
+            'follower' => $follower->stores->box
             // 'stores' => $follower->stores
         ], 200);
     }
