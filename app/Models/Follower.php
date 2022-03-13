@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Follower extends Model
 {
     use HasFactory;
-    protected $fillable = ['follower_id', 'storedata'];
+    protected $fillable = ['follower_id'];
 
+    protected $appends = ['storedata'];
 
 
     public function stores()
