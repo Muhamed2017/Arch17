@@ -10,7 +10,6 @@ class Follower extends Model
     use HasFactory;
     protected $fillable = ['follower_id'];
 
-    // protected $appends = ['storedata'];
 
 
     public function stores()
@@ -18,8 +17,4 @@ class Follower extends Model
     {
         return $this->belongsToMany(Store::class);
     }
-    // public function getStoredataAttribute()
-    // {
-
-    // }
 }

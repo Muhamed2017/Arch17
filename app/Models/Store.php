@@ -72,6 +72,7 @@ class Store extends Model
         return $this->hasMany(Type::class);
     }
 
+
     public function getBoxAttribute()
     {
         $pics = [];
@@ -80,7 +81,6 @@ class Store extends Model
         $prices = [];
         $prs = $this->products()->latest()->take(3)->get();
 
-        return $this->stores()->products();
         foreach ($prs as $pr) {
             array_push($pics, $pr->identity[0]->preview_cover);
             array_push($names, $pr->identity[0]->name);
