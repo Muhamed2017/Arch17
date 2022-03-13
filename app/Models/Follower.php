@@ -25,7 +25,7 @@ class Follower extends Model
         $ids = [];
         $names = [];
         $prices = [];
-        $prs = $this->stores()->products()->latest()->take(3)->get();
+        $prs = $this->stores->products()->latest()->take(3)->get();
         foreach ($prs as $pr) {
             array_push($pics, $pr->identity[0]->preview_cover);
             array_push($names, $pr->identity[0]->name);
