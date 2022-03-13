@@ -25,19 +25,21 @@ class Follower extends Model
         $ids = [];
         $names = [];
         $prices = [];
-        $prs = $this->stores->products()->latest()->take(3)->get();
-        foreach ($prs as $pr) {
-            array_push($pics, $pr->identity[0]->preview_cover);
-            array_push($names, $pr->identity[0]->name);
-            array_push($prices, $pr->identity[0]->preview_price);
-            array_push($ids, $pr->identity[0]->product_id);
-        }
-        return [
-            'ids' => $ids,
-            'pics' => $pics,
-            'prices' => $prices,
-            'names' => $names,
-            // 'store' => Store::find($this->store_id)->name
-        ];
+        // $prs = $this->stores->products()->latest()->take(3)->get();
+
+        return $this->stores();
+        // foreach ($prs as $pr) {
+        //     array_push($pics, $pr->identity[0]->preview_cover);
+        //     array_push($names, $pr->identity[0]->name);
+        //     array_push($prices, $pr->identity[0]->preview_price);
+        //     array_push($ids, $pr->identity[0]->product_id);
+        // }
+        // return [
+        //     'ids' => $ids,
+        //     'pics' => $pics,
+        //     'prices' => $prices,
+        //     'names' => $names,
+        //     // 'store' => Store::find($this->store_id)->name
+        // ];
     }
 }
