@@ -181,7 +181,19 @@ class UserController extends Controller
         return response()->json([
             'status' => true,
             'collections' =>  $collections,
-            'followed_stores' => $follower->stores()->get()
+            'followed_stores' => $follower->stores()
+        ], 200);
+    }
+
+    public function getUserCollectionById($id)
+    {
+
+        $collection = Folder::find($id);
+        $products = $collection->products();
+        return response()->json([
+            'status' => true,
+            'collection' =>  $collection,
+            'products' => $products
         ], 200);
     }
 }
