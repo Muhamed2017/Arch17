@@ -135,6 +135,8 @@ Route::post("unsave", "ProductController@removerFromFolder");
 Route::get("allcollections/{id}", "ProductController@listAllFolders");
 Route::get("collections", "ProductController@allFolders");
 Route::get("folders/{user_id}/{product_id}", "ProductController@listAllFoldersByProduct");
+Route::get("folder/{id}", "UserController@getUserCollectionById");
+
 
 // listAllFoldersByProduct
 
