@@ -189,7 +189,7 @@ class UserController extends Controller
     {
 
         $collection = Folder::find($id);
-        $products = $collection->products();
+        $products = $collection->products()->get();
         return response()->json([
             'status' => true,
             'collection' =>  $collection,
