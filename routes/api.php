@@ -136,6 +136,8 @@ Route::get("allcollections/{id}", "ProductController@listAllFolders");
 Route::get("collections", "ProductController@allFolders");
 Route::get("folders/{user_id}/{product_id}", "ProductController@listAllFoldersByProduct");
 Route::get("folder/{id}", "UserController@getUserCollectionById");
+Route::post("update-collection/{id}", "UserController@editCollection");
+Route::post("delete-collection/{id}", "UserController@deleteCollection");
 
 
 // listAllFoldersByProduct

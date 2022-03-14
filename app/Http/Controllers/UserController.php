@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Store;
 use Illuminate\Validation\ValidationException;
 use CloudinaryLabs\CloudinaryLaravel\Commands;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -177,11 +178,14 @@ class UserController extends Controller
     {
         $collections = Folder::all()->where('user_id', $user_uid);
         $follower = Follower::all()->where('follower_id', $user_uid)->first();
-
+        $followed_store = [];
+        if ($follower) {
+            $followed_store = $follower->stores()->get();
+        }
         return response()->json([
             'status' => true,
             'collections' =>  $collections,
-            'followed_stores' => $follower->stores()->get()
+            'followed_stores' => $followed_store
         ], 200);
     }
 
@@ -195,5 +199,52 @@ class UserController extends Controller
             'collection' =>  $collection,
             'products' => $products
         ], 200);
+    }
+
+
+
+    public function editCollection(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:250',
+        ]);
+
+        $collection = Folder::find($id);
+        $collection->name = $request->name;
+        if ($collection->save()) {
+            return response()->json([
+                'status' => true,
+                'collection' =>  $collection,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+            ], 500);
+        }
+    }
+    public function deleteCollection($id)
+    {
+
+        $collection = Folder::find($id);
+
+        if ($collection) {
+            try {
+                $collection->delete();
+                return response()->json([
+                    'success' => true,
+                    'message' => "Collection deleted Successfully"
+                ], 200);
+            } catch (Throwable $err) {
+                return response()->json([
+                    'success' => false,
+                    'error' => $err
+                ], 500);
+            }
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Collection Not Found"
+            ], 200);
+        }
     }
 }
