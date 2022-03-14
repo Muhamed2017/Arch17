@@ -38,7 +38,7 @@ class Folder extends Model
             'pics' => $pics,
             'prices' => $prices,
             'names' => $names,
-            // 'store' => Store::find($this->store_id)->name
+            'count' => $this->products()->count()
         ];
     }
 }
