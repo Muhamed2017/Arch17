@@ -164,4 +164,5 @@ Route::group(['prefix' => 'product/delete'], function () {
     Route::post("gallery/{id}", "ProductController@deleteGallery");
 });
 
-//{{url}}product/delete/option/35
+
+// passport firebase apis test routes

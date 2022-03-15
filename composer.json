@@ -25,6 +25,7 @@
         "laravel/tinker": "^2.5",
         "phpoffice/phppresentation": "^1.0",
         "spatie/laravel-query-builder": "^4.0",
+        "square1/laravel-passport-firebase-auth": "^3.1",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
