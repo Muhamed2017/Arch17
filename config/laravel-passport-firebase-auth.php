@@ -22,7 +22,7 @@ return [
     'map_user_columns' => [
         'uid' => 'firebase_uid', // REQUIRED
         'email' => 'email', // REQUIRED
-        'displayName' => 'name',
+        'displayName' => 'displayName',
         'emailVerified' => 'email_verified_at',
         'phoneNumber' => 'phone',
         'photoURL' => 'avatar',

@@ -15,7 +15,7 @@ class CreateFollowerStoreTable extends Migration
     {
         Schema::create('follower_store', function (Blueprint $table) {
             $table->id();
-            $table->string('follower_id');
+            $table->bigInteger('follower_id');
             $table->bigInteger('store_id');
             $table->timestamps();
         });

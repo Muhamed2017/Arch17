@@ -10,12 +10,14 @@ use Spatie\Permission\Traits\HasRoles;
 use Illumminate\Notifications\Notifiable;
 use App\Models\BusinessAccount;
 use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements JWTSubject
 {
     // use HasFactory,
-    //  use Notifiable;
-    use MediaAlly;
+    // use Notifiable,
+    use MediaAlly, HasApiTokens;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -26,7 +28,7 @@ class User extends Authenticatable implements JWTSubject
     protected $gaurd = 'user';
 
     protected $fillable = [
-        'fname', 'lname', 'email', 'password', 'mobile', 'country', 'city', 'address', 'user_description', 'allow_to_add_project', 'facebook_user_id'
+        'displayName',  'avatar', 'email', 'phone', 'password', 'mobile', 'country', 'city', 'address', 'user_description', 'allow_to_add_project', 'facebook_user_id'
     ];
 
 
