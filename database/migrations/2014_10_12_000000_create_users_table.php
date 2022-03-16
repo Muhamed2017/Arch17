@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('displayName')->nullable();
             $table->string('email')->unique()->nullable();
-            $table->string('mobile')->nullable();
             $table->string('address')->nullable();
             $table->text('user_description')->nullable();
             $table->string('city')->nullable();
@@ -27,8 +26,6 @@ class CreateUsersTable extends Migration
 
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('facebook_user_id')->nullable();
-            $table->boolean('allow_to_add_project')->default(0);
             $table->string('profession')->nullable();
             $table->boolean('is_designer')->default(0);
             $table->rememberToken();

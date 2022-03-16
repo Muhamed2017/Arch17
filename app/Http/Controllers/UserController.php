@@ -247,4 +247,17 @@ class UserController extends Controller
             ], 200);
         }
     }
+
+
+    // passport test
+
+    public function getAllUsers()
+    {
+        $users = User::all();
+
+        return response()->json([
+            'status' => true,
+            'users' =>  $users,
+        ], 200);
+    }
 }

@@ -12,14 +12,17 @@ use App\Models\BusinessAccount;
 use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     // use HasFactory,
     // use Notifiable,
-    use MediaAlly, HasApiTokens;
+
+    use MediaAlly;
+    // HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
+     *
      *
      * @var array
      *
@@ -28,7 +31,7 @@ class User extends Authenticatable implements JWTSubject
     protected $gaurd = 'user';
 
     protected $fillable = [
-        'displayName',  'avatar', 'email', 'phone', 'password', 'mobile', 'country', 'city', 'address', 'user_description', 'allow_to_add_project', 'facebook_user_id'
+        'displayName',  'avatar', 'firebase_uid', 'profession', 'is_designer', 'email', 'phone', 'password', 'country', 'city', 'address', 'user_description',
     ];
 
 
@@ -102,15 +105,15 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return array
      */
-    public function getJWTCustomClaims()
-    {
-        return [
-            'username'   => $this->username,
-            'first_name' => $this->fname,
-            'last_name'  => $this->lname,
-            'type'     => 'user'
-        ];
-    }
+    // public function getJWTCustomClaims()
+    // {
+    //     return [
+    //         'username'   => $this->username,
+    //         'first_name' => $this->fname,
+    //         'last_name'  => $this->lname,
+    //         'type'     => 'user'
+    //     ];
+    // }
 
 
 

@@ -166,3 +166,5 @@ Route::group(['prefix' => 'product/delete'], function () {
 
 
 // passport firebase apis test routes
+
+Route::get("users", "UserController@getAllUsers");
