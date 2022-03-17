@@ -150,7 +150,6 @@ Route::post("branduncollect", "ProductController@deAttachProductToBrandCollectio
 Route::get("collection/{id}", "ProductController@getCollectionById");
 Route::get("col/{id}", "StoreController@getBrandCollectionbyId");
 Route::get("collections/{id}", "ProductController@getCollectionById");
-// Route::get("allcollections", "ProductController@listAllFolders");
 
 Route::get("searchbar", "ProductController@searchBar");
 Route::post("testdelete", "ProductController@testDeleteRelated");
