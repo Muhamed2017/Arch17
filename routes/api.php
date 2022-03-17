@@ -75,6 +75,10 @@ Route::post('overviewContnet/{id}', 'ProductController@ProductDescriptionCotent'
 Route::post('descContent/{id}', 'ProductController@ProductDescriptionContent');
 // test image upload ...
 Route::post('upload/{id}', 'ProductController@testImageUpload');
+
+// upload / update user profile pic
+Route::post('useravatar/user_id}', 'UserController@uploadAvatar');
+
 Route::post('option-covers/{id}', 'ProductController@attachProductOptionPictures');
 
 Route::post('user/register', 'ManagementController@registerUser');

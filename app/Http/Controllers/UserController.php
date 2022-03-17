@@ -173,13 +173,37 @@ class UserController extends Controller
         ], 200);
     }
 
+    public function uploadAvatar(Request $request, $user_id)
+    {
+        $this->validate($request, [
+            'img'   => 'nullable|array',
+            'img.*' => "required|mimes:jpeg,jpg,png|between:1,10000"
+
+        ]);
+        $user = User::find($user_id);
+        if ($request->hasFile('img')) {
+            $user->avatar = $request->img->storeOnCloudinary()->getSecurePath();
+        }
+
+        if ($user->save()) {
+            return response()->json([
+                'message' => "Successfully Imaged Uploaded!",
+                'avatar' => $user->avatar
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => "Error",
+                'avatar' => null
+            ], 200);
+        }
+    }
 
     // get all user collections (Folders) in user page
     public function getUserFolders($user_uid)
     {
         $collections = Folder::all()->where('user_id', $user_uid);
         $follower = Follower::all()->where('follower_id', $user_uid)->first();
-        $user= User::find($user_uid);
+        $user = User::find($user_uid);
         $followed_store = [];
         if ($follower) {
             $followed_store = $follower->stores()->get();
@@ -187,7 +211,7 @@ class UserController extends Controller
         return response()->json([
             'status' => true,
             'collections' =>  $collections,
-            'user'=>$user,
+            'user' => $user,
             'followed_stores' => $followed_store
         ], 200);
     }

@@ -29,6 +29,7 @@ class User extends Authenticatable
      */
 
     protected $gaurd = 'user';
+    public $primaryKey = 'uid';
 
     protected $fillable = [
         'displayName',  'avatar', 'uid', 'professions', 'is_designer', 'email', 'providerId', 'phoneCode',  'phoneNumber', 'password', 'country', 'city', 'address', 'user_description',
@@ -54,7 +55,6 @@ class User extends Authenticatable
         'payment_methods' => 'array',
         'professions' => 'array'
     ];
-    public $primaryKey = 'uid';
 
 
     protected $appends = ['avatar'];
