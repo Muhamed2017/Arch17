@@ -180,9 +180,9 @@ class UserController extends Controller
         ]);
 
         $user = User::find($user_id);
-        if ($request->hasFile('img')) {
-            $user->avatar = $request->img->storeOnCloudinary()->getSecurePath();
-        }
+        // if ($request->hasFile('img')) {
+        $user->avatar = $request->img->storeOnCloudinary()->getSecurePath();
+        // }
 
         if ($user->save()) {
             return response()->json([
