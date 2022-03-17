@@ -295,12 +295,15 @@ class UserController extends Controller
             'providerId' => 'required|string|max:250',
             'uid' => 'required|string|max:250',
             'email' => 'nullable|string|max:250',
+            'avatar' => 'nullable|string|max:250',
         ]);
         $user = new User();
         $user->displayName = $request->displayName;
         $user->providerId = $request->providerId;
         $user->uid = $request->uid;
         $user->email = $request->email;
+
+        $user->avatar = $request->avatar;
 
         if ($user->save()) {
             return response()->json([
