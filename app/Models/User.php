@@ -57,7 +57,7 @@ class User extends Authenticatable
     ];
 
 
-    protected $appends = ['avatar'];
+    // protected $appends = ['avatar'];
 
     protected $dates = [
         'created_at',
@@ -70,10 +70,10 @@ class User extends Authenticatable
     ];
 
 
-    public function getAvatarAttribute()
-    {
-        return $this->images != null ? $this->images->first() : '';
-    }
+    // public function getAvatarAttribute()
+    // {
+    //     return $this->images != null ? $this->images->first() : '';
+    // }
 
     public function images()
     {
