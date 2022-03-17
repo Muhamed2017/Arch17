@@ -176,8 +176,8 @@ class UserController extends Controller
     public function uploadAvatar(Request $request, $user_id)
     {
         $this->validate($request, [
-            'img'   => 'nullable|array',
-            'img.*' => "required|mimes:jpeg,jpg,png|between:1,10000"
+            // 'img'   => 'nullable|array',
+            'img' => "required|mimes:jpeg,jpg,png|between:1,10000"
 
         ]);
         $user = User::find($user_id);
