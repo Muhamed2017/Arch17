@@ -155,7 +155,6 @@ Route::get("collections/{id}", "ProductController@getCollectionById");
 Route::get("searchbar", "ProductController@searchBar");
 Route::post("testdelete", "ProductController@testDeleteRelated");
 
-// Route::post("product/delete/{id}", "ProductController@deleteProduct");
 
 Route::group(['prefix' => 'product/delete'], function () {
     Route::post("/{id}", "ProductController@deleteProduct");
@@ -167,4 +166,5 @@ Route::group(['prefix' => 'product/delete'], function () {
 
 // passport firebase apis test routes
 
-Route::get("users", "UserController@getAllUsers");
+Route::post("registeruser", "UserController@registerUser");
+Route::post("user-designer/{user_uid}", "UserController@upgradeUserToDesigner");

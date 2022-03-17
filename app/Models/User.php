@@ -31,7 +31,7 @@ class User extends Authenticatable
     protected $gaurd = 'user';
 
     protected $fillable = [
-        'displayName',  'avatar', 'firebase_uid', 'profession', 'is_designer', 'email', 'phone', 'password', 'country', 'city', 'address', 'user_description',
+        'displayName',  'avatar', 'uid', 'professions', 'is_designer', 'email', 'providerId', 'phoneCode',  'phoneNumber', 'password', 'country', 'city', 'address', 'user_description',
     ];
 
 
@@ -52,7 +52,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'payment_methods' => 'array',
+        'professions' => 'array'
     ];
+    public $primaryKey = 'uid';
 
 
     protected $appends = ['avatar'];

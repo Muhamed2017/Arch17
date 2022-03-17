@@ -120,6 +120,7 @@ class UserController extends Controller
             ], 500);
         }
     }
+
     //end of create store api
     public function create_product_collection(Request $request)
     {
@@ -250,7 +251,6 @@ class UserController extends Controller
 
 
     // passport test
-
     public function getAllUsers()
     {
         $users = User::all();
@@ -259,5 +259,72 @@ class UserController extends Controller
             'status' => true,
             'users' =>  $users,
         ], 200);
+    }
+
+
+    // register api with firebase
+
+    public function registerUser(Request $request)
+    {
+        $this->validate($request, [
+            'displayName' => 'required|string|max:250',
+            'providerId' => 'required|string|max:250',
+            'uid' => 'required|string|max:250',
+            'email' => 'nullable|string|max:250',
+        ]);
+        $user = new User();
+        $user->displayName = $request->displayName;
+        $user->providerId = $request->providerId;
+        $user->uid = $request->uid;
+        $user->email = $request->email;
+
+        if ($user->save()) {
+            return response()->json([
+                'success' => true,
+                'user' =>  $user
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+            ], 200);
+        }
+    }
+
+    public function upgradeUserToDesigner(Request $request, $user_uid)
+    {
+        $this->validate($request, [
+            'country' => 'required|string|max:250',
+            'city' => 'required|string|max:250',
+            'phoneCode' => 'required|string|max:250',
+            'phoneNumber' => 'nullable|string|max:250',
+            'professions' => 'array',
+            'professions.*' => 'required|string|max:250'
+        ]);
+
+        $user = User::find($user_uid);
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => "User not found"
+            ], 200);
+        }
+        $user->country = $request->country;
+        $user->city = $request->city;
+        $user->phoneCode = $request->phoneCode;
+        $user->professions = $request->professions;
+        $user->phoneNumber = $request->phoneNumber;
+        $user->country = $request->country;
+        $user->is_designer = 1;
+        if ($user->save()) {
+            return response()->json([
+                'success' => true,
+                'user' =>  $user
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+            ], 200);
+        }
     }
 }
