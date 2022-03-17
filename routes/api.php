@@ -77,7 +77,7 @@ Route::post('descContent/{id}', 'ProductController@ProductDescriptionContent');
 Route::post('upload/{id}', 'ProductController@testImageUpload');
 
 // upload / update user profile pic
-Route::post('useravatar/user_id}', 'UserController@uploadAvatar');
+Route::post('useravatar/{user_id}', 'UserController@uploadAvatar');
 
 Route::post('option-covers/{id}', 'ProductController@attachProductOptionPictures');
 
