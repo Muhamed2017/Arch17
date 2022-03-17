@@ -187,7 +187,7 @@ class UserController extends Controller
         if ($user->save()) {
             return response()->json([
                 'message' => "Successfully Imaged Uploaded!",
-                'avatar' => $user->avatar
+                'user' => $user
             ], 200);
         } else {
             return response()->json([
