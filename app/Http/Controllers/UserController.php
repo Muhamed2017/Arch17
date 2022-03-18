@@ -339,8 +339,8 @@ class UserController extends Controller
             'city' => 'required|string|max:250',
             'phoneCode' => 'required|string|max:250',
             'phoneNumber' => 'nullable|string|max:250',
-            'professions' => 'nullable|array',
-            'professions.*' => 'required|string|max:250'
+            'professions' => 'required|array',
+            'professions.*' => 'string|max:250'
         ]);
 
         $user = User::find($user_uid);
