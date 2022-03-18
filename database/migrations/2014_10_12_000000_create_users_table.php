@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->integer('phoneCode')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('professions')->nullable();
+            $table->text('professions')->nullable();
             $table->boolean('is_designer')->default(0);
             $table->rememberToken();
             $table->timestamps();

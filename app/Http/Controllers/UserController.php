@@ -339,12 +339,11 @@ class UserController extends Controller
             'city' => 'required|string|max:250',
             'phoneCode' => 'required|string|max:250',
             'phoneNumber' => 'nullable|string|max:250',
-            'professions' => 'array',
+            'professions' => 'nullable|array',
             'professions.*' => 'required|string|max:250'
         ]);
 
         $user = User::find($user_uid);
-
         if (!$user) {
             return response()->json([
                 'success' => false,
