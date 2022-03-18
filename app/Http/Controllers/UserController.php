@@ -216,7 +216,7 @@ class UserController extends Controller
             $user->email = $request->email;
         }
         if ($request->has('phoneNumber') && $request->has('phoneCode')) {
-            $fb = $this->auth->updateUser($user_id, ['phoneNumber' => $request->phoneNumber . $request->phoneCode]);
+            $fb = $this->auth->updateUser($user_id, ['phoneNumber' => $request->phoneNumber]);
             $user->phoneNumber = $request->phoneNumber;
         }
         if ($request->has('country')) {
