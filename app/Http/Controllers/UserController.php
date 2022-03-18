@@ -192,7 +192,7 @@ class UserController extends Controller
             ], 200);
         }
     }
-    public function upldateUser(Request $request, $user_id)
+    public function updateUser(Request $request, $user_id)
     {
         $this->validate($request, [
             'displayName' => "nullable|string",
