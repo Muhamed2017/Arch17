@@ -170,4 +170,6 @@ Route::group(['prefix' => 'product/delete'], function () {
 // passport firebase apis test routes
 
 Route::post("registeruser", "UserController@registerUser");
+Route::post("updateuser/{user_id}", "UserController@updateUser");
+
 Route::post("user-designer/{user_uid}", "UserController@upgradeUserToDesigner");

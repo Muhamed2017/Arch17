@@ -178,13 +178,8 @@ class UserController extends Controller
         $this->validate($request, [
             'img' => "nullable|mimes:jpeg,jpg,png|between:1,5000",
         ]);
-
         $user = User::find($user_id);
-
-        // if ($request->hasFile('img')) {
         $user->avatar = $request->img->storeOnCloudinary()->getSecurePath();
-        // }
-
         if ($user->save()) {
             return response()->json([
                 'message' => "Successfully Imaged Uploaded!",
@@ -197,6 +192,26 @@ class UserController extends Controller
             ], 200);
         }
     }
+    public function upldateUser(Request $request, $user_id)
+    {
+        $this->validate($request, [
+            'displayName' => "nullable|string",
+        ]);
+        $user = User::find($user_id);
+        $user->displayName = $request->displayName;
+        if ($user->save()) {
+            return response()->json([
+                'message' => "Successfully profile Updated!",
+                'user' => $user
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => "Error",
+                'user' => null
+            ], 200);
+        }
+    }
+
 
     // get all user collections (Folders) in user page
     public function getUserFolders($user_uid)
@@ -297,12 +312,12 @@ class UserController extends Controller
             'email' => 'nullable|string|max:250',
             'avatar' => 'nullable|string|max:250',
         ]);
+
         $user = new User();
         $user->displayName = $request->displayName;
         $user->providerId = $request->providerId;
         $user->uid = $request->uid;
         $user->email = $request->email;
-
         $user->avatar = $request->avatar;
 
         if ($user->save()) {
