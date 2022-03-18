@@ -14,15 +14,22 @@ use App\Models\Store;
 use Illuminate\Validation\ValidationException;
 use CloudinaryLabs\CloudinaryLaravel\Commands;
 use Throwable;
+use Kreait\Firebase\Auth;
+
 
 class UserController extends Controller
 {
+
+    protected $auth;
+    public function __construct(Auth  $auth)
+    {
+        $this->auth = $auth;
+    }
 
     //creatiing a bussiness account api
     public function CreateBusinessAccount(Request $request)
     {
         $user_id = auth('user')->user()->id;
-
         // check if the user exist
         $user = User::findOrFail($user_id);
         if (!$user) {
@@ -198,11 +205,31 @@ class UserController extends Controller
             'displayName' => "nullable|string",
         ]);
         $user = User::find($user_id);
+
         $user->displayName = $request->displayName;
+        if ($request->has('email')) {
+            $fb = $this->auth->updateUser($user_id, ['email' => $request->email]);
+            $user->email = $request->email;
+        }
+        if ($request->has('phoneNumber') && $request->has('phoneCode')) {
+            $fb = $this->auth->updateUser($user_id, ['phoneNumber' => $request->phoneNumber . $request->phoneCode]);
+            $user->phoneNumber = $request->phoneNumber;
+        }
+        if ($request->has('country')) {
+            $user->country = $request->country;
+        }
+        if ($request->has('city')) {
+            $user->city = $request->city;
+        }
+        if ($request->has('professions')) {
+            $user->professions = $request->professions;
+        }
+
         if ($user->save()) {
             return response()->json([
                 'message' => "Successfully profile Updated!",
-                'user' => $user
+                'user' => $user,
+                'fb' => $fb
             ], 200);
         } else {
             return response()->json([
@@ -212,7 +239,30 @@ class UserController extends Controller
         }
     }
 
+    public function deleteUser($uid)
+    {
+        $user = User::find($uid);
 
+        if (!$user) {
+            return response()->json([
+                'message' => "User Not Found or deleted!"
+            ], 404);
+        } else {
+            try {
+                $user->delete();
+                $this->auth->deleteUser($uid);
+                return response()->json([
+                    'success' => true,
+                    'message' => "User deleted Successfully"
+                ], 200);
+            } catch (Throwable $err) {
+                return response()->json([
+                    'success' => false,
+                    'error' => $err
+                ], 500);
+            }
+        }
+    }
     // get all user collections (Folders) in user page
     public function getUserFolders($user_uid)
     {
