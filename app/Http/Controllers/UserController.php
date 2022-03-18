@@ -186,7 +186,12 @@ class UserController extends Controller
             'img' => "nullable|mimes:jpeg,jpg,png|between:1,5000",
         ]);
         $user = User::find($user_id);
-        $user->avatar = $request->img->storeOnCloudinary()->getSecurePath();
+        $src = $request->img->storeOnCloudinary()->getSecurePath();
+        $user->avatar = $src;
+
+        $this->auth->updateUser($user_id, ['photoURL' => $src]);
+
+
         if ($user->save()) {
             return response()->json([
                 'message' => "Successfully Imaged Uploaded!",
@@ -208,14 +213,13 @@ class UserController extends Controller
 
         if ($request->has('displayName')) {
             $fb = $this->auth->updateUser($user_id, ['displayName' => $request->displayName]);
-        $user->displayName = $request->displayName;
-
+            $user->displayName = $request->displayName;
         }
         if ($request->has('email')) {
             $fb = $this->auth->updateUser($user_id, ['email' => $request->email]);
             $user->email = $request->email;
         }
-        if ($request->has('phoneNumber') && $request->has('phoneCode')) {
+        if ($request->has('phoneNumber')) {
             $fb = $this->auth->updateUser($user_id, ['phoneNumber' => $request->phoneNumber]);
             $user->phoneNumber = $request->phoneNumber;
         }
