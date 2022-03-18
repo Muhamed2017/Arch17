@@ -189,13 +189,14 @@ class UserController extends Controller
         $src = $request->img->storeOnCloudinary()->getSecurePath();
         $user->avatar = $src;
 
-        $this->auth->updateUser($user_id, ['photoURL' => $src]);
+        $fb =$this->auth->updateUser($user_id, ['photoURL' => $src]);
 
 
         if ($user->save()) {
             return response()->json([
                 'message' => "Successfully Imaged Uploaded!",
-                'user' => $user
+                'user' => $user,
+                'fb'=>$fb
             ], 200);
         } else {
             return response()->json([
