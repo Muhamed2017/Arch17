@@ -206,7 +206,11 @@ class UserController extends Controller
         ]);
         $user = User::find($user_id);
 
+        if ($request->has('displayName')) {
+            $fb = $this->auth->updateUser($user_id, ['displayName' => $request->displayName]);
         $user->displayName = $request->displayName;
+
+        }
         if ($request->has('email')) {
             $fb = $this->auth->updateUser($user_id, ['email' => $request->email]);
             $user->email = $request->email;
