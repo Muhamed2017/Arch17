@@ -171,6 +171,6 @@ Route::group(['prefix' => 'product/delete'], function () {
 
 Route::post("registeruser", "UserController@registerUser");
 Route::post("updateuser/{user_id}", "UserController@updateUser");
-Route::post("deleteuser/{uid}", "UserController@deleteUser");
+Route::post("deleteuser/{uid}", "UserController@deleteUserr");
 
 Route::post("user-designer/{user_uid}", "UserController@upgradeUserToDesigner");
