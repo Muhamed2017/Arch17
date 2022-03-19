@@ -29,8 +29,8 @@ class User extends Authenticatable
      */
 
     protected $gaurd = 'user';
-    public $primaryKey = 'uid';
-    public $incrementing = false;
+    // public $primaryKey = 'uid';
+    // public $incrementing = false;
 
     // public $incremints
 

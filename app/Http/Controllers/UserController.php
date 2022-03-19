@@ -185,7 +185,9 @@ class UserController extends Controller
         $this->validate($request, [
             'img' => "nullable|mimes:jpeg,jpg,png|between:1,5000",
         ]);
-        $user = User::find($user_id);
+        // $user = User::find($user_id);
+        $user = User::all()->where('uid', $user_id)->first();
+
         $src = $request->img->storeOnCloudinary()->getSecurePath();
         $user->avatar = $src;
         $fb = $this->auth->updateUser($user_id, ['photoURL' => $src]);
@@ -207,8 +209,8 @@ class UserController extends Controller
         $this->validate($request, [
             'displayName' => "nullable|string",
         ]);
-        $user = User::find($user_id);
-
+        // $user = User::find($user_id);
+        $user = User::all()->where('uid', $user_id)->first();
         if ($request->has('displayName')) {
             $fb = $this->auth->updateUser($user_id, ['displayName' => $request->displayName]);
             $user->displayName = $request->displayName;
@@ -250,8 +252,8 @@ class UserController extends Controller
 
     public function deleteUser($uid)
     {
-        $user = User::find($uid);
-
+        // $user = User::find($uid);
+        $user = User::all()->where('uid', $uid)->first();
         if (!$user) {
             return response()->json([
                 'message' => "User Not Found or deleted!"
