@@ -406,7 +406,9 @@ class UserController extends Controller
             'professions.*' => 'string|max:250'
         ]);
 
-        $user = User::find($user_uid);
+        // $user = User::find($user_uid);
+        $user = User::all()->where('uid', $user_uid)->first();
+
         if (!$user) {
             return response()->json([
                 'success' => false,
