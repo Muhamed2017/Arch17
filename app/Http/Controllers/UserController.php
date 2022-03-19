@@ -279,7 +279,8 @@ class UserController extends Controller
     {
         $collections = Folder::all()->where('user_id', $user_uid);
         $follower = Follower::all()->where('follower_id', $user_uid)->first();
-        $user = User::find($user_uid);
+        // $user = User::find($user_uid);
+        $user = User::all()->where('uid', $user_uid)->first();
         $followed_store = [];
         if ($follower) {
             $followed_store = $follower->stores()->get();
