@@ -30,6 +30,9 @@ class User extends Authenticatable
 
     protected $gaurd = 'user';
     public $primaryKey = 'uid';
+    public $incrementing = false;
+
+    // public $incremints
 
     protected $fillable = [
         'displayName',  'avatar', 'uid', 'professions', 'is_designer', 'email', 'providerId', 'phoneCode',  'phoneNumber', 'password', 'country', 'city', 'address', 'user_description',
