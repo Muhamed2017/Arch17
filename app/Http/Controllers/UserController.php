@@ -188,15 +188,12 @@ class UserController extends Controller
         $user = User::find($user_id);
         $src = $request->img->storeOnCloudinary()->getSecurePath();
         $user->avatar = $src;
-
-        $fb =$this->auth->updateUser($user_id, ['photoURL' => $src]);
-
-
+        $fb = $this->auth->updateUser($user_id, ['photoURL' => $src]);
         if ($user->save()) {
             return response()->json([
                 'message' => "Successfully Imaged Uploaded!",
                 'user' => $user,
-                'fb'=>$fb
+                'fb' => $fb
             ], 200);
         } else {
             return response()->json([
@@ -221,11 +218,14 @@ class UserController extends Controller
             $user->email = $request->email;
         }
         if ($request->has('phoneNumber')) {
-            $fb = $this->auth->updateUser($user_id, ['phoneNumber' => $request->phoneNumber]);
+            // $fb = $this->auth->updateUser($user_id, ['phoneNumber' => $request->phoneNumber]);
             $user->phoneNumber = $request->phoneNumber;
         }
         if ($request->has('country')) {
             $user->country = $request->country;
+        }
+        if ($request->has('phoneCode')) {
+            $user->phoneCode = $request->phoneCode;
         }
         if ($request->has('city')) {
             $user->city = $request->city;
