@@ -254,26 +254,28 @@ class UserController extends Controller
     {
         // $user = User::find($uid);
         $user = User::all()->where('uid', $uid)->first();
-        if (!$user) {
+        if ($user) {
+            // return response()->json([
+            //     'message' => "User Not Found or deleted!"
+            // ], 404);
+            try {
+                $user->delete();
+                $this->auth->deleteUser($uid);
+                return response()->json([
+                    'success' => true,
+                    'message' => "User deleted Successfully"
+                ], 200);
+            } catch (Throwable $err) {
+                return response()->json([
+                    'success' => false,
+                    'error' => $err
+                ], 500);
+            }
+        } else {
             return response()->json([
                 'message' => "User Not Found or deleted!"
             ], 404);
         }
-        //  else {
-        try {
-            $user->delete();
-            $this->auth->deleteUser($uid);
-            return response()->json([
-                'success' => true,
-                'message' => "User deleted Successfully"
-            ], 200);
-        } catch (Throwable $err) {
-            return response()->json([
-                'success' => false,
-                'error' => $err
-            ], 500);
-        }
-        // }
     }
     // get all user collections (Folders) in user page
     public function getUserFolders($user_uid)
