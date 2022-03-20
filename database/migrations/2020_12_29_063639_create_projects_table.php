@@ -16,16 +16,18 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('cover_name')->nullable();
-            $table->string('cover_image')->nullable();
-            $table->integer('authorable_id');
-            $table->string('authorable_type');
+            $table->string('cover')->nullable();
+            $table->string('title')->nullable();
+            $table->string('kind')->nullable();
+            $table->string('content')->nullable();
+            $table->bigInteger('ownerable_id');
+            $table->string('ownerable_type');
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('year')->nullable();
-            $table->string('category')->nullable();   
+            $table->string('category')->nullable();
             $table->text('types')->nullable();
-            $table->boolean('display_home')->default(false);
+            $table->boolean('dhome')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

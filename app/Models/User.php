@@ -100,26 +100,18 @@ class User extends Authenticatable
      *
      * @return mixed
      */
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
+
 
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
      * @return array
      */
-    // public function getJWTCustomClaims()
-    // {
-    //     return [
-    //         'username'   => $this->username,
-    //         'first_name' => $this->fname,
-    //         'last_name'  => $this->lname,
-    //         'type'     => 'user'
-    //     ];
-    // }
 
+    public function projects()
+    {
+        return $this->morphMany(Project::class, 'ownerable');
+    }
 
 
 
@@ -149,10 +141,7 @@ class User extends Authenticatable
         return $this->hasMany(Collection::class, 'user_id');
     }
 
-    public function projects()
-    {
-        return $this->morphMany(Project::class, 'authorable');
-    }
+
 
     public function is_designer()
     {

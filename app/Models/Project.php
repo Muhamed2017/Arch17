@@ -5,40 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Project extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['name','cover_name','category','year','country','city','types','authorable_id','authorable_type','state'];
-    protected $casts = [
-        'types' => 'array'
+    protected $fillable = [
+        'name', 'cover', 'title',  'category', 'kind',  'year', 'country', 'city', 'types',
+        'content', 'ownerable_id', 'ownerable_type', 'dhome'
     ];
-    public function images(){
-        return $this->morphMany('App\Models\Image', 'imageable');
-    }
-    
-    public function suppliers(){
-        return $this->hasMany(ProjectSupplier::class);
-    }   
-    public function designers(){
-        return $this->morphMany(ProjectDesigner::class, 'designerable');
-    }
-    public function products()
+    protected $casts = [
+        'types' => 'array',
+        'dhome' => 'boolean'
+    ];
+
+    public function ownerable()
     {
-        return $this->hasManyThrough(Projects_product::class, Product::class);
+        return $this->morphTo();
     }
-    public function description()
+
+
+    public static function boot()
     {
-        return $this->hasMany(ProjectDescription::class);
-    }
-    public function collections()
-    {
-        return $this->morphToMany(Collection::class , 'collectionable');
-    }
-    public static function boot() {
-    //        schema::defaultStringLength(191);
+        //        schema::defaultStringLength(191);
         parent::boot();
-        static::deleting(function($product) {
+        static::deleting(function ($product) {
             if (count($product->images) > 0) {
                 foreach ($product->images as $image) {
                     $image->delete();
@@ -46,5 +37,4 @@ class Project extends Model
             }
         });
     }
-
 }

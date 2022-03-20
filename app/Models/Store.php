@@ -46,10 +46,7 @@ class Store extends Model
     {
         return $this->collections()->get();
     }
-    public function projects()
-    {
-        return $this->morphMany(Project::class, 'authorable');
-    }
+
 
     public function followers()
     {
@@ -94,6 +91,12 @@ class Store extends Model
             'names' => $names,
         ];
     }
+
+    public function projects()
+    {
+        return $this->morphMany(Project::class, 'ownerable');
+    }
+
     public static function boot()
     {
         parent::boot();

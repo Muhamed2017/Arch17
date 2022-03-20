@@ -49,19 +49,9 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('folders/{user_uid}', 'UserController@getUserFolders');
 });
 
-Route::group(['middleware' => 'auth_user', 'prefix' => 'account/addproject'], function () {
-    Route::post('info', 'ProjectController@addProjectInfo');
-    Route::post('description', 'ProjectController@addProjectDescription');
-    Route::post('supplier', 'ProjectController@addProjectSupplier');
-    Route::post('addContentImage', 'ProjectController@addProjectContentImage');
-    Route::post('designer', 'ProjectController@addProjectDesigner');
-    Route::post('role', 'ProjectController@addProjectRole');
-    Route::post('cover', 'ProjectController@addProjectCover');
-});
 
 
-//add product process
-// Route::group(['middleware' => 'auth_user', 'prefix' => 'addproduct'], function () {
+Route::post('addproject/{ownerable}/{id}', 'ProjectController@addProject');
 
 Route::post('addproduct/{store_id}', 'ProductController@AddProduct');
 Route::post('identity/{id}', 'ProductController@AddProductIdentity');
