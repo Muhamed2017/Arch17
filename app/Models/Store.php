@@ -97,6 +97,12 @@ class Store extends Model
         return $this->morphMany(Project::class, 'ownerable');
     }
 
+    public function projectRole()
+    {
+        return $this->belongsToMany(Project::class);
+    }
+
+
     public static function boot()
     {
         parent::boot();

@@ -112,6 +112,10 @@ class User extends Authenticatable
     {
         return $this->morphMany(Project::class, 'ownerable');
     }
+    public function projectRole()
+    {
+        return $this->belongsToMany(Project::class);
+    }
 
 
 

@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\Project;
 use App\Models\Store;
 use App\Models\User;
-use App\Models\Project;
 use Illuminate\Http\Request;
-// use App\Models\Image as ImageEntity;
-// use Illuminate\Support\Facades\Storage;
-// use Illuminate\Support\Facades\URL;
-// use Intervention\Image\Facades\Image as ImageUploader;
+use Throwable;
 
 class ProjectController extends Controller
 {
@@ -26,13 +22,18 @@ class ProjectController extends Controller
                 'name' => 'required|string|max:250',
                 'content' => 'required|string',
                 'kind' => 'required|string|max:250',
-                'category' => 'required|string|max:2000',
+                'article_type' => 'required|string|max:2000',
                 'country' => 'required|string|max:250',
                 'city' => 'required|string|max:250',
                 'cover' => 'nullable|mimes:png,jpg|between:1,20000',
                 'year' => 'required|string|max:250',
-                'types' => 'required|array',
-                'types.*' => 'string|max:250',
+                'type' => 'required|string|max:250',
+                'stores' => 'nullable|array',
+                'stores.*' => 'numeric|max:250',
+                'users' => 'nullable|array',
+                'users.*' => 'numeric|max:250',
+                'products' => 'nullable|array',
+                'products.*' => 'numeric|max:250',
             ]
         );
         $creator = null;
@@ -42,11 +43,14 @@ class ProjectController extends Controller
         if ($ownerable === 'designer') {
             $creator = User::find($id);
         }
+        $brands = $request->stores;
+        $users = $request->users;
+        $products = $request->products;
         if ($creator) {
             $project = $creator->projects()->create();
             $project->name      = $request->name;
-            $project->category  = $request->category;
-            $project->types     = $request->types;
+            $project->article_type  = $request->article_type;
+            $project->type     = $request->type;
             $project->country   = $request->country;
             $project->city      = $request->city;
             $project->year      = $request->year;
@@ -55,11 +59,23 @@ class ProjectController extends Controller
             $project->title      = $request->title;
             $project->cover = $request->cover->storeOnCloudinary()->getSecurePath();
             if ($project->save()) {
-                return response()->json([
-                    'status' => true,
-                    'message' => "Project created successfully!",
-                    'project' => $project
-                ], 201);
+                try {
+                    $project->brandRoles()->syncWithoutDetaching($brands);
+                    $project->designerRoles()->syncWithoutDetaching($users);
+                    $project->productsTagged()->syncWithoutDetaching($products);
+
+                    return response()->json([
+                        'status' => true,
+                        'message' => "Project created successfully!",
+                        'project' => $project,
+                        'stores' => $request->stores
+                    ], 201);
+                } catch (Throwable $err) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => "Error",
+                    ], 200);
+                }
             } else {
                 return response()->json([
                     'status' => false,
@@ -71,6 +87,20 @@ class ProjectController extends Controller
                 'status' => false,
                 'message' => "Creartore Not Found!",
             ], 404);
+        }
+    }
+    public function getProjectById($id)
+    {
+        $project = Project::find($id);
+
+        if (!$project) {
+            return response()->json([
+                'message' => "NOT FOUND"
+            ], 200);
+        } else {
+            return response()->json([
+                'project' => $project
+            ], 200);
         }
     }
 }

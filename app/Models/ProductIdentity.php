@@ -41,6 +41,12 @@ class ProductIdentity extends Model
         return $this->belongsTo('App\Models\Product');
     }
 
+    public function projectsTag()
+    {
+        return $this->belongsToMany(Project::class, 'project_product', 'project_id', 'identity_id');
+    }
+
+
     public function getProductAttribute()
     {
         $product =  DB::table('products')->where('id', $this->product_id)->first('store_id');

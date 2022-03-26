@@ -11,11 +11,11 @@ class Project extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = [
-        'name', 'cover', 'title',  'category', 'kind',  'year', 'country', 'city', 'types',
+        'name', 'cover', 'title',  'article_type', 'kind',  'year', 'country', 'city', 'type',
         'content', 'ownerable_id', 'ownerable_type', 'dhome'
     ];
     protected $casts = [
-        'types' => 'array',
+        // 'types' => 'array',
         'dhome' => 'boolean'
     ];
 
@@ -24,6 +24,20 @@ class Project extends Model
         return $this->morphTo();
     }
 
+    public function designerRoles()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function productsTagged()
+    {
+        return $this->belongsToMany(ProductIdentity::class, 'project_product', 'project_id', 'identity_id');
+    }
+
+    public function brandRoles()
+    {
+        return $this->belongsToMany(Store::class);
+    }
 
     public static function boot()
     {
