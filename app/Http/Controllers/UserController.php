@@ -353,15 +353,8 @@ class UserController extends Controller
 
 
     // passport test
-    public function getAllUsers()
-    {
-        $users = User::all();
+    // role step data
 
-        return response()->json([
-            'status' => true,
-            'users' =>  $users,
-        ], 200);
-    }
 
 
     // register api with firebase

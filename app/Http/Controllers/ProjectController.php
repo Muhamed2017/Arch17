@@ -109,4 +109,15 @@ class ProjectController extends Controller
             ], 200);
         }
     }
+    public function roleStepData()
+    {
+        $designers = User::all()->where('is_designer', 1);
+        $brands = Store::all();
+
+        return response()->json([
+            'status' => true,
+            'users' =>  $designers,
+            'brands' =>  $brands,
+        ], 200);
+    }
 }

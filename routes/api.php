@@ -52,7 +52,10 @@ Route::group(['prefix' => 'user'], function () {
 
 
 Route::post('addproject/{ownerable}/{id}', 'ProjectController@addProject');
+
+
 Route::get('project/{id}', 'ProjectController@getProjectById');
+Route::get('rolestepdata', 'ProjectController@roleStepData');
 
 Route::post('addproduct/{store_id}', 'ProductController@AddProduct');
 Route::post('identity/{id}', 'ProductController@AddProductIdentity');
