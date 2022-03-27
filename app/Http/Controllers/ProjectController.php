@@ -19,7 +19,7 @@ class ProjectController extends Controller
             [
                 'name' => 'required|string|max:250',
                 'title' => 'required|string|max:250',
-                'name' => 'required|string|max:250',
+                // 'name' => 'required|string|max:250',
                 'content' => 'required|string',
                 'kind' => 'required|string|max:250',
                 'article_type' => 'required|string|max:2000',
@@ -98,8 +98,14 @@ class ProjectController extends Controller
                 'message' => "NOT FOUND"
             ], 200);
         } else {
+            $brands = $project->brandRoles()->get();
+            $designers = $project->designerRoles()->get();
+            $products_tags = $project->productsTagged()->get();
             return response()->json([
-                'project' => $project
+                'project' => $project,
+                'brands' => $brands,
+                'designers' => $designers,
+                'products_tags' => $products_tags
             ], 200);
         }
     }
