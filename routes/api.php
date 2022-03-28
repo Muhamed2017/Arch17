@@ -57,6 +57,8 @@ Route::post('addproject/{ownerable}/{id}', 'ProjectController@addProject');
 Route::get('project/{id}', 'ProjectController@getProjectById');
 Route::get('rolestepdata', 'ProjectController@roleStepData');
 
+Route::get('moresimilars/{type}/{kind}', 'ProjectController@moreSimilar');
+
 Route::post('addproduct/{store_id}', 'ProductController@AddProduct');
 Route::post('identity/{id}', 'ProductController@AddProductIdentity');
 Route::post('option-price/{id}/{option_id}', 'ProductController@addOptionToProduct');

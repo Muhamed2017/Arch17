@@ -89,6 +89,7 @@ class ProjectController extends Controller
             ], 404);
         }
     }
+
     public function getProjectById($id)
     {
         $project = Project::find($id);
@@ -101,14 +102,29 @@ class ProjectController extends Controller
             $brands = $project->brandRoles()->get();
             $designers = $project->designerRoles()->get();
             $products_tags = $project->productsTagged()->get();
+            $similars = Project::latest()->where('kind', $project->kind)
+                ->where('type', $project->type)
+                ->take(4)->get();
             return response()->json([
                 'project' => $project,
                 'brands' => $brands,
                 'designers' => $designers,
-                'products_tags' => $products_tags
+                'products_tags' => $products_tags,
+                'similar' => $similars
             ], 200);
         }
     }
+
+    public function moreSimilar($type, $kind)
+    {
+        $moreSimilars = Project::latest()->where('kind', $kind)
+            ->where('type', $type)
+            ->paginate(12);
+        return response()->json([
+            'projects' => $moreSimilars
+        ], 200);
+    }
+
     public function roleStepData()
     {
         $designers = User::all()->where('is_designer', 1);

@@ -19,6 +19,8 @@ class Project extends Model
         'dhome' => 'boolean'
     ];
 
+    // protected $appends = ['similars'];
+
     public function ownerable()
     {
         return $this->morphTo();
@@ -38,6 +40,8 @@ class Project extends Model
     {
         return $this->belongsToMany(Store::class);
     }
+
+
 
     public static function boot()
     {
