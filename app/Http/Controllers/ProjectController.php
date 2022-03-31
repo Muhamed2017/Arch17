@@ -103,7 +103,7 @@ class ProjectController extends Controller
             $products_tags = $project->productsTagged()->latest()->take(4)->get();
             $similars = Project::latest()->where('kind', $project->kind)
                 ->where('type', $project->type)
-                ->take(4)->get();
+                ->take(3)->get();
             return response()->json([
                 'project' => $project,
                 'brands' => $brands,
@@ -128,7 +128,10 @@ class ProjectController extends Controller
 
     {
         $project = Project::find($id);
-        $products_tags = $project->productsTagged()->take(4)->get();
+        $products_tags = $project->productsTagged()->latest()->paginate(12);
+        return response()->json([
+            'projects' => $products_tags
+        ], 200);
     }
 
     public function roleStepData()
