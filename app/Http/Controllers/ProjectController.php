@@ -93,7 +93,6 @@ class ProjectController extends Controller
     public function getProjectById($id)
     {
         $project = Project::find($id);
-
         if (!$project) {
             return response()->json([
                 'message' => "NOT FOUND"
@@ -101,7 +100,7 @@ class ProjectController extends Controller
         } else {
             $brands = $project->brandRoles()->get();
             $designers = $project->designerRoles()->get();
-            $products_tags = $project->productsTagged()->get();
+            $products_tags = $project->productsTagged()->latest()->take(4)->get();
             $similars = Project::latest()->where('kind', $project->kind)
                 ->where('type', $project->type)
                 ->take(4)->get();
@@ -123,6 +122,13 @@ class ProjectController extends Controller
         return response()->json([
             'projects' => $moreSimilars
         ], 200);
+    }
+
+    public function moreTaggedProducts($id)
+
+    {
+        $project = Project::find($id);
+        $products_tags = $project->productsTagged()->take(4)->get();
     }
 
     public function roleStepData()

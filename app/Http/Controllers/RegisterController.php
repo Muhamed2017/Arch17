@@ -65,13 +65,11 @@ class RegisterController extends Controller
 
             if ($request->hasFile('avatar')) {
                 $user->attachMedia($request->avatar);
-                // (new AddImagesToEntity($request->avatar, $user, ["width" => 600]))->execute();
             }
 
             $token = auth('user')->login($user);
 
             $tokenExpiresAt = \Carbon\Carbon::now()->addMinutes(auth($guard)->factory()->getTTL() * 1)->toDateTimeString();
-            //  UserCreated::dispatch($user);
 
             return response()->json([
                 'successful' => '1',
