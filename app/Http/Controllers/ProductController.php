@@ -440,7 +440,7 @@ class ProductController extends Controller
             'lastIndex' => $latest_img
         ], 200);
     }
-    public function uploadImgToCloud(Request $request, $id)
+    public function uploadImgToCloud(Request $request)
     {
         $this->validate($request, [
             'cover' => 'nullable|mimes:png,jpg|between:1,20000',
