@@ -52,6 +52,7 @@ Route::group(['prefix' => 'user'], function () {
 
 
 Route::post('addproject/{ownerable}/{id}', 'ProjectController@addProject');
+Route::post('editproject/{id}', 'ProjectController@editProject');
 
 
 Route::get('project/{id}', 'ProjectController@getProjectById');
@@ -72,6 +73,8 @@ Route::post('overviewContnet/{id}', 'ProductController@ProductDescriptionCotent'
 Route::post('descContent/{id}', 'ProductController@ProductDescriptionContent');
 // test image upload ...
 Route::post('upload/{id}', 'ProductController@testImageUpload');
+Route::post('uploadimg', 'ProductController@uploadImgToCloud');
+
 
 // upload / update user profile pic
 Route::post('useravatar/{user_id}', 'UserController@uploadAvatar');

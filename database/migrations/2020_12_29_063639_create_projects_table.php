@@ -27,6 +27,7 @@ class CreateProjectsTable extends Migration
             $table->string('year')->nullable();
             $table->string('article_type')->nullable();
             $table->string('type')->nullable();
+            $table->text('images')->nullable();
             $table->boolean('dhome')->default(false);
             $table->softDeletes();
             $table->timestamps();

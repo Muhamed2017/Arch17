@@ -19,7 +19,6 @@ class ProjectController extends Controller
             [
                 'name' => 'required|string|max:250',
                 'title' => 'required|string|max:250',
-                // 'name' => 'required|string|max:250',
                 'content' => 'required|string',
                 'kind' => 'required|string|max:250',
                 'article_type' => 'required|string|max:2000',
@@ -29,6 +28,8 @@ class ProjectController extends Controller
                 'year' => 'required|string|max:250',
                 'type' => 'required|string|max:250',
                 'stores' => 'nullable|array',
+                'images' => 'nullable|array',
+                'images.*' => 'nullable|string|max:250',
                 'stores.*' => 'numeric|max:250',
                 'users' => 'nullable|array',
                 'users.*' => 'numeric|max:250',
@@ -54,6 +55,7 @@ class ProjectController extends Controller
             $project->country   = $request->country;
             $project->city      = $request->city;
             $project->year      = $request->year;
+            $project->images      = $request->images;
             $project->kind      = $request->kind;
             $project->content      = $request->content;
             $project->title      = $request->title;
@@ -87,6 +89,75 @@ class ProjectController extends Controller
                 'status' => false,
                 'message' => "Creartore Not Found!",
             ], 404);
+        }
+    }
+
+    public function editProject(Request $request, $id)
+    {
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|string|max:250',
+                'content' => 'required|string',
+                'kind' => 'required|string|max:250',
+                'article_type' => 'required|string|max:2000',
+                'country' => 'required|string|max:250',
+                'city' => 'required|string|max:250',
+                'cover' => 'nullable|mimes:png,jpg|between:1,20000',
+                'year' => 'required|string|max:250',
+                'type' => 'required|string|max:250',
+                'stores' => 'nullable|array',
+                'stores.*' => 'numeric|max:250',
+                'users' => 'nullable|array',
+                'users.*' => 'numeric|max:250',
+                'products' => 'nullable|array',
+                'products.*' => 'numeric|max:250',
+            ]
+        );
+        $project = Project::find($id);
+
+        if (!$project) {
+            return response()->json([
+                'status' => false,
+                'message' => "Project Not found or Deleted"
+            ], 200);
+        }
+        $brands = $request->stores;
+        $users = $request->users;
+        $products = $request->products;
+        $project->name      = $request->name;
+        $project->article_type  = $request->article_type;
+        $project->type     = $request->type;
+        $project->country   = $request->country;
+        $project->city      = $request->city;
+        $project->year      = $request->year;
+        $project->kind      = $request->kind;
+        $project->content      = $request->content;
+        $project->images      = $request->images;
+        $project->cover = $request->cover->storeOnCloudinary()->getSecurePath();
+        if ($project->save()) {
+            try {
+                $project->brandRoles()->syncWithoutDetaching($brands);
+                $project->designerRoles()->syncWithoutDetaching($users);
+                $project->productsTagged()->syncWithoutDetaching($products);
+
+                return response()->json([
+                    'status' => true,
+                    'message' => "Project EDITED successfully!",
+                    'project' => $project,
+                    'stores' => $request->stores
+                ], 201);
+            } catch (Throwable $err) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Error",
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => "Error Occurs!",
+            ], 500);
         }
     }
 

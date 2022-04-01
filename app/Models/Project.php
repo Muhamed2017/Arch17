@@ -12,10 +12,10 @@ class Project extends Model
     use SoftDeletes;
     protected $fillable = [
         'name', 'cover', 'title',  'article_type', 'kind',  'year', 'country', 'city', 'type',
-        'content', 'ownerable_id', 'ownerable_type', 'dhome'
+        'content', 'ownerable_id', 'ownerable_type', 'dhome', 'images'
     ];
     protected $casts = [
-        // 'types' => 'array',
+        'images' => 'array',
         'dhome' => 'boolean'
     ];
 

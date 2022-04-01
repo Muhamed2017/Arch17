@@ -413,7 +413,6 @@ class ProductController extends Controller
                 'message' => "product not found or deleted"
             ], 404);
         }
-
         return response()->json([
             'product' => $product,
             'brand' => $brand,
@@ -439,6 +438,16 @@ class ProductController extends Controller
             'message' => "Successfully Imaged Uploaded!",
             'img' => $product->fetchAllMedia(),
             'lastIndex' => $latest_img
+        ], 200);
+    }
+    public function uploadImgToCloud(Request $request, $id)
+    {
+        $this->validate($request, [
+            'cover' => 'nullable|mimes:png,jpg|between:1,20000',
+        ]);
+        $url = $request->cover->storeOnCloudinary()->getSecurePath();
+        return response()->json([
+            'src' => $url
         ], 200);
     }
 
