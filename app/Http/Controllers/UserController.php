@@ -281,16 +281,22 @@ class UserController extends Controller
         $collections = Folder::all()->where('user_id', $user_uid);
         $follower = Follower::all()->where('follower_id', $user_uid)->first();
         // $user = User::find($user_uid);
+        $projects = [];
         $user = User::all()->where('uid', $user_uid)->first();
+        if ($user) {
+            $projects = $user->projects()->get();
+        }
         $followed_store = [];
         if ($follower) {
             $followed_store = $follower->stores()->get();
         }
+
         return response()->json([
             'status' => true,
             'collections' =>  $collections,
             'user' => $user,
-            'followed_stores' => $followed_store
+            'followed_stores' => $followed_store,
+            'projects'=>$projects
         ], 200);
     }
 
