@@ -217,15 +217,15 @@ class ProjectController extends Controller
         ], 200);
     }
 
-    public function getHomeProjects()
-    {
-        $projects = Project::all();
-        $recent = $projects->take(-6)->toArray();
-        $groped = $projects->groupBy('kind')
-            ->toArray();
-        return response()->json([
-            'projects' => $groped,
-            'recent' => $recent
-        ], 200);
-    }
+    // public function getHomeProjects()
+    // {
+    //     $projects = Project::all();
+    //     $recent = $projects->take(-6)->toArray();
+    //     $groped = $projects->groupBy('kind')
+    //         ->toArray();
+    //     return response()->json([
+    //         'projects' => $groped,
+    //         'recent' => $recent
+    //     ], 200);
+    // }
 }

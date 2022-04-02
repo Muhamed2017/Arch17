@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\sendMail;
 use App\Models\Collection;
 use App\Models\Folder;
+use App\Models\Project;
 use App\Models\Type;
 use App\Models\UserCollection;
 
@@ -491,14 +492,21 @@ class ProductController extends Controller
         }
     }
 
-    public function getHomeProducts()
+    public function homeData()
     {
+        $projects = Project::all();
+        $recent = $projects->take(-6)->toArray();
+        $groped = $projects->groupBy('kind')
+            ->toArray();
 
         $products = ProductIdentity::latest()->where('preview_cover', '!=', null)->take(8)->get();
         $products->forget('product');
         if (!empty($products)) {
             return response()->json([
                 'products' => $products,
+                'recent_projects' => $recent,
+                'projects_types' => $groped,
+
             ], 200);
         } else {
             return response()->json([
