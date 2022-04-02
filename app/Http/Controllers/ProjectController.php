@@ -219,7 +219,7 @@ class ProjectController extends Controller
 
     public function getHomeProjects()
     {
-        $projects = Project::latest()->take(100)->get();
+        $projects = Project::all();
         $groped = $projects->groupBy('kind')->toArray();
         return response()->json([
             'projects' => $groped
