@@ -216,4 +216,13 @@ class ProjectController extends Controller
             'brands' =>  $brands,
         ], 200);
     }
+
+    public function getHomeProjects()
+    {
+        $projects = Project::latest()->take(100)->get();
+        $groped = $projects->groupBy('kind')->toArray();
+        return response()->json([
+            'projects' => $groped
+        ], 200);
+    }
 }

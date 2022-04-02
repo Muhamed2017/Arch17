@@ -112,6 +112,7 @@ Route::post("preview", "ManagementController@previewProduct");
 Route::get("search", "ProductController@filterProductSearchPage");
 Route::get("products", "ProductController@getAllProducts");
 Route::get("home/products", "ProductController@getHomeProducts");
+Route::get("home/projects", "ProjectController@getHomeProjects");
 // getHomeProducts
 Route::post('upcrop/{product_id}', "ProductController@UpdateOrCreateOption");
 Route::post('addfile/{product_id}', "ProductController@UpdateOrCteateFile");
