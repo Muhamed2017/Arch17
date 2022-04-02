@@ -220,7 +220,7 @@ class ProjectController extends Controller
     public function getHomeProjects()
     {
         $projects = Project::all();
-        $recent = $projects->reverse()->take(6);
+        $recent = $projects->sortByDesc('created_at')->take(6);
         $groped = $projects->groupBy('kind')
             ->toArray();
         return response()->json([
