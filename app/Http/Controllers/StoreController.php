@@ -134,6 +134,7 @@ class StoreController extends Controller
     public function getBrandById($id)
     {
         $store = Store::find($id);
+        $projects = $store->projects()->get();
         if (!$store) {
             return response()->json(
                 [
@@ -145,6 +146,7 @@ class StoreController extends Controller
         return response()->json([
             'store' => $store,
             'types' => $store->types,
+            'projects'=>$projects
         ], 200);
     }
 
