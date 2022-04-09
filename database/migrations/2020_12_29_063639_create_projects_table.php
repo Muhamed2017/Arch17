@@ -18,7 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('name')->nullable();
             $table->string('cover')->nullable();
             $table->string('title')->nullable();
-            $table->string('kind')->nullable();
+            $table->text('kind')->nullable();
             $table->longText('content')->nullable();
             $table->bigInteger('ownerable_id');
             $table->string('ownerable_type');
@@ -26,7 +26,7 @@ class CreateProjectsTable extends Migration
             $table->string('city')->nullable();
             $table->string('year')->nullable();
             $table->string('article_type')->nullable();
-            $table->string('type')->nullable();
+            $table->text('type')->nullable();
             $table->text('images')->nullable();
             $table->boolean('dhome')->default(false);
             $table->softDeletes();
