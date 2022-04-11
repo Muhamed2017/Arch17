@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Store;
 use App\Models\User;
+use App\Models\ProductIdentity;
 use Illuminate\Http\Request;
 use Throwable;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ProjectController extends Controller
 {
@@ -219,15 +222,23 @@ class ProjectController extends Controller
         ], 200);
     }
 
-    // public function getHomeProjects()
-    // {
-    //     $projects = Project::all();
-    //     $recent = $projects->take(-6)->toArray();
-    //     $groped = $projects->groupBy('kind')
-    //         ->toArray();
-    //     return response()->json([
-    //         'projects' => $groped,
-    //         'recent' => $recent
-    //     ], 200);
-    // }
+    public function getTagStepProducts()
+    {
+        $products = QueryBuilder::for(ProductIdentity::class)
+            ->allowedFilters([
+                AllowedFilter::exact('category'),
+                AllowedFilter::exact('kind'),
+                AllowedFilter::exact('store_id')
+            ])
+            ->get();
+        if (!empty($products)) {
+            return response()->json([
+                'products' => $products,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No Products Added! ',
+            ], 200);
+        }
+    }
 }
