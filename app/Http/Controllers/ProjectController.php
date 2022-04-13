@@ -242,14 +242,15 @@ class ProjectController extends Controller
         }
     }
 
-    public function magazineFilter()
+    public function magazineFilter($offset)
     {
         $projects = QueryBuilder::for(Project::class)
             ->allowedFilters([
                 'kind'
-                // AllowedFilter::exact(['kind'])
             ])
-            ->get();
+            ->offset($offset)
+            ->take(1)
+            ->get(['id', 'article_type', 'name', 'cover', 'country', 'city', 'kind', 'type']);
         if (!empty($projects)) {
             return response()->json([
                 'projects' => $projects,
