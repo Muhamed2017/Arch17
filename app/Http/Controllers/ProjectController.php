@@ -246,7 +246,7 @@ class ProjectController extends Controller
     {
         $projects = QueryBuilder::for(Project::class)
             ->allowedFilters([
-                AllowedFilter::exact('type'),
+                AllowedFilter::exact('kind'),
             ])
             ->get();
         if (!empty($projects)) {
