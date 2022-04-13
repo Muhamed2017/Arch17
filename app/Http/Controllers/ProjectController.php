@@ -252,7 +252,7 @@ class ProjectController extends Controller
                 'kind'
             ])
             ->offset($offset)
-            ->take(16)
+            ->take(15)
             ->get(['id', 'article_type', 'name', 'cover', 'country', 'city', 'year', 'kind', 'type', "ownerable_type"]);
         if (!empty($projects)) {
             return response()->json([
