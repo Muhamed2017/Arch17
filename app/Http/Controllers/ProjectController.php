@@ -241,4 +241,22 @@ class ProjectController extends Controller
             ], 200);
         }
     }
+
+    public function magazineFilter()
+    {
+        $projects = QueryBuilder::for(Project::class)
+            ->allowedFilters([
+                AllowedFilter::exact('type'),
+            ])
+            ->get();
+        if (!empty($projects)) {
+            return response()->json([
+                'projects' => $projects,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No Projects Added! ',
+            ], 200);
+        }
+    }
 }

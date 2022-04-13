@@ -53,6 +53,7 @@ Route::group(['prefix' => 'user'], function () {
 Route::post('addproject/{ownerable}/{id}', 'ProjectController@addProject');
 Route::post('editproject/{id}', 'ProjectController@editProject');
 Route::get('tags', 'ProjectController@getTagStepProducts');
+Route::get('projects', 'ProjectController@magazineFilter');
 
 
 Route::get('project/{id}', 'ProjectController@getProjectById');
