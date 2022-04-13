@@ -246,11 +246,15 @@ class ProjectController extends Controller
     {
         $projects = QueryBuilder::for(Project::class)
             ->allowedFilters([
+                AllowedFilter::exact('ownerable_type'),
+                AllowedFilter::exact('country'),
+                AllowedFilter::exact('year'),
+
                 'kind'
             ])
             ->offset($offset)
-            ->take(1)
-            ->get(['id', 'article_type', 'name', 'cover', 'country', 'city', 'kind', 'type']);
+            ->take(16)
+            ->get(['id', 'article_type', 'name', 'cover', 'country', 'city', 'year', 'kind', 'type', "ownerable_type"]);
         if (!empty($projects)) {
             return response()->json([
                 'projects' => $projects,
