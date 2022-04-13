@@ -249,7 +249,6 @@ class ProjectController extends Controller
                 AllowedFilter::exact('ownerable_type'),
                 AllowedFilter::exact('country'),
                 AllowedFilter::exact('year'),
-
                 'kind'
             ])
             ->offset($offset)
