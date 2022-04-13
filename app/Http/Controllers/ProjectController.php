@@ -246,10 +246,12 @@ class ProjectController extends Controller
     {
         $projects = QueryBuilder::for(Project::class)
             ->allowedFilters([
-                AllowedFilter::exact('ownerable_type'),
+                // AllowedFilter::exact('ownerable_type'),
                 AllowedFilter::exact('country'),
+                AllowedFilter::exact('article_type'),
                 AllowedFilter::exact('year'),
                 'kind'
+
             ])
             ->offset($offset)
             ->take(15)
