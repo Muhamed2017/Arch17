@@ -176,6 +176,7 @@ class ProjectController extends Controller
         } else {
             $brands = $project->brandRoles()->get();
             $designers = $project->designerRoles()->get();
+            $owner_name = $project->ownerable()->get('name');
             $products_tags = $project->productsTagged()->latest()->take(4)->get();
             $similars = Project::latest()->where('kind', $project->kind)
                 ->where('type', $project->type)
