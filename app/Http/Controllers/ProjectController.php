@@ -30,8 +30,8 @@ class ProjectController extends Controller
                 'city' => 'required|string|max:250',
                 'cover' => 'nullable|mimes:png,jpg|between:1,20000',
                 'year' => 'required|string|max:250',
-                'type' => 'nullable|array',
-                'type.*' => 'required|string|max:250',
+                'type' => 'nullable|string',
+                // 'type.*' => 'required|string|max:250',
                 'stores' => 'nullable|array',
                 'images' => 'nullable|array',
                 'images.*' => 'nullable|string|max:250',
@@ -104,7 +104,10 @@ class ProjectController extends Controller
             [
                 'name' => 'required|string|max:250',
                 'content' => 'required|string',
-                'kind' => 'required|string|max:250',
+                // 'kind' => 'required|string|max:250',
+
+                'kind' => 'nullable|array',
+                'kind.*' => 'nullable|string|max:250',
                 'article_type' => 'required|string|max:2000',
                 'country' => 'required|string|max:250',
                 'city' => 'required|string|max:250',
