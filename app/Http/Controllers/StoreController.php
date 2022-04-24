@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use App\Models\Follower;
 use App\Models\Store;
@@ -12,6 +11,7 @@ use App\Models\ProductIdentity;
 use Throwable;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Arr;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -135,6 +135,8 @@ class StoreController extends Controller
     {
         $store = Store::find($id);
         $projects = $store->projects()->get();
+        $designers = [];
+
         if (!$store) {
             return response()->json(
                 [
@@ -143,10 +145,18 @@ class StoreController extends Controller
                 404
             );
         }
+
+        foreach ($store->products as $product) {
+            $tempdesigners = $product->designers()->get();
+            if (count($tempdesigners) > 0) {
+                array_push($designers, $tempdesigners);
+            }
+        }
         return response()->json([
             'store' => $store,
             'types' => $store->types,
-            'projects'=>$projects
+            'projects' => $projects,
+            'designers' => Arr::flatten($designers)
         ], 200);
     }
 

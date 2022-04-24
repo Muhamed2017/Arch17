@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+// Folder is for collection products
+// Board is for collectiong projects
 class Folder extends Model
 {
     use HasFactory;
@@ -17,7 +18,6 @@ class Folder extends Model
     {
         return $this->belongsToMany(Product::class);
     }
-
 
 
     public function getPicsAttribute()

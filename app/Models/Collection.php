@@ -14,7 +14,6 @@ class Collection extends Model
     protected $appends = ['products'];
 
 
-
     public function store()
     {
         return $this->belongsTo(Store::class);

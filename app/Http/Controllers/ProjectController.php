@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Board;
 use App\Models\Project;
 use App\Models\Store;
 use App\Models\User;
@@ -294,6 +295,202 @@ class ProjectController extends Controller
                 'success' => false,
                 'error' => $err
             ], 500);
+        }
+    }
+
+    // collect project apis
+
+
+    // create fresh collection / board api
+    public function makeNewProjectCollection(Request $request)
+    {
+
+        $this->validate($request, [
+            'user_id'          => 'required|string',
+            'name'          => 'required|string',
+        ]);
+
+        $board = new Board();
+        $board->user_id = $request->user_id;
+        $board->name = $request->name;
+
+        if ($board->save()) {
+            return response()->json([
+                'success' => true,
+                'board' => $board,
+                'message' => "Project Collection Created Successfully"
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Error Occurs, Try Again"
+            ], 500);
+        }
+    }
+
+    public function saveToBoard(Request $request)
+    {
+        $this->validate($request, [
+            'project_id'          => 'required|string',
+            'board_id'          => 'required|string',
+        ]);
+
+        $project = Project::find($request->project_id);
+        $board = Board::find($request->board_id);
+        try {
+            $project->boards()->attach($board);
+            return response()->json([
+                'success' => true,
+                'message' => "Saved to collection Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'message' => "Error Occurs",
+                'error' => $err
+            ], 500);
+        }
+    }
+
+    public function removerFromBoard(Request $request)
+    {
+        $this->validate($request, [
+            'project_id'          => 'required|string',
+            'board_id'          => 'required|string',
+        ]);
+
+        $project = Project::find($request->project_id);
+        $board = Board::find($request->board_id);
+        try {
+            $project->boards()->detach($board);
+            return response()->json([
+                'success' => true,
+                'message' => "Project Removed from collection Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'message' => "Error Occurs",
+                'error' => $err
+            ], 500);
+        }
+    }
+
+
+    public function allBoards()
+    {
+        $boards = Board::all();
+
+        if (!empty($boards)) {
+            return response()->json([
+                'boards' => $boards,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No Projects Added! ',
+            ], 200);
+        }
+    }
+
+
+    public function listAllBoards($id)
+    {
+
+
+        $boards = Board::with('projects')->where('user_id', $id)->get();
+
+        if (!empty($boards)) {
+            return response()->json([
+                'projects' => $boards,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No projects Added! ',
+            ], 200);
+        }
+    }
+
+    public function listAllBoardsByProject($user_id, $project_id)
+    {
+
+        $_saved_in = [];
+        $_unsaved = [];
+        $boards = Board::all()->where('user_id', $user_id);
+        $project = Project::find($project_id);
+        foreach ($boards as $board) {
+            if ($board->projects->contains($project)) {
+                array_push($_saved_in, ['name' => $board->name, 'id' => $board->id, 'saved' => true]);
+            } else {
+                array_push($_unsaved, ['name' => $board->name, 'id' => $board->id, 'saved' => false]);
+            }
+        }
+        if (!empty($boards)) {
+            return response()->json([
+                'saved_in' => $_saved_in,
+                'unsaved_in' => $_unsaved
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No Boards Added! ',
+            ], 200);
+        }
+    }
+
+
+    public function getUserBoardById($id)
+    {
+
+        $board = Board::find($id);
+        $projects = $board->projects()->get();
+        return response()->json([
+            'status' => true,
+            'board' =>  $board,
+            'projects' => $projects
+        ], 200);
+    }
+    public function editBoard(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:250',
+        ]);
+
+        $board = Board::find($id);
+        $board->name = $request->name;
+        if ($board->save()) {
+            return response()->json([
+                'status' => true,
+                'board' =>  $board,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+            ], 500);
+        }
+    }
+
+    public function deleteBoard($id)
+    {
+
+        $board = Board::find($id);
+
+        if ($board) {
+            try {
+                $board->delete();
+                return response()->json([
+                    'success' => true,
+                    'message' => "board deleted Successfully"
+                ], 200);
+            } catch (Throwable $err) {
+                return response()->json([
+                    'success' => false,
+                    'error' => $err
+                ], 500);
+            }
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "board Not Found"
+            ], 200);
         }
     }
 }

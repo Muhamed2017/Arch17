@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Board;
 use App\Models\BusinessAccount;
 use App\Models\Product;
 use App\Models\Collection;
@@ -252,9 +253,7 @@ class UserController extends Controller
 
     public function deleteUserr($uid)
     {
-        // $user = User::find($uid);
         $user = User::all()->where('uid', $uid)->first();
-        // if ($user) {
         try {
             $user->delete();
             $this->auth->deleteUser($uid);
@@ -268,23 +267,20 @@ class UserController extends Controller
                 'error' => $err
             ], 500);
         }
-        // }
-        //  else {
-        // return response()->json([
-        // 'message' => "User Not Found or deleted!"
-        // ], 404);
-        // }
     }
     // get all user collections (Folders) in user page
     public function getUserFolders($user_uid)
     {
         $collections = Folder::all()->where('user_id', $user_uid);
         $follower = Follower::all()->where('follower_id', $user_uid)->first();
+        // $products=
         // $user = User::find($user_uid);
         $projects = [];
+        $products = [];
         $user = User::all()->where('uid', $user_uid)->first();
         if ($user) {
             $projects = $user->projects()->get();
+            $products = $user->products()->get();
         }
         $followed_store = [];
         if ($follower) {
@@ -296,7 +292,8 @@ class UserController extends Controller
             'collections' =>  $collections,
             'user' => $user,
             'followed_stores' => $followed_store,
-            'projects' => $projects
+            'projects' => $projects,
+            'products' => $products
         ], 200);
     }
 
@@ -311,6 +308,9 @@ class UserController extends Controller
             'products' => $products
         ], 200);
     }
+
+
+
 
     public function editCollection(Request $request, $id)
     {
@@ -331,6 +331,10 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+
+
+
     public function deleteCollection($id)
     {
 
@@ -356,11 +360,6 @@ class UserController extends Controller
             ], 200);
         }
     }
-
-
-    // passport test
-    // role step data
-
 
 
     // register api with firebase
@@ -435,19 +434,15 @@ class UserController extends Controller
 
 
 
-
-
-
     // get designers to attach them to products in identity step
     public function getDesigners()
     {
-        $designers = User::all()->where('is_designer', 1)->take(80)
-            ->get(['id', 'displayName',  'avatar', 'uid']);
+        $designers = User::all()->where('is_designer', 1)->take(80);
 
         if (!empty($designers)) {
             return response()->json(
                 [
-                    'projects' => $designers,
+                    'designers' => $designers,
                 ],
                 200
             );

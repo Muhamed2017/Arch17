@@ -50,10 +50,14 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 
+
+// project apis
 Route::post('addproject/{ownerable}/{id}', 'ProjectController@addProject');
 Route::post('editproject/{id}', 'ProjectController@editProject');
 Route::get('tags', 'ProjectController@getTagStepProducts');
 Route::get('projects/{offset}', 'ProjectController@magazineFilter');
+Route::post('deleteproject/{id}', 'ProjectController@deleteProject');
+
 
 
 Route::get('project/{id}', 'ProjectController@getProjectById');
@@ -75,7 +79,7 @@ Route::post('overviewContnet/{id}', 'ProductController@ProductDescriptionCotent'
 // get all designers for adding them in product identity step api
 Route::get('designers', 'UserController@getDesigners');
 Route::post('adddesignerproduct', 'UserController@attachDesignerToProduct');
-Route::post('removedesignerproduct', 'UserController@attachDesignerToProduct');
+Route::post('removedesignerproduct', 'UserController@removeDesignerFromProduct');
 
 
 Route::post('descContent/{id}', 'ProductController@ProductDescriptionContent');
@@ -137,6 +141,21 @@ Route::get("powerpoint", "CoverController@powerPoint");
 
 
 Route::post("request/{id}", "ProductController@requestProduct");
+
+// make project collection (Board) by user  endpoints
+
+Route::post("board", "ProjectController@makeNewProjectCollection");
+Route::post("saveproject", "ProjectController@saveToBoard");
+Route::post("unsaveproject", "ProjectController@removerFromBoard");
+Route::get("allboards/{id}", "ProjectController@listAllBoards");
+Route::get("boards", "ProjectController@allBoards");
+Route::get("boards/{user_id}/{project_id}", "ProjectController@listAllBoardsByProject");
+Route::get("board/{id}", "ProjectController@getUserBoardById");
+Route::post("update-board/{id}", "ProjectController@editBoard");
+Route::post("delete-board/{id}", "ProjectController@deleteBoard");
+
+// end of User board apis endpoint
+
 
 
 

@@ -43,7 +43,10 @@ class Project extends Model
         return $this->belongsToMany(Store::class);
     }
 
-
+    public function boards()
+    {
+        return $this->belongsToMany(Board::class);
+    }
 
     public static function boot()
     {
