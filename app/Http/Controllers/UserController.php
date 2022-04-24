@@ -460,4 +460,52 @@ class UserController extends Controller
             );
         }
     }
+
+    public function attachDesignerToProduct(Request $request)
+    {
+        $this->validate($request, [
+            'product_id'          => 'required|string',
+            'user_id'          => 'required|string',
+        ]);
+
+        $product = Product::find($request->product_id);
+        $user = User::find($request->user_id);
+        try {
+            $product->designers()->attach($user);
+            return response()->json([
+                'success' => true,
+                'message' => "Designer attached to product Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'message' => "Error Occurs",
+                'error' => $err
+            ], 500);
+        }
+    }
+
+    public function removeDesignerFromProduct(Request $request)
+    {
+        $this->validate($request, [
+            'product_id'          => 'required|string',
+            'user_id'          => 'required|string',
+        ]);
+
+        $product = Product::find($request->product_id);
+        $user = User::find($request->user_id);
+        try {
+            $product->designer()->detach($user);
+            return response()->json([
+                'success' => true,
+                'message' => "Designer removed from Product Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'message' => "Error Occurs",
+                'error' => $err
+            ], 500);
+        }
+    }
 }

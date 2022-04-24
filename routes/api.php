@@ -71,6 +71,13 @@ Route::post('files/{id}', 'ProductController@ProductFiles');
 Route::get('product/{id}', 'ProductController@getProductById');
 Route::post('overviewContnet/{id}', 'ProductController@ProductDescriptionCotent');
 
+
+// get all designers for adding them in product identity step api
+Route::get('designers', 'UserController@getDesigners');
+Route::post('adddesignerproduct', 'UserController@attachDesignerToProduct');
+Route::post('removedesignerproduct', 'UserController@attachDesignerToProduct');
+
+
 Route::post('descContent/{id}', 'ProductController@ProductDescriptionContent');
 // test image upload ...
 Route::post('upload/{id}', 'ProductController@testImageUpload');
@@ -173,5 +180,4 @@ Route::group(['prefix' => 'product/delete'], function () {
 Route::post("registeruser", "UserController@registerUser");
 Route::post("updateuser/{user_id}", "UserController@updateUser");
 Route::post("deleteuser/{uid}", "UserController@deleteUserr");
-
 Route::post("user-designer/{user_uid}", "UserController@upgradeUserToDesigner");
