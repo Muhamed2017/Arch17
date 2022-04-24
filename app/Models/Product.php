@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\DB;
 
 
@@ -117,6 +115,14 @@ class Product extends Model
     public function folders()
     {
         return $this->belongsToMany(Folder::class);
+    }
+
+
+
+    // deisgn by relationship
+    public function designers()
+    {
+        return $this->belongsToMany(User::class);
     }
 
 

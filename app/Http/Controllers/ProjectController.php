@@ -179,10 +179,9 @@ class ProjectController extends Controller
         } else {
             $brands = $project->brandRoles()->get();
             $designers = $project->designerRoles()->get();
-            // $owner_name = $project->ownerable()->get('name');
+            $owner = $project->ownerable()->get();
             $products_tags = $project->productsTagged()->latest()->take(4)->get();
-            $similars = Project::latest()->where('kind', $project->kind)
-                ->where('type', $project->type)
+            $similars = Project::latest()->where('type', $project->type)
                 ->take(3)->get();
             return response()->json([
                 'project' => $project,
@@ -190,7 +189,8 @@ class ProjectController extends Controller
                 'designers' => $designers,
                 'products_tags' => $products_tags,
                 'similar' => $similars,
-                // 'owner_name' => $owner_name
+                'owner' => $owner
+
             ], 200);
         }
     }
@@ -269,6 +269,31 @@ class ProjectController extends Controller
             return response()->json([
                 'message' => 'No Projects Added! ',
             ], 200);
+        }
+    }
+
+    // delete project
+    public function deleteProject($id)
+    {
+        $project = Project::find($id);
+
+        if (!$project) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Project Not fount or already deleted '
+            ], 404);
+        }
+        try {
+            $project->delete();
+            return response()->json([
+                'success' => true,
+                'message' => "Project deleted Successfully"
+            ], 200);
+        } catch (Throwable $err) {
+            return response()->json([
+                'success' => false,
+                'error' => $err
+            ], 500);
         }
     }
 }

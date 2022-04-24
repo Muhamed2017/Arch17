@@ -296,7 +296,7 @@ class UserController extends Controller
             'collections' =>  $collections,
             'user' => $user,
             'followed_stores' => $followed_store,
-            'projects'=>$projects
+            'projects' => $projects
         ], 200);
     }
 
@@ -430,6 +430,34 @@ class UserController extends Controller
             return response()->json([
                 'success' => false,
             ], 200);
+        }
+    }
+
+
+
+
+
+
+    // get designers to attach them to products in identity step
+    public function getDesigners()
+    {
+        $designers = User::all()->where('is_designer', 1)->take(80)
+            ->get(['id', 'displayName',  'avatar', 'uid']);
+
+        if (!empty($designers)) {
+            return response()->json(
+                [
+                    'projects' => $designers,
+                ],
+                200
+            );
+        } else {
+            return response()->json(
+                [
+                    'message' => 'No Designers!',
+                ],
+                200
+            );
         }
     }
 }

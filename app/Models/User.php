@@ -112,26 +112,19 @@ class User extends Authenticatable
     {
         return $this->morphMany(Project::class, 'ownerable');
     }
+
+
+
+    // inverse of deign by relationship
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
     public function projectRole()
     {
         return $this->belongsToMany(Project::class);
     }
 
-
-
-    public static function boot()
-    {
-
-        parent::boot();
-        static::deleting(function ($user) {
-
-            if (count($user->images) > 0) {
-                foreach ($user->images as $image) {
-                    $image->delete();
-                }
-            }
-        });
-    }
 
 
     // relation between user and company one user has many companies
@@ -150,5 +143,22 @@ class User extends Authenticatable
     public function is_designer()
     {
         return $this->is_designer;
+    }
+
+
+    public static function boot()
+    {
+
+        parent::boot();
+        static::deleting(function ($user) {
+
+            if (count($user->images) > 0) {
+                foreach ($user->images as $image) {
+                    $image->delete();
+                }
+            }
+            $user->projects()->delete();
+            $user->collections()->delete();
+        });
     }
 }

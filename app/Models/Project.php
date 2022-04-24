@@ -17,7 +17,7 @@ class Project extends Model
     protected $casts = [
         'images' => 'array',
         'kind' => 'array',
-        'type' => 'array',
+        // 'type' => 'array',
         'dhome' => 'boolean'
     ];
 
