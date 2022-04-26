@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+
+
 class Collection extends Model
 {
     use HasFactory;
@@ -24,6 +26,11 @@ class Collection extends Model
         return $this->belongsToMany(Product::class);
     }
 
+
+    public function sharings()
+    {
+        return $this->belongsToMany(Sharing::class);
+    }
     public function getPicsAttributes()
     {
         $pics = [];

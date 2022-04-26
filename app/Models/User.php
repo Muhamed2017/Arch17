@@ -113,6 +113,10 @@ class User extends Authenticatable
         return $this->morphMany(Project::class, 'ownerable');
     }
 
+    public function sharings()
+    {
+        return $this->hasMany(Sharing::class);
+    }
 
 
     // inverse of deign by relationship

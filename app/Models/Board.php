@@ -17,6 +17,13 @@ class Board extends Model
         return $this->belongsToMany(Project::class);
     }
 
+
+    public function sharings()
+    {
+        return $this->belongsToMany(Sharing::class);
+    }
+
+
     public function getPicsAttribute()
     {
         $pics = [];

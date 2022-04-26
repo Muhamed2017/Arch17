@@ -304,7 +304,6 @@ class ProjectController extends Controller
     // create fresh collection / board api
     public function makeNewProjectCollection(Request $request)
     {
-
         $this->validate($request, [
             'user_id'          => 'required|string',
             'name'          => 'required|string',
@@ -375,7 +374,6 @@ class ProjectController extends Controller
             ], 500);
         }
     }
-
 
     public function allBoards()
     {

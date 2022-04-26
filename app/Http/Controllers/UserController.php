@@ -273,6 +273,7 @@ class UserController extends Controller
     {
         $collections = Folder::all()->where('user_id', $user_uid);
         $follower = Follower::all()->where('follower_id', $user_uid)->first();
+        $boards = Board::all()->where('user_id', $user_uid);
         // $products=
         // $user = User::find($user_uid);
         $projects = [];
@@ -293,7 +294,8 @@ class UserController extends Controller
             'user' => $user,
             'followed_stores' => $followed_store,
             'projects' => $projects,
-            'products' => $products
+            'products' => $products,
+            'boards' => $boards
         ], 200);
     }
 
@@ -480,6 +482,7 @@ class UserController extends Controller
         }
     }
 
+
     public function removeDesignerFromProduct(Request $request)
     {
         $this->validate($request, [
@@ -501,6 +504,43 @@ class UserController extends Controller
                 'message' => "Error Occurs",
                 'error' => $err
             ], 500);
+        }
+    }
+
+    // share board or collection
+    public function shareCollectionOrBoard(Request $request)
+    {
+        $shared_for = User::find($request->user_id);
+        $shared_entity = null;
+        if ($shared_for) {
+            $sharing = $shared_for->sharings()->create();
+            $sharing->sharer_id = $request->sharer_id;
+            // some of thinsg is shdbsdhbdshbds
+            //skneknwkewnkwn
+            if ($request->has('board_id')) {
+                $shared_entity = Board::find($request->board_id);
+                $sharing->boards()->attach($shared_entity);
+            } else {
+                $shared_entity = Collection::find($request->collection_id);
+                $sharing->collections()->attach($shared_entity);
+            }
+
+            if ($sharing->save()) {
+                return response()->json([
+                    'status' => 1,
+                    'message' => "Entity Shared successfully "
+                ], 201);
+            } else {
+                return response()->json([
+                    'status' => 0,
+                    'message' => "Error Occured, collection can't be shared, try agian"
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                'status' => 0,
+                'msg' => "User Not exist or deleted"
+            ], 200);
         }
     }
 }

@@ -155,6 +155,8 @@ Route::post("update-board/{id}", "ProjectController@editBoard");
 Route::post("delete-board/{id}", "ProjectController@deleteBoard");
 
 // end of User board apis endpoint
+Route::post("sharecollection", "UserController@shareCollectionOrBoard");
+
 
 
 
